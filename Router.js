@@ -1,32 +1,32 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Main from './screens/Main';
-import Register from './screens/Authentication/Register';
-import Login from './screens/Authentication/Login';
-import { AppContext } from './contexts/index';
-import * as React from 'react';
-import Loading from './components/Loading';
-import MessageList from './screens/MessageList';
-import DetailChat from './screens/DetailChat';
-import Pending from './screens/Pending';
-import Story from './screens/Story';
-import Animation from './screens/Animation';
-import Facebook from './screens/Facebook/index';
-import Profile from './screens/Facebook/Profile/index';
-import DetailProfile from './screens/Facebook/DetailProfile/index';
-import Friends from './screens/Facebook/Friends/index';
-import Notifications from './screens/Facebook/Notifications/index';
-import Watchs from './screens/Facebook/Watchs/index';
-import Marketplaces from './screens/Facebook/Marketplaces/index';
-import ToolbarProfile from './screens/Facebook/ToolbarProfile/index';
-import CreatePost from './screens/Facebook/CreatePost/index';
-import DetailPost from './screens/Facebook/DetailPost/index';
-import SearchUser from './screens/Facebook/SearchUser/index';
-import ListFriend from './screens/Facebook/ListFriend/index';
-import SuggestFriend from './screens/Facebook/SuggestFriend/index';
-import StoryDetail from './screens/Facebook/StoryDetail/index';
-import Camera from './components/Commons/Camera';
-import Code from './screens/Code';
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Main from "./screens/Main";
+import Register from "./screens/Authentication/Register";
+import Login from "./screens/Authentication/Login";
+import { AppContext } from "./contexts/index";
+import * as React from "react";
+import Loading from "./components/Loading";
+import MessageList from "./screens/MessageList";
+import DetailChat from "./screens/DetailChat";
+import Pending from "./screens/Pending";
+import Story from "./screens/Story";
+import Animation from "./screens/Animation";
+import Facebook from "./screens/Facebook/index";
+import Profile from "./screens/Facebook/Profile/index";
+import DetailProfile from "./screens/Facebook/DetailProfile/index";
+import Friends from "./screens/Facebook/Friends/index";
+import Notifications from "./screens/Facebook/Notifications/index";
+import Watchs from "./screens/Facebook/Watchs/index";
+import Marketplaces from "./screens/Facebook/Marketplaces/index";
+import ToolbarProfile from "./screens/Facebook/ToolbarProfile/index";
+import CreatePost from "./screens/Facebook/CreatePost/index";
+import DetailPost from "./screens/Facebook/DetailPost/index";
+import SearchUser from "./screens/Facebook/SearchUser/index";
+import ListFriend from "./screens/Facebook/ListFriend/index";
+import SuggestFriend from "./screens/Facebook/SuggestFriend/index";
+import StoryDetail from "./screens/Facebook/StoryDetail/index";
+import Camera from "./components/Commons/Camera";
+import Code from "./screens/Code";
 
 const Stack = createNativeStackNavigator();
 
@@ -42,7 +42,8 @@ const Router = () => {
             headerShown: false,
             tabBarVisible: false,
           }}
-          initialRouteName="Pending">
+          initialRouteName="Pending"
+        >
           <Stack.Screen name="Main" component={Main} />
           <Stack.Screen name="Story" component={Story} />
           <Stack.Screen name="Pending" component={Pending} />

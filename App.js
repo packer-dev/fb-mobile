@@ -1,5 +1,5 @@
-import { AppProvider } from './contexts/index';
-import Router from './Router';
+import { AppProvider } from "./contexts/index";
+import Router from "./Router";
 import "@expo/metro-runtime";
 
 export default function App() {

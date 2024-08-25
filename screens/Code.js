@@ -1,19 +1,14 @@
-import React from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
-import Story from './Story';
+import React from "react";
+import { SafeAreaView } from "react-native";
+import Story from "./Story";
+import tailwind from "../tailwind";
 
 const App = () => {
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={tailwind(`flex-1`)}>
       <Story />
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
 
 export default App;
