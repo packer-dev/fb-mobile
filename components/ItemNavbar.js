@@ -1,13 +1,23 @@
+import * as React from "react";
 import { TouchableOpacity, View, Text } from "react-native";
 import tailwind from "../tailwind";
 import { useNavigation } from "@react-navigation/native";
+import { AppContext } from "../contexts";
 
 const ItemNavbar = ({ current, navbar, isMessenger, width }) => {
+  const { updateData } = React.useContext(AppContext);
   const navigation = useNavigation();
   const Icon = navbar.iconComponent;
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate(navbar.route)}
+      onPress={() => {
+        if (navbar.route === "Facebook") {
+          updateData("list_post", []);
+        }
+        navigation.navigate(navbar.route, {
+          reload: true,
+        });
+      }}
       style={{
         ...tailwind(isMessenger ? `w-1/2` : ``),
         ...(width ? { width } : {}),

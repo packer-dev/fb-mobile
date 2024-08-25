@@ -26,7 +26,7 @@ const Facebook = ({ route }) => {
     };
     fetchData();
     // eslint-disable-next-line  react-hooks/exhaustive-deps
-  }, [user, navigation]);
+  }, [user, route]);
   //
   return (
     <Container navigation={navigation} route={route}>

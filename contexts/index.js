@@ -24,6 +24,8 @@ const init = {
     suggestFriend: null,
     cancelRelationship: null,
     profileRelationship: null,
+    postHome: null,
+    postProfile: null,
   },
 };
 
