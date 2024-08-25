@@ -1,7 +1,7 @@
 import * as React from 'react';
 import tailwind from '../tailwind';
 import { View, TouchableOpacity, Text } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, Octicons } from '@expo/vector-icons';
 
 const Navbar = ({ navigation, current }) => {
   return (
@@ -17,23 +17,21 @@ const Navbar = ({ navigation, current }) => {
             name="chatbubble"
             size={24}
             style={tailwind(
-              current === 'MessageList'
-                ? `text-primary`
-                : 'text-gray-500'
+              current === 'MessageList' ? `text-primary` : 'text-gray-500'
             )}
           />
           <Text
             style={tailwind(
-              current === 'MessageList'
-                ? `text-primary`
-                : 'text-gray-500'
+              current === 'MessageList' ? `text-primary` : 'text-gray-500'
             )}>
             Chats
           </Text>
-          <View
+          <Octicons
             style={tailwind(
-              `w-2.5 h-2.5 rounded-full bg-red-500 absolute -top-1.5 mt-0.5 -right-1.5 z-10`
+              `rounded-full text-primary absolute -top-2 mt-0.5 -right-2 z-10`
             )}
+            name="dot-fill"
+            size={20}
           />
         </View>
       </TouchableOpacity>
@@ -48,23 +46,21 @@ const Navbar = ({ navigation, current }) => {
             name="book-sharp"
             size={24}
             style={tailwind(
-              current === 'Story'
-                ? `text-primary`
-                : 'text-gray-500'
+              current === 'Story' ? `text-primary` : 'text-gray-500'
             )}
           />
           <Text
             style={tailwind(
-              current === 'Story'
-                ? `text-primary`
-                : 'text-gray-500'
+              current === 'Story' ? `text-primary` : 'text-gray-500'
             )}>
             Story
           </Text>
-          <View
+          <Octicons
             style={tailwind(
-              `w-2.5 h-2.5 rounded-full bg-red-500 absolute -top-1.5 mt-0.5 -right-1.5 z-10`
+              `rounded-full text-primary absolute -top-2 mt-0.5 -right-2 z-10`
             )}
+            name="dot-fill"
+            size={20}
           />
         </View>
       </TouchableOpacity>

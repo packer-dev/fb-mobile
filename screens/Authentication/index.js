@@ -2,14 +2,10 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import tailwind from '../../tailwind';
 import Button from '../../components/Button';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
-const Authentication = ({
-  children,
-  handleSubmit,
-  buttonText,
-  type,
-  navigation,
-}) => {
+const Authentication = ({ children, handleSubmit, buttonText, type }) => {
+  const navigation = useNavigation();
   return (
     <View
       style={tailwind(
@@ -24,10 +20,10 @@ const Authentication = ({
         {children}
         <TouchableOpacity
           onPress={() =>
-            navigation &&
             navigation.navigate(type === 'Login' ? 'Register' : 'Login')
           }>
-          <Text style={tailwind(`text-right mt-2 text-gray-500 text-sm`)}>
+          <Text
+            style={tailwind(`text-right my-3 text-gray-700 font-bold text-sm`)}>
             {type === 'Login' ? `Register` : 'Login'}
           </Text>
         </TouchableOpacity>

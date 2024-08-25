@@ -8,6 +8,7 @@ import { loginAPI } from '../../api';
 import tailwind from '../../tailwind';
 import * as SecureStore from 'expo-secure-store';
 import { userModel } from '../../models';
+import { useNavigation } from '@react-navigation/native';
 
 const init = [
   {
@@ -27,10 +28,11 @@ const init = [
   },
 ];
 
-const Login = ({ navigation }) => {
+const Login = () => {
   const { updateData, inputs, onSubmit, onInputChange, register } =
     useForm(init);
   const [error, setError] = React.useState(false);
+  const navigation = useNavigation();
   const handleSubmit = async (obj) => {
     const result = await loginAPI(obj);
     if (!result) {
@@ -45,8 +47,7 @@ const Login = ({ navigation }) => {
     <Authentication
       buttonText="Login"
       handleSubmit={() => onSubmit(handleSubmit)}
-      type="Login"
-      navigation={navigation}>
+      type="Login">
       {inputs.map((item) => (
         <Input
           {...register(item)}

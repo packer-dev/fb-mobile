@@ -1,36 +1,41 @@
-import { TouchableOpacity, View, Text } from 'react-native';
-import tailwind from '../tailwind';
+import { TouchableOpacity, View, Text } from "react-native";
+import tailwind from "../tailwind";
+import { useNavigation } from "@react-navigation/native";
 
-const ItemNavbar = ({ current, navbar, isMessenger, width, navigation }) => {
+const ItemNavbar = ({ current, navbar, isMessenger, width }) => {
+  const navigation = useNavigation();
   const Icon = navbar.iconComponent;
   return (
     <TouchableOpacity
-      onPress={() => navigation && navigation.navigate(navbar.route)}
+      onPress={() => navigation.navigate(navbar.route)}
       style={{
         ...tailwind(isMessenger ? `w-1/2` : ``),
         ...(width ? { width } : {}),
-      }}>
+      }}
+    >
       <View
         style={tailwind(
           `relative flex-col ${
-            isMessenger ? '' : 'gap-2'
+            isMessenger ? "" : "gap-2"
           } justify-center items-center self-center`
-        )}>
+        )}
+      >
         <Icon
           name={navbar.iconName}
           size={24}
           style={tailwind(
-            `${current === navbar.route ? `text-primary` : 'text-gray-700'} ${
-              isMessenger ? '' : 'h-7 self-center'
+            `${current === navbar.route ? `text-primary` : "text-gray-700"} ${
+              isMessenger ? "" : "h-7 self-center"
             }`
           )}
         />
         <Text
           style={tailwind(
-            `${current === navbar.route ? `text-primary` : 'text-gray-700'} ${
-              isMessenger ? '' : 'text-xs'
+            `${current === navbar.route ? `text-primary` : "text-gray-700"} ${
+              isMessenger ? "" : "text-xs"
             }`
-          )}>
+          )}
+        >
           {navbar.name}
         </Text>
         {isMessenger && (

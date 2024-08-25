@@ -1,32 +1,30 @@
-import { View, TouchableOpacity, Text, Image } from 'react-native';
-import tailwind from '../../tailwind';
-import navbarList from './navbarList';
-import ItemNavbar from '../../components/ItemNavbar';
+import * as React from "react";
+import { View, TouchableOpacity, Text, Image } from "react-native";
+import tailwind from "../../tailwind";
+import navbarList from "./navbarList";
+import ItemNavbar from "../../components/ItemNavbar";
+import { AppContext } from "../../contexts/index";
+import { useNavigation } from "@react-navigation/native";
 
-const Navbar = ({ navigation, route }) => {
+const Navbar = ({ route }) => {
   //
-
+  const {
+    state: { user },
+  } = React.useContext(AppContext);
+  const navigation = useNavigation();
   //
   return (
     <View
       style={tailwind(
         `flex-row justify-between px-3 pt-3 border-t border-gray-300`
-      )}>
+      )}
+    >
       {navbarList.map((navbar) => (
-        <ItemNavbar
-          key={navbar.route}
-          navbar={navbar}
-          navigation={navigation}
-          current={route?.name}
-        />
+        <ItemNavbar key={navbar.route} navbar={navbar} current={route?.name} />
       ))}
-      <TouchableOpacity
-        onPress={() => navigation && navigation.navigate('Profile')}
-        style={{
-          ...tailwind(``),
-        }}>
+      <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
         <Image
-          source={{ uri: `https://picsum.photos/536/354` }}
+          source={{ uri: user?.avatar || `https://picsum.photos/536/354` }}
           style={tailwind(
             `w-8 h-8 border-2 border-black mb-1 rounded-full mx-auto`
           )}
@@ -34,8 +32,9 @@ const Navbar = ({ navigation, route }) => {
         <View
           style={tailwind(
             `relative flex-col gap-2 justify-center items-center self-center`
-          )}>
-          <Text style={tailwind(`${'text-gray-700'} text-xs`)}>Menu</Text>
+          )}
+        >
+          <Text style={tailwind(`${"text-gray-700"} text-xs`)}>Menu</Text>
         </View>
       </TouchableOpacity>
     </View>

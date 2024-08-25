@@ -1,23 +1,25 @@
-import * as React from 'react';
-import { Keyboard, Dimensions } from 'react-native';
-import { AppContext } from '../contexts/index';
+import * as React from "react";
+import { Keyboard, Dimensions } from "react-native";
+import { AppContext } from "../contexts/index";
 
 const useKeyboard = () => {
   const { updateData } = React.useContext(AppContext);
-  const [height, setHeight] = React.useState(Dimensions.get('window').height);
+  const [height, setHeight] = React.useState(Dimensions.get("window").height);
+  const [keyboardHeight, setKeyboardHeight] = React.useState(0);
   React.useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
-      'keyboardDidShow',
+      "keyboardDidShow",
       (e) => {
-        updateData('showKeyboard', true);
-        setHeight(Dimensions.get('window').height - e.endCoordinates.height);
+        updateData("showKeyboard", true);
+        setHeight(Dimensions.get("window").height - e.endCoordinates.height);
+        setKeyboardHeight(e.endCoordinates.height);
       }
     );
     const keyboardDidHideListener = Keyboard.addListener(
-      'keyboardDidHide',
+      "keyboardDidHide",
       () => {
-        updateData('showKeyboard', false);
-        setHeight(Dimensions.get('window').height);
+        updateData("showKeyboard", false);
+        setHeight(Dimensions.get("window").height);
       }
     );
 
@@ -30,7 +32,8 @@ const useKeyboard = () => {
 
   return {
     height,
-    width: Dimensions.get('window').width,
+    width: Dimensions.get("window").width,
+    keyboardHeight,
   };
 };
 

@@ -1,24 +1,40 @@
-import * as React from 'react';
-import { View, Text, Image, Dimensions } from 'react-native';
-import tailwind from '../../../tailwind';
+import * as React from "react";
+import { View, Text, Image, Dimensions, TouchableOpacity } from "react-native";
+import tailwind from "../../../tailwind";
+import { AppContext } from "../../../contexts/index";
 
-const width = Dimensions.get('window').width - 24;
+const width = Dimensions.get("window").width - 24;
 
-const ItemMediaList = () => {
+const ItemMediaList = ({ media, status }) => {
+  const { updateData } = React.useContext(AppContext);
+
   return (
-    <View style={{ ...tailwind(`my-1`), width: (width - 16) / 3 }}>
+    <TouchableOpacity
+      onPress={() => updateData("visit", media?.user)}
+      style={{ ...tailwind(`my-1`), width: (width - 16) / 3 }}
+    >
       <Image
-        source={{ uri: `https://picsum.photos/536/354` }}
+        source={{
+          uri: status
+            ? media?.media?.url
+            : media?.user?.avatar || `https://picsum.photos/536/354`,
+        }}
         style={{
           ...tailwind(`rounded-lg`),
           ...{ width: (width - 16) / 3, height: (width - 16) / 3 },
         }}
       />
-      <View style={tailwind(`p-1.5 pt-2 pb-1.5 flex-col gap-2`)}>
-        <Text style={tailwind(`font-bold`)}>Packer Tra</Text>
-        <Text style={tailwind(`text-gray-500 text-sm`)}>1 manual friend</Text>
-      </View>
-    </View>
+      {!status && (
+        <View style={tailwind(`p-1.5 pt-2 pb-1.5 flex-col gap-2`)}>
+          <Text style={tailwind(`font-bold`)}>
+            {media?.user?.name || "Packer Tra"}
+          </Text>
+          <Text style={tailwind(`text-gray-500 text-sm`)}>
+            {media?.manual ? `${media?.manual} manual friend` : ` `}
+          </Text>
+        </View>
+      )}
+    </TouchableOpacity>
   );
 };
 

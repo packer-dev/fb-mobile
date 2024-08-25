@@ -3,8 +3,14 @@ import { View, Text, Image, TouchableOpacity } from 'react-native';
 import tailwind from '../../../tailwind';
 import Container from '../Container';
 import { Feather, AntDesign } from '@expo/vector-icons';
+import { AppContext } from '../../../contexts/index';
+import { useNavigation } from '@react-navigation/native';
 
 const Profile = ({ navigation }) => {
+  const {
+    state: { user },
+  } = React.useContext(AppContext);
+
   return (
     <Container navigation={navigation}>
       <View style={tailwind(`flex-row px-3 justify-between`)}>
@@ -17,6 +23,7 @@ const Profile = ({ navigation }) => {
             <Feather name="settings" size={24} color="black" />
           </TouchableOpacity>
           <TouchableOpacity
+            onPress={() => navigation.navigate('SearchUser')}
             style={tailwind(
               `w-10 h-10 rounded-full  justify-center items-center bg-gray-300`
             )}>
@@ -25,7 +32,12 @@ const Profile = ({ navigation }) => {
         </View>
       </View>
       <TouchableOpacity
-        onPress={() => navigation && navigation.navigate('DetailProfile')}
+        onPress={() =>
+          navigation &&
+          navigation.navigate('DetailProfile', {
+            visit: user,
+          })
+        }
         style={tailwind(`px-3 mt-5`)}>
         <View
           style={tailwind(
@@ -33,10 +45,10 @@ const Profile = ({ navigation }) => {
           )}>
           <View style={tailwind(`flex-row gap-3 items-center`)}>
             <Image
-              source={{ uri: `https://picsum.photos/536/354` }}
+              source={{ uri: user?.avatar || `https://picsum.photos/536/354` }}
               style={tailwind(`w-11 h-11 rounded-full mx-auto`)}
             />
-            <Text style={tailwind(`font-semibold`)}>Packer Tra</Text>
+            <Text style={tailwind(`font-semibold`)}>{user?.name}</Text>
           </View>
           <View></View>
         </View>

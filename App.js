@@ -1,6 +1,6 @@
 import { AppProvider } from './contexts/index';
-import 'react-native-url-polyfill/auto';
 import Router from './Router';
+import "@expo/metro-runtime";
 
 export default function App() {
   return (

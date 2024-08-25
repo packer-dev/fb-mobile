@@ -1,10 +1,10 @@
-import * as React from 'react';
-import tailwind from '../../tailwind';
-import { View, Image, Text, TouchableOpacity } from 'react-native';
-import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
-import { AppContext } from '../../contexts/index';
-import NewMessage from '../../popups/NewMessage';
-import * as SecureStore from 'expo-secure-store';
+import * as React from "react";
+import tailwind from "../../tailwind";
+import { View, Image, Text, TouchableOpacity } from "react-native";
+import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
+import { AppContext } from "../../contexts/index";
+import NewMessage from "../../popups/NewMessage";
+import * as SecureStore from "expo-secure-store";
 
 const Header = ({ navigation }) => {
   //
@@ -16,7 +16,8 @@ const Header = ({ navigation }) => {
   return (
     <View style={tailwind(`flex-row gap-3 p-3 items-center`)}>
       <TouchableOpacity
-        onPress={() => navigation && navigation.navigate('Facebook')}>
+        onPress={() => navigation && navigation.navigate("Facebook")}
+      >
         <Image
           source={{ uri: user?.avatar || `https://picsum.photos/536/354` }}
           style={tailwind(`w-10 h-10 rounded-full`)}
@@ -26,14 +27,15 @@ const Header = ({ navigation }) => {
       <View style={tailwind(`flex-row gap-4`)}>
         <TouchableOpacity
           onPress={() =>
-            updateData('popup', {
+            updateData("popup", {
               ui: <NewMessage navigation={navigation} />,
               payload: {},
             })
           }
           style={tailwind(
             `flex justify-center item-center w-10 h-10 rounded-full bg-gray-300`
-          )}>
+          )}
+        >
           <FontAwesome
             name="pencil-square-o"
             size={24}
@@ -42,20 +44,31 @@ const Header = ({ navigation }) => {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={async () => {
-            await SecureStore.deleteItemAsync('token');
-            updateData('user', null);
-            updateData('messages', []);
-            updateData('groups', []);
-            updateData('groupCurrent', null);
-            updateData('popup', {
+            updateData("loading", true);
+            await SecureStore.deleteItemAsync("token");
+            updateData("user", null);
+            updateData("messages", []);
+            updateData("groups", []);
+            updateData("groupCurrent", null);
+            updateData("visit", null);
+            updateData("panel", null);
+            updateData("list_post", []);
+            updateData("friends", []);
+            updateData("popup", {
               ui: null,
               payload: null,
             });
-            navigation.navigate('Login');
+            updateData("panel", {
+              ui: null,
+              payload: null,
+            });
+            updateData("loading", false);
+            navigation.navigate("Login");
           }}
           style={tailwind(
             `flex justify-center item-center w-10 h-10 rounded-full bg-gray-300`
-          )}>
+          )}
+        >
           <MaterialIcons
             name="logout"
             size={24}

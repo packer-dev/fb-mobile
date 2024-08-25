@@ -1,16 +1,16 @@
-import * as React from 'react';
+import * as React from "react";
 import {
   View,
   Text,
   Dimensions,
   TouchableOpacity,
   ScrollView,
-} from 'react-native';
-import { AppContext } from '../contexts/index';
-import tailwind from '../tailwind';
-import * as Animatable from 'react-native-animatable';
+} from "react-native";
+import { AppContext } from "../contexts/index";
+import tailwind from "../tailwind";
+import * as Animatable from "react-native-animatable";
 
-const height = Dimensions.get('window').height - 70;
+const height = Dimensions.get("window").height - 70;
 
 const Popup = ({
   children,
@@ -35,21 +35,24 @@ const Popup = ({
         borderRadius: 12,
         height,
         zIndex: 100,
-      }}>
+      }}
+    >
       <View style={tailwind(`flex-row justify-between p-3 mt-3`)}>
         <TouchableOpacity
           onPress={() =>
-            updateData('popup', {
+            updateData("popup", {
               payload,
               ui,
             })
-          }>
+          }
+        >
           <Text
             style={tailwind(
               `${
-                disabled?.cancel ? 'text-gray-500' : 'text-primary'
+                disabled?.cancel ? "text-gray-500" : "text-primary"
               } font-bold text-lg`
-            )}>
+            )}
+          >
             Cancel
           </Text>
         </TouchableOpacity>
@@ -58,9 +61,10 @@ const Popup = ({
           <Text
             style={tailwind(
               `${
-                disabled?.done ? 'text-gray-500' : 'text-primary'
+                disabled?.done ? "text-gray-500" : "text-primary"
               } font-bold text-lg`
-            )}>
+            )}
+          >
             Done
           </Text>
         </TouchableOpacity>

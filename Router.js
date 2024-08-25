@@ -10,6 +10,7 @@ import MessageList from './screens/MessageList';
 import DetailChat from './screens/DetailChat';
 import Pending from './screens/Pending';
 import Story from './screens/Story';
+import Animation from './screens/Animation';
 import Facebook from './screens/Facebook/index';
 import Profile from './screens/Facebook/Profile/index';
 import DetailProfile from './screens/Facebook/DetailProfile/index';
@@ -18,14 +19,21 @@ import Notifications from './screens/Facebook/Notifications/index';
 import Watchs from './screens/Facebook/Watchs/index';
 import Marketplaces from './screens/Facebook/Marketplaces/index';
 import ToolbarProfile from './screens/Facebook/ToolbarProfile/index';
+import CreatePost from './screens/Facebook/CreatePost/index';
+import DetailPost from './screens/Facebook/DetailPost/index';
+import SearchUser from './screens/Facebook/SearchUser/index';
+import ListFriend from './screens/Facebook/ListFriend/index';
+import SuggestFriend from './screens/Facebook/SuggestFriend/index';
+import StoryDetail from './screens/Facebook/StoryDetail/index';
+import Camera from './components/Commons/Camera';
+import Code from './screens/Code';
 
 const Stack = createNativeStackNavigator();
 
 const Router = () => {
   const {
-    state: { loading, popup, user },
+    state: { loading, popup, panel },
   } = React.useContext(AppContext);
-  React.useEffect(() => {}, [user]);
   return (
     <React.Fragment>
       <NavigationContainer>
@@ -34,7 +42,7 @@ const Router = () => {
             headerShown: false,
             tabBarVisible: false,
           }}
-          initialRouteName="ToolbarProfile">
+          initialRouteName="Pending">
           <Stack.Screen name="Main" component={Main} />
           <Stack.Screen name="Story" component={Story} />
           <Stack.Screen name="Pending" component={Pending} />
@@ -51,10 +59,21 @@ const Router = () => {
           <Stack.Screen name="Watchs" component={Watchs} />
           <Stack.Screen name="Marketplaces" component={Marketplaces} />
           <Stack.Screen name="ToolbarProfile" component={ToolbarProfile} />
+          <Stack.Screen name="Animation" component={Animation} />
+          <Stack.Screen name="CreatePost" component={CreatePost} />
+          <Stack.Screen name="DetailPost" component={DetailPost} />
+          <Stack.Screen name="SearchUser" component={SearchUser} />
+          <Stack.Screen name="ListFriend" component={ListFriend} />
+          <Stack.Screen name="SuggestFriend" component={SuggestFriend} />
+          <Stack.Screen name="StoryDetail" component={StoryDetail} />
+
+          <Stack.Screen name="Camera" component={Camera} />
+          <Stack.Screen name="Code" component={Code} />
         </Stack.Navigator>
       </NavigationContainer>
       {loading && <Loading />}
-      {popup.ui && popup.ui}
+      {popup?.ui && popup.ui}
+      {panel?.ui && panel.ui}
     </React.Fragment>
   );
 };

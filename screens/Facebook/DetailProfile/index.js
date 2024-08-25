@@ -1,42 +1,44 @@
-import * as React from 'react';
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
-import tailwind from '../../../tailwind';
-import Wrapper from '../../Wrapper';
-import Post from '../../../components/Facebook/Post/index';
-import Header from './Header';
-import InfoProfile from './InfoProfile';
-import UploadProfile from './UploadProfile';
-import MediaList from '../../../components/Facebook/MediaList/index';
-import Container from '../Container';
+import * as React from "react";
+import { View } from "react-native";
+import tailwind from "../../../tailwind";
+import Header from "./Header";
+import Content from "./Content";
+import Container from "../Container";
+import { AppContext } from "../../../contexts/index";
+import { postResponseModel } from "../../../models";
+import { getPostByIdUser } from "../../../apis/postAPIs";
+import Loading from "./Loading";
 
-const DetailProfile = ({ navigation , route}) => {
+const DetailProfile = ({ route }) => {
+  const {
+    state: { visit },
+    updateData,
+  } = React.useContext(AppContext);
+  const [loading, setLoading] = React.useState(true);
+  React.useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      updateData("list_post", []);
+      const posts = await getPostByIdUser(visit?.id);
+      updateData(
+        "list_post",
+        (posts || []).map((item) => postResponseModel(item))
+      );
+      setLoading(false);
+    };
+    fetchData();
+    // eslint-disable-next-line  react-hooks/exhaustive-deps
+  }, [visit]);
+  React.useEffect(() => {
+    if (route?.params?.visit) {
+      updateData("visit", route?.params?.visit);
+    }
+  }, [route?.params?.visit]);
   return (
-    <Container navigation={navigation} route={route}>
-      <Header navigation={navigation} />
+    <Container route={route}>
+      <Header loading={loading} />
       <View style={tailwind(`flex-1`)}>
-        <ScrollView style={tailwind(``)}>
-          <UploadProfile navigation={navigation} />
-          <InfoProfile navigation={navigation} />
-          <View style={tailwind(`flex-row gap-6 py-5 px-3`)}>
-            <TouchableOpacity
-              style={tailwind(`px-3 py-2 bg-blue-300 rounded-full`)}>
-              <Text style={tailwind(`text-blue-700 font-bold`)}>Posts</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={tailwind(`px-3 py-2`)}>
-              <Text style={tailwind(`font-bold`)}>Pictures</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={tailwind(`px-3 py-2`)}>
-              <Text style={tailwind(`font-bold`)}>Videos</Text>
-            </TouchableOpacity>
-          </View>
-          <MediaList />
-          <Text style={tailwind(`px-3 py-4 font-bold`)}>Details</Text>
-          <View style={tailwind(`flex-col`)}>
-            <Post />
-            <Post />
-            <Post />
-          </View>
-        </ScrollView>
+        {loading ? <Loading /> : <Content />}
       </View>
     </Container>
   );

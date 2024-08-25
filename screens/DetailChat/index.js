@@ -4,16 +4,12 @@ import { View, Text } from 'react-native';
 import Header from './Header';
 import Control from './Control';
 import ItemGroupOption from './ItemGroupOption';
-import { Ionicons  } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
-const DetailChat = ({ navigation, route: { params } }) => {
+const DetailChat = ({ route: { params } }) => {
   return (
     <Wrapper>
-      <Header
-        navigation={navigation}
-        friend={params?.friend}
-        group={params?.group}
-      />
+      <Header friend={params?.friend} group={params?.group} />
       <Control group={params?.group} />
       <View style={tailwind(`p-3`)}>
         <ItemGroupOption name="Color">

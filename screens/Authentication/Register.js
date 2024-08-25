@@ -6,6 +6,7 @@ import * as React from 'react';
 import { Text } from 'react-native';
 import { registerAPI } from '../../api';
 import { user } from '../../models';
+import { useNavigation } from '@react-navigation/native';
 
 const random = ramdomUser();
 
@@ -34,13 +35,9 @@ const init = [
   },
 ];
 
-const Register = ({ navigation }) => {
-  const {
-    inputs,
-    onSubmit,
-    onInputChange,
-    register,
-  } = useForm(init);
+const Register = () => {
+  const { inputs, onSubmit, onInputChange, register } = useForm(init);
+  const navigation = useNavigation();
   const [error, setError] = React.useState(false);
   const handleSubmit = async (obj) => {
     const result = await registerAPI({ ...user, ...obj });
@@ -54,7 +51,6 @@ const Register = ({ navigation }) => {
     <Authentication
       buttonText="Register"
       type="Register"
-      navigation={navigation}
       handleSubmit={() => onSubmit(handleSubmit)}>
       {inputs.map((item) => (
         <Input

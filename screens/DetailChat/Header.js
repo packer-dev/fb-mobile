@@ -3,15 +3,15 @@ import { View, TouchableOpacity, Text } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import Avatar from '../../components/Avatar';
 import GroupAvatar from '../../components/GroupAvatar';
+import { useNavigation } from '@react-navigation/native';
 
-const Header = ({ navigation, friend, group }) => {
+const Header = ({ friend, group }) => {
+  const navigation = useNavigation();
   return (
     <View style={tailwind(`relative mt-3`)}>
       <TouchableOpacity
         style={tailwind(`absolute top-0 left-3`)}
-        onPress={() => {
-          navigation && navigation.navigate('Main', { group })
-        }}>
+        onPress={() => navigation.navigate('Main', { group })}>
         <AntDesign name="left" size={24} />
       </TouchableOpacity>
       <View style={tailwind(`flex-col gap-1 justify-center mx-auto mt-5`)}>

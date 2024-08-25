@@ -1,13 +1,21 @@
-import { View, Image } from 'react-native';
-import tailwind from '../tailwind';
+import { View, Image } from "react-native";
+import tailwind from "../tailwind";
 
-const Avatar = ({ size, uri, online, children }) => {
+const Avatar = ({ size, uri, online, children, loading }) => {
   return (
     <View style={tailwind(`relative`)}>
-      <Image
-        source={{ uri: uri || `https://picsum.photos/536/354` }}
-        style={tailwind(`w-${size} h-${size} rounded-full mx-auto`)}
-      />
+      {loading ? (
+        <View
+          style={tailwind(
+            `w-${size} h-${size} rounded-full mx-auto bg-gray-300`
+          )}
+        />
+      ) : (
+        <Image
+          source={{ uri: uri || `https://picsum.photos/536/354` }}
+          style={tailwind(`w-${size} h-${size} rounded-full mx-auto`)}
+        />
+      )}
       {online && (
         <View
           style={tailwind(

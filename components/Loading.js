@@ -1,26 +1,28 @@
 import { View, ActivityIndicator } from 'react-native';
 import tailwind from '../tailwind';
 
-const Loading = ({ isFirst, fetching, container }) => {
+const Loading = ({ isFirst, fetching, container, size = 'large', color }) => {
   //
   //
   return fetching ? (
-    <View style={!container ? {} : tailwind(`py-12 justify-center flex-row items-center flex-1`)}>
-      <ActivityIndicator
-        size="large"
-        color="red"
-      />
+    <View
+      style={
+        !container
+          ? {}
+          : tailwind(`py-12 justify-center flex-row items-center flex-1`)
+      }>
+      <ActivityIndicator size={size} color={color || 'red'} />
     </View>
   ) : (
     <View
       style={{
         ...tailwind('absoluteFull shadow items-center justify-center'),
         backgroundColor: isFirst
-          ? 'rbga(255, 255, 255, 0.5)'
+          ? 'rgba(255, 255, 255, 0.5)'
           : 'rgba(52, 52, 52, 0.5)',
         zIndex: 200,
       }}>
-      <ActivityIndicator size="large" color="skyblue" />
+      <ActivityIndicator size={size} color={color || 'skyblue'} />
     </View>
   );
 };

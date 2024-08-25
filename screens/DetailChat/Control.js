@@ -22,7 +22,7 @@ const ItemControl = ({ iconName, iconUI, label, handleClick }) => {
   );
 };
 
-const Control = ({ navigation, group }) => {
+const Control = ({ group }) => {
   const { updateData } = React.useContext(AppContext);
   return (
     <>

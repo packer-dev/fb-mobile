@@ -1,37 +1,26 @@
 import React from 'react';
-import { generateUUID } from '../utils';
 import { AppContext } from '../contexts/index';
+import useSound from './useSound';
 
-const useListeningMessage = () => {
+const useListeningMessage = (groupId) => {
   const {
-    state: { socket, messages },
+    state: { user, socket, messages },
     updateData,
   } = React.useContext(AppContext);
+  const { playSound } = useSound();
   const listenChat = (data) => {
-    updateData('messages', [
-      ...messages,
-      {
-        id: generateUUID(),
-        content: "This is auto message. Please don't reply again.",
-        user: {
-          avatar: '',
-          email: 'lion.pham@gmail.com',
-          id: '6d89945b-60ac-41af-a3fa-17e977038f19',
-          lastTimeActive: '',
-          name: 'Lion Pham',
-          password: 'd5077bcc9cf4851ac86ea4fccbc66c9a',
-        },
-        type: 'sender',
-      },
-    ]);
+    data = JSON.parse(data);
+    if (user?.id === data?.message?.user?.id) return;
+    playSound();
+    updateData('messages', [...messages, data?.message]);
   };
   React.useEffect(() => {
-    if (socket) {
-      socket.off('receive', listenChat);
-      socket.on(`receive`, listenChat);
+    if (socket && groupId) {
+      socket.off(`receive-message-${groupId}`, listenChat);
+      socket.on(`receive-message-${groupId}`, listenChat);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [messages]);
+  }, [messages, groupId]);
 };
 
 export default useListeningMessage;

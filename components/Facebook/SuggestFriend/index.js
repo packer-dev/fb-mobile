@@ -1,12 +1,26 @@
-import * as React from 'react';
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
-import tailwind from '../../../tailwind';
-import ItemSuggestFriend from './ItemSuggestFriend';
-import { Entypo, Feather } from '@expo/vector-icons';
+import * as React from "react";
+import { View, Text, ScrollView } from "react-native";
+import tailwind from "../../../tailwind";
+import ItemSuggestFriend from "./ItemSuggestFriend";
+import { Entypo, Feather } from "@expo/vector-icons";
+import { AppContext } from "../../../contexts/index";
+import { getSuggestFriendByUserId } from "../../../apis/userAPIs";
 
 const SuggestFriend = () => {
-  return (
-    <View style={tailwind(`py-1 bg-gray-300 -mt-1`)}>
+  const {
+    state: { user, trigger },
+  } = React.useContext(AppContext);
+  const [friends, setFriends] = React.useState([]);
+  React.useEffect(() => {
+    const fetchData = async () => {
+      setFriends([]);
+      const result = await getSuggestFriendByUserId(user?.id);
+      setFriends(result);
+    };
+    user && fetchData();
+  }, [user, trigger.suggestFriend]);
+  return friends?.length > 0 ? (
+    <View style={tailwind(friends?.length ? `py-1 bg-gray-300 -mt-1` : "")}>
       <View style={tailwind(`bg-white p-3 flex-col gap-3`)}>
         <View style={tailwind(`flex-row items-center`)}>
           <Text style={tailwind(`font-bold flex-1`)}>
@@ -17,18 +31,22 @@ const SuggestFriend = () => {
             <Feather name="x" size={20} color="gray" />
           </View>
         </View>
-        <ScrollView style={tailwind(``)} horizontal showsHorizontalScrollIndicator={false}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <View style={tailwind(`flex-row gap-3`)}>
-            <ItemSuggestFriend />
-            <ItemSuggestFriend />
-            <ItemSuggestFriend />
-            <ItemSuggestFriend />
-            <ItemSuggestFriend />
-            <ItemSuggestFriend />
+            {friends?.map((item) => (
+              <ItemSuggestFriend
+                key={item?.user?.id}
+                friend={item}
+                friends={friends}
+                setFriends={setFriends}
+              />
+            ))}
           </View>
         </ScrollView>
       </View>
     </View>
+  ) : (
+    <></>
   );
 };
 

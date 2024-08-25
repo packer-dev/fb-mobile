@@ -1,35 +1,78 @@
-import * as React from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
-import tailwind from '../../../tailwind';
-import { AntDesign, Fontisto, EvilIcons } from '@expo/vector-icons';
+import * as React from "react";
+import { View } from "react-native";
+import tailwind from "../../../tailwind";
+import { EvilIcons, FontAwesome, Ionicons } from "@expo/vector-icons";
+import IconButton from "../../IconButton";
+import { sendFeelPost } from "../../../apis/postAPIs";
+import { AppContext } from "../../../contexts/index";
 
-const Toolbar = () => {
+const Toolbar = ({ navigation, post, medias, feel, handleFeel }) => {
+  //
+  const {
+    state: { user, list_post },
+    updateData,
+  } = React.useContext(AppContext);
+  const handleLike = async () => {
+    const result = await sendFeelPost(post?.id, user?.id);
+    updateData(
+      "list_post",
+      [...list_post].map((item) => {
+        if (item?.post?.id === post?.id) {
+          if (result) {
+            item.feel = [...item.feel, user.id];
+          } else {
+            item.feel = [...item.feel].filter((item) => item !== user.id);
+          }
+          return item;
+        }
+
+        return item;
+      })
+    );
+    handleFeel && handleFeel(result);
+  };
+  //
   return (
-    <View style={tailwind(`flex-row gap-3 py-2 items-center justify-between`)}>
-      <TouchableOpacity style={tailwind(`mx-auto flex-row gap-2 items-center`)}>
-        <AntDesign name="like2" size={20} style={tailwind(`text-gray-700`)} />
-        <Text style={tailwind(`font-bold text-gray-700`)}>Like</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={tailwind(`mx-auto flex-row gap-2 items-center`)}>
-        <EvilIcons name="comment" size={28} style={tailwind(`text-gray-700`)} />
-        <Text style={tailwind(`font-bold text-gray-700`)}>Like</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={tailwind(`mx-auto flex-row gap-2 items-center`)}>
-        <EvilIcons
-          name="share-apple"
-          size={28}
-          style={tailwind(`text-gray-700`)}
-        />
-        <Text style={tailwind(`font-bold text-gray-700`)}>Send</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={tailwind(`mx-auto flex-row gap-2 items-center`)}>
-        <EvilIcons
-          name="share-google"
-          size={28}
-          style={tailwind(`text-gray-700`)}
-        />
-        <Text style={tailwind(`font-bold text-gray-700`)}>Share</Text>
-      </TouchableOpacity>
+    <View
+      style={tailwind(`flex-row gap-3 px-3 pb-3 items-center justify-between`)}
+    >
+      <IconButton
+        IconContainer={FontAwesome}
+        iconName={{
+          before: "heart-o",
+          after: "heart",
+        }}
+        onPress={handleLike}
+        iconSize={18}
+        text="Love"
+        changeColor
+        active={(feel || []).find((item) => user?.id === item)}
+      />
+      <IconButton
+        onPress={() =>
+          navigation &&
+          navigation.navigate("DetailPost", {
+            post,
+            medias,
+          })
+        }
+        IconContainer={EvilIcons}
+        iconSize={28}
+        iconName="comment"
+        text="Comment"
+      />
+      <IconButton
+        IconContainer={Ionicons}
+        iconSize={22}
+        iconName="copy-outline"
+        text="Copy"
+      />
+      <IconButton
+        IconContainer={EvilIcons}
+        iconSize={28}
+        iconName="share-google"
+        text="Share"
+      />
     </View>
   );
 };
