@@ -5,10 +5,7 @@ const init = {
   showKeyboard: false,
   messages: [],
   socket: io.connect("https://server-socket-zrlh.onrender.com/").connect(),
-  popup: {
-    ui: null,
-    payload: {},
-  },
+  popup: [],
   panel: {
     ui: null,
     payload: {},

@@ -3,13 +3,14 @@ import tailwind from "../../tailwind";
 import { View, Image, Text, TouchableOpacity } from "react-native";
 import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { AppContext } from "../../contexts/index";
-import NewMessage from "../../popups/NewMessage";
 import * as SecureStore from "expo-secure-store";
+import { generateUUID } from "../../utils";
+import Ui from "../../popups/ui";
 
 const Header = ({ navigation }) => {
   //
   const {
-    state: { user },
+    state: { user, popup },
     updateData,
   } = React.useContext(AppContext);
   //
@@ -26,12 +27,16 @@ const Header = ({ navigation }) => {
       <Text style={tailwind(`flex-1 text-3xl font-bold`)}>Chats</Text>
       <View style={tailwind(`flex-row gap-4`)}>
         <TouchableOpacity
-          onPress={() =>
-            updateData("popup", {
-              ui: <NewMessage navigation={navigation} />,
-              payload: {},
-            })
-          }
+          onPress={() => {
+            updateData("popup", [
+              ...popup,
+              {
+                id: generateUUID(),
+                ui: Ui.NewMessageUI,
+                payload: {},
+              },
+            ]);
+          }}
           style={tailwind(
             `flex justify-center item-center w-10 h-10 rounded-full bg-gray-300`
           )}
@@ -54,10 +59,7 @@ const Header = ({ navigation }) => {
             updateData("panel", null);
             updateData("list_post", []);
             updateData("friends", []);
-            updateData("popup", {
-              ui: null,
-              payload: null,
-            });
+            updateData("popup", []);
             updateData("panel", {
               ui: null,
               payload: null,

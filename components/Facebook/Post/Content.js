@@ -39,7 +39,7 @@ const Content = ({ post, medias = [], feel }) => {
         <View style={tailwind(`w-full relative`)}>
           <Image
             source={{
-              uri: post?.user?.avatar || `https://picsum.photos/536/354`,
+              uri: post?.user?.cover || `https://picsum.photos/536/354`,
             }}
             style={tailwind(`w-full h-60 absolute top-0 left-0 z-0`)}
           />

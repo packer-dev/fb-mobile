@@ -19,10 +19,10 @@ const Wrapper = ({ children, overflowHidden, isStory }) => {
   return (
     <View
       style={tailwind(
-        `flex-1 ${popup.ui || isStory ? " bg-black" : "bg-white"}`
+        `flex-1 ${popup.length > 0 || isStory ? " bg-black" : "bg-white"}`
       )}
     >
-      {(popup.ui || isStory) && Platform.OS === "ios" && (
+      {(popup.length > 0 || isStory) && Platform.OS === "ios" && (
         <StatusBar
           translucent
           backgroundColor="black"
@@ -32,7 +32,7 @@ const Wrapper = ({ children, overflowHidden, isStory }) => {
       <SafeAreaView
         style={{
           ...tailwind(`flex-1`),
-          ...(popup.ui ? { width, margin: "auto" } : {}),
+          ...(popup.length > 0 ? { width, margin: "auto" } : {}),
           paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
           paddingBottom: Platform.OS === "android" ? 16 : 0,
         }}
@@ -40,8 +40,10 @@ const Wrapper = ({ children, overflowHidden, isStory }) => {
         {overflowHidden ? (
           <View
             style={{
-              ...tailwind(`flex-1 bg-${popup.ui ? "gray-300" : "white"}`),
-              ...(popup.ui ? { borderRadius: 16 } : {}),
+              ...tailwind(
+                `flex-1 bg-${popup.length > 0 ? "gray-300" : "white"}`
+              ),
+              ...(popup.length > 0 ? { borderRadius: 16 } : {}),
             }}
           >
             {children}
@@ -50,8 +52,10 @@ const Wrapper = ({ children, overflowHidden, isStory }) => {
           <ScrollView
             showsVerticalScrollIndicator={false}
             style={{
-              ...tailwind(`flex-1 bg-${popup.ui ? "gray-300" : "white"}`),
-              ...(popup.ui ? { borderRadius: 16 } : {}),
+              ...tailwind(
+                `flex-1 bg-${popup.length > 0 ? "gray-300" : "white"}`
+              ),
+              ...(popup.length > 0 ? { borderRadius: 16 } : {}),
             }}
           >
             {children}

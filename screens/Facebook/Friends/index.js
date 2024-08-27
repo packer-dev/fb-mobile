@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { View, Text, ActivityIndicator } from 'react-native';
-import tailwind from '../../../tailwind';
-import ItemFriend from './ItemFriend';
-import Container from '../Container';
-import Header from './Header';
-import useFriend from '../../../hooks/useFriend';
+import * as React from "react";
+import { View, Text, ActivityIndicator } from "react-native";
+import tailwind from "../../../tailwind";
+import ItemFriend from "./ItemFriend";
+import Container from "../Container";
+import Header from "./Header";
+import useFriend from "../../../hooks/useFriend";
 
 const Friends = ({ navigation, route }) => {
   //
@@ -19,7 +19,11 @@ const Friends = ({ navigation, route }) => {
       </View>
       <View style={tailwind(`mt-2 gap-6 flex-col px-3`)}>
         {listFriend?.map((item) => (
-          <ItemFriend key={item?.id} friend={item} update={handleUpdate} />
+          <ItemFriend
+            key={item?.user?.id}
+            friend={item}
+            update={handleUpdate}
+          />
         ))}
         {loading && (
           <View style={tailwind(`flex-row justify-center items-center py-4`)}>

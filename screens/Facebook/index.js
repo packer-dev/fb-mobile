@@ -24,7 +24,7 @@ const Facebook = ({ route }) => {
         (posts || []).map((item) => postResponseModel(item))
       );
     };
-    fetchData();
+    user && fetchData();
     // eslint-disable-next-line  react-hooks/exhaustive-deps
   }, [user, route]);
   //

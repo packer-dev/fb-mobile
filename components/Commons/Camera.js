@@ -13,17 +13,21 @@ import tailwind from "../../tailwind";
 import { AntDesign, MaterialIcons, Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-export default function CameraCommon() {
+export default function CameraCommon({
+  defaultFacing = "front",
+  defaultFlash = "off",
+  route,
+}) {
   const navigation = useNavigation();
-  const [facing, setFacing] = useState("front");
+  const [facing, setFacing] = useState(defaultFacing);
   const [permission, requestPermission] = useCameraPermissions();
-  const [flash, setFlash] = React.useState("off");
-  const [isCapture, setIsCapture] = React.useState();
+  const [flash, setFlash] = React.useState(defaultFlash);
+  const [image, setImage] = React.useState();
   const cameraRef = React.useRef(null);
   const __takePicture = async () => {
     if (!cameraRef.current) return;
     const photo = await cameraRef.current.takePictureAsync();
-    setIsCapture(photo);
+    setImage(photo);
   };
   if (!permission) {
     // Camera permissions are still loading.
@@ -31,18 +35,21 @@ export default function CameraCommon() {
   }
 
   if (!permission.granted) {
-    // Camera permissions are not granted yet.
     return (
       <View style={tailwind(`flex-1 flex-col items-center justify-center`)}>
         <Text>We need your permission to show the camera</Text>
-        <Button onPress={requestPermission} title="grant permission" />
+        <Button
+          onPress={requestPermission}
+          title="grant permission"
+          style={tailwind(`mt-3`)}
+        />
       </View>
     );
   }
 
-  function toggleCameraFacing() {
+  const toggleCameraFacing = () => {
     setFacing((current) => (current === "back" ? "front" : "back"));
-  }
+  };
 
   return (
     <CameraView
@@ -50,12 +57,12 @@ export default function CameraCommon() {
       style={tailwind(`flex-1 relative`)}
       facing={facing}
       flash={flash}
-      active={!isCapture}
+      active={!image}
     >
-      {isCapture?.uri && (
+      {image?.uri && (
         <Image
           source={{
-            uri: isCapture?.uri,
+            uri: image?.uri,
           }}
           style={tailwind(`flex-1 absolute top-0 left-0 bottom-0 right-0 z-30`)}
         />
@@ -72,13 +79,17 @@ export default function CameraCommon() {
           >
             <AntDesign
               onPress={() => {
-                if (isCapture) {
-                  setIsCapture();
+                if (image) {
+                  setImage();
                 } else {
-                  navigation.goBack(null);
+                  if (route?.params?.handleBack) {
+                    route?.params?.handleBack();
+                  } else {
+                    navigation.goBack(null);
+                  }
                 }
               }}
-              name={isCapture ? "close" : "left"}
+              name={image ? "close" : "left"}
               size={24}
               color="white"
             />
@@ -102,7 +113,7 @@ export default function CameraCommon() {
               />
             </View>
           </View>
-          {!isCapture && (
+          {!image && (
             <View
               style={tailwind(
                 `flex-row absolute bottom-0 z-50 left-0 justify-center py-6 w-full`
@@ -118,7 +129,7 @@ export default function CameraCommon() {
           )}
         </View>
       </SafeAreaView>
-      {isCapture && (
+      {image && (
         <View
           style={[
             tailwind(`w-full px-6 pt-6 pb-10 absolute bottom-0 left-0 z-50`),
@@ -134,7 +145,7 @@ export default function CameraCommon() {
           <TouchableOpacity
             onPress={async () => {
               navigation.navigate("CreatePost", {
-                asset: isCapture,
+                asset: image,
               });
             }}
             style={tailwind(`absolute -top-7 border-gray-300 border w-14 h-14 right-6 rounded-full 

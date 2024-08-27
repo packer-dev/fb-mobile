@@ -5,15 +5,16 @@ import Popup from "./Popup";
 import Avatar from "../components/Avatar";
 import Search from "../screens/MessageList/Search";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
-import NewMessage from "./NewMessage";
 import { AppContext } from "../contexts/index";
 import { generateUUID } from "../utils";
+import { useNavigation } from "@react-navigation/native";
 
-const NewGroup = ({ navigation }) => {
+const NewGroup = ({ index, payload, popupId }) => {
   const {
-    state: { friends, user },
+    state: { friends, popup, user },
     updateData,
   } = React.useContext(AppContext);
+  const navigation = useNavigation();
   const [selected, setSelected] = React.useState([]);
   const [search, setSearch] = React.useState("");
   const [nameGroup, setNameGroup] = React.useState("");
@@ -38,8 +39,11 @@ const NewGroup = ({ navigation }) => {
   };
   return (
     <Popup
+      index={index}
+      hidden={payload?.hidden}
+      payload={payload}
+      popupId={popupId}
       title="New group"
-      ui={<NewMessage />}
       disabled={{
         done: !selected.length,
         cancel: false,

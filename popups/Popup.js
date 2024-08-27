@@ -6,25 +6,31 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import { AppContext } from "../contexts/index";
 import tailwind from "../tailwind";
 import * as Animatable from "react-native-animatable";
+import { AppContext } from "../contexts/index";
 
 const height = Dimensions.get("window").height - 70;
 
 const Popup = ({
   children,
   title,
-  payload,
-  ui,
   handleDone,
   disabled = {
     done: false,
     cancel: false,
   },
+  index,
+  hidden,
+  popupId,
 }) => {
-  const { updateData } = React.useContext(AppContext);
-  return (
+  const {
+    state: { popup },
+    updateData,
+  } = React.useContext(AppContext);
+  return hidden ? (
+    <></>
+  ) : (
     <Animatable.View
       animation="fadeInUp"
       duration={400}
@@ -34,16 +40,16 @@ const Popup = ({
         ),
         borderRadius: 12,
         height,
-        zIndex: 100,
+        zIndex: 90 + (index || 0),
       }}
     >
       <View style={tailwind(`flex-row justify-between p-3 mt-3`)}>
         <TouchableOpacity
           onPress={() =>
-            updateData("popup", {
-              payload,
-              ui,
-            })
+            updateData(
+              "popup",
+              [...popup].filter((item) => item.id !== popupId)
+            )
           }
         >
           <Text

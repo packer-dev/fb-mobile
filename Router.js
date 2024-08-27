@@ -27,6 +27,7 @@ import SuggestFriend from "./screens/Facebook/SuggestFriend/index";
 import StoryDetail from "./screens/Facebook/StoryDetail/index";
 import Camera from "./components/Commons/Camera";
 import Code from "./screens/Code";
+import RequestFriend from "./screens/Facebook/RequestFriend";
 
 const Stack = createNativeStackNavigator();
 
@@ -66,15 +67,19 @@ const Router = () => {
           <Stack.Screen name="SearchUser" component={SearchUser} />
           <Stack.Screen name="ListFriend" component={ListFriend} />
           <Stack.Screen name="SuggestFriend" component={SuggestFriend} />
+          <Stack.Screen name="RequestFriend" component={RequestFriend} />
           <Stack.Screen name="StoryDetail" component={StoryDetail} />
 
           <Stack.Screen name="Camera" component={Camera} />
           <Stack.Screen name="Code" component={Code} />
         </Stack.Navigator>
+        {loading && <Loading />}
+        {panel?.ui?.length > 0 ? panel?.ui?.map((item) => item.ui) : panel?.ui}
+        {popup?.map((item, index) => {
+          const RenderPopup = item.ui;
+          return <RenderPopup {...item} index={index} popupId={item.id} />;
+        })}
       </NavigationContainer>
-      {loading && <Loading />}
-      {popup?.ui && popup.ui}
-      {panel?.ui && panel.ui}
     </React.Fragment>
   );
 };

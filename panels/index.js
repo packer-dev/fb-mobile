@@ -10,8 +10,13 @@ import tailwind from "../tailwind";
 import { AppContext } from "../contexts/index";
 
 const Panel = ({ children, name, hideOverlay, backgroundColor }) => {
-  const { updateData } = React.useContext(AppContext);
-  return hideOverlay ? (
+  const {
+    state: { panel },
+    updateData,
+  } = React.useContext(AppContext);
+  return panel?.payload?.hidden ? (
+    <></>
+  ) : hideOverlay ? (
     <View
       style={{ ...styles.container, ...tailwind(`border-t border-gray-300`) }}
     >

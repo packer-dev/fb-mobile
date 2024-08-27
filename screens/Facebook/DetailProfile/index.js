@@ -26,7 +26,7 @@ const DetailProfile = ({ route }) => {
       );
       setLoading(false);
     };
-    fetchData();
+    visit && fetchData();
     // eslint-disable-next-line  react-hooks/exhaustive-deps
   }, [visit]);
   React.useEffect(() => {

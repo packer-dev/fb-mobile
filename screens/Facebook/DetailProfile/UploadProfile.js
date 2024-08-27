@@ -63,10 +63,14 @@ const UploadProfile = () => {
       formData.append("user_id", user?.id);
       formData.append("is_cover", folder === "Covers" ? "True" : "False");
       const res = await updateProfileUser(formData);
-      let newUser = { ...user, avatar: res.url };
+      let newUser = {
+        ...user,
+        [folder === "Covers" ? "cover" : "avatar"]: res.url,
+      };
       setState(image.uri);
       updateData("user", newUser);
       updateData("visit", newUser);
+      updateData("panel", []);
       setLoading(false);
     }
   };
@@ -98,7 +102,16 @@ const UploadProfile = () => {
       {visit?.id === user?.id && (
         <FontAwesome
           onPress={() =>
-            updateData("panel", { ...panel, ui: <PanelProfile /> })
+            updateData("panel", {
+              ...panel,
+              ui: (
+                <PanelProfile
+                  pickImage={() =>
+                    pickImage(setImageAvatar, setLoadingAvatar, "Covers")
+                  }
+                />
+              ),
+            })
           }
           name="camera"
           size={20}
@@ -136,7 +149,16 @@ const UploadProfile = () => {
           {!loadingAvatar && visit?.id === user?.id && (
             <TouchableOpacity
               onPress={() =>
-                updateData("panel", { ...panel, ui: <PanelProfile /> })
+                updateData("panel", {
+                  ...panel,
+                  ui: (
+                    <PanelProfile
+                      pickImage={() =>
+                        pickImage(setImageCover, setLoadingCover, "Avatars")
+                      }
+                    />
+                  ),
+                })
               }
               style={tailwind(
                 `w-10 h-10 rounded-full bg-gray-200 items-center justify-center 

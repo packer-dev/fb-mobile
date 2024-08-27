@@ -18,14 +18,14 @@ const MediaDisplay = ({ medias = [], width, real }) => {
             key={media.uri}
             source={{ uri: media.uri }}
             style={[
-              tailwind(`rounded-lg`),
+              tailwind(medias.length === 1 ? "" : `rounded-lg`),
               {
                 width:
                   medias.length >= 2
                     ? (width - (real ? 4 : 28)) / 2
                     : width - (real ? 0 : 24),
                 height:
-                  medias.length >= 2 ? (width - (real ? 12 : 36)) / 2 : 300,
+                  medias.length >= 2 ? (width - (real ? 12 : 36)) / 2 : 500,
               },
             ]}
           />
