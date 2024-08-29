@@ -16,7 +16,7 @@ const Header = () => {
         <Text style={tailwind(`font-bold mb-4 text-lg`)}>Friends</Text>
         <View style={tailwind(`flex-row gap-3`)}>
           <TouchableOpacity
-            onPress={() => navigation && navigation.navigate("SuggestFriend")}
+            onPress={() => navigation && navigation.navigate("ReceiveFriend")}
             style={tailwind(`px-3 py-3 rounded-full bg-gray-300`)}
           >
             <Text style={tailwind(`font-bold`)}>Suggestion</Text>

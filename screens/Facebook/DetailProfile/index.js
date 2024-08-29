@@ -11,29 +11,33 @@ import Loading from "./Loading";
 
 const DetailProfile = ({ route }) => {
   const {
-    state: { visit },
+    state: { visit, user },
     updateData,
   } = React.useContext(AppContext);
   const [loading, setLoading] = React.useState(true);
+  const fetchData = async () => {
+    if (!visit?.id) return;
+    setLoading(true);
+    const posts = await getPostByIdUser(visit?.id, true);
+    updateData(
+      "list_post",
+      (posts || []).map((item) => postResponseModel(item))
+    );
+    setLoading(false);
+  };
   React.useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      updateData("list_post", []);
-      const posts = await getPostByIdUser(visit?.id);
-      updateData(
-        "list_post",
-        (posts || []).map((item) => postResponseModel(item))
-      );
-      setLoading(false);
-    };
-    visit && fetchData();
+    if (!user || !visit) return;
+    user?.id !== visit?.id && fetchData();
     // eslint-disable-next-line  react-hooks/exhaustive-deps
-  }, [visit]);
+  }, [user, visit]);
   React.useEffect(() => {
-    if (route?.params?.visit) {
-      updateData("visit", route?.params?.visit);
-    }
-  }, [route?.params?.visit]);
+    user && fetchData();
+    // eslint-disable-next-line  react-hooks/exhaustive-deps
+  }, [user]);
+  React.useEffect(() => {
+    updateData("visit", route?.params?.visit);
+    updateData("list_post", []);
+  }, [route]);
   return (
     <Container route={route}>
       <Header loading={loading} />

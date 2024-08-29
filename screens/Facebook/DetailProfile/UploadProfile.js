@@ -15,7 +15,7 @@ import { AppContext } from "../../../contexts/index";
 import { updateProfileUser } from "../../../apis/userAPIs";
 import PanelProfile from "./PanelProfile";
 
-const UploadProfile = () => {
+const UploadProfile = ({ route }) => {
   const {
     state: { user, visit, panel },
     updateData,
@@ -51,6 +51,10 @@ const UploadProfile = () => {
         setLoading(false);
         return;
       }
+      updateData("panel", {
+        ui: null,
+        payload: {},
+      });
       formData.append("file", {
         uri: image.uri,
         name: image.uri.substring(
@@ -70,14 +74,13 @@ const UploadProfile = () => {
       setState(image.uri);
       updateData("user", newUser);
       updateData("visit", newUser);
-      updateData("panel", []);
       setLoading(false);
     }
   };
   React.useEffect(() => {
     setImageAvatar(visit?.avatar);
     setImageCover(visit?.cover);
-  }, [visit]);
+  }, [visit, route]);
   return (
     <View
       style={tailwind(
@@ -107,7 +110,7 @@ const UploadProfile = () => {
               ui: (
                 <PanelProfile
                   pickImage={() =>
-                    pickImage(setImageAvatar, setLoadingAvatar, "Covers")
+                    pickImage(setImageCover, setLoadingCover, "Covers")
                   }
                 />
               ),
@@ -154,7 +157,7 @@ const UploadProfile = () => {
                   ui: (
                     <PanelProfile
                       pickImage={() =>
-                        pickImage(setImageCover, setLoadingCover, "Avatars")
+                        pickImage(setImageAvatar, setLoadingAvatar, "Avatars")
                       }
                     />
                   ),

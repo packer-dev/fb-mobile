@@ -1,18 +1,18 @@
-import * as React from 'react';
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
-import tailwind from '../../../tailwind';
-import Container from '../Container';
-import HeaderFriend from '../HeaderFriend';
-import useFriend from '../../../hooks/useFriend';
-import ItemFriend from '../Friends/ItemFriend';
+import * as React from "react";
+import { View, Text, ScrollView } from "react-native";
+import tailwind from "../../../tailwind";
+import Container from "../Container";
+import HeaderFriend from "../HeaderFriend";
+import useFriend from "../../../hooks/useFriend";
+import ItemFriend from "../Friends/ItemFriend";
 
-const SuggestFriend = () => {
+const ReceiveFriend = () => {
   //
-  const { listFriend, handleUpdate } = useFriend(4);
+  const { listFriend, handleUpdate } = useFriend(2);
   //
   return (
     <Container>
-      <HeaderFriend title="Suggest" />
+      <HeaderFriend title="Receive" />
       <ScrollView>
         <View style={tailwind(`p-3`)}>
           <Text style={tailwind(`font-bold flex-1`)}>
@@ -34,4 +34,4 @@ const SuggestFriend = () => {
   );
 };
 
-export default SuggestFriend;
+export default ReceiveFriend;

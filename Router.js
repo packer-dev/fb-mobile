@@ -28,6 +28,7 @@ import StoryDetail from "./screens/Facebook/StoryDetail/index";
 import Camera from "./components/Commons/Camera";
 import Code from "./screens/Code";
 import RequestFriend from "./screens/Facebook/RequestFriend";
+import ReceiveFriend from "./screens/Facebook/ReceiveFriend";
 
 const Stack = createNativeStackNavigator();
 
@@ -66,7 +67,7 @@ const Router = () => {
           <Stack.Screen name="DetailPost" component={DetailPost} />
           <Stack.Screen name="SearchUser" component={SearchUser} />
           <Stack.Screen name="ListFriend" component={ListFriend} />
-          <Stack.Screen name="SuggestFriend" component={SuggestFriend} />
+          <Stack.Screen name="ReceiveFriend" component={ReceiveFriend} />
           <Stack.Screen name="RequestFriend" component={RequestFriend} />
           <Stack.Screen name="StoryDetail" component={StoryDetail} />
 
