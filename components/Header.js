@@ -40,7 +40,11 @@ const Header = ({ navigation, group, friend }) => {
           style={tailwind(`flex-row gap-2 items-center`)}
         >
           {obj?.members?.length > 2 ? (
-            <GroupAvatar group={obj} size={10} />
+            obj?.image ? (
+              <Avatar size={10} uri={obj?.image} />
+            ) : (
+              <GroupAvatar group={obj} size={10} />
+            )
           ) : (
             <Avatar size={10} uri={obj?.avatar} />
           )}

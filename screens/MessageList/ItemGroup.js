@@ -26,8 +26,12 @@ const ItemGroup = ({ handleClick, group, loading }) => {
     >
       {loading ? (
         <Avatar size={16} loading={loading} />
-      ) : person.members ? (
-        <GroupAvatar group={group} size={16} child={7} />
+      ) : person?.members?.length > 2 ? (
+        person?.image ? (
+          <Avatar size={16} uri={person?.image} />
+        ) : (
+          <GroupAvatar group={group} size={16} child={7} />
+        )
       ) : (
         <Avatar size={16} uri={person?.user?.avatar} />
       )}
