@@ -1,23 +1,23 @@
-import * as React from 'react';
-import { AppContext } from '../contexts/index';
-import { View } from 'react-native';
-import * as SecureStore from 'expo-secure-store';
-import { userModel } from '../models';
-import { FontAwesome5 } from '@expo/vector-icons';
-import tailwind from '../tailwind';
-import { getUserById } from '../apis/userAPIs';
+import * as React from "react";
+import { AppContext } from "../contexts/index";
+import { View } from "react-native";
+import * as SecureStore from "expo-secure-store";
+import { userModel } from "../models";
+import { FontAwesome5 } from "@expo/vector-icons";
+import tailwind from "../tailwind";
+import { getUserById } from "../apis/userAPIs";
 
 const Pending = ({ navigation }) => {
   const { updateData } = React.useContext(AppContext);
-  
+
   React.useEffect(() => {
     const fetchData = async () => {
-      const token = await SecureStore.getItemAsync('token');
+      const token = await SecureStore.getItemAsync("token");
       if (token) {
         const userResponse = await getUserById(token);
-        updateData('user', userModel(userResponse));
+        updateData("user", userModel(userResponse));
       }
-      navigation.navigate(token ? 'Facebook' : 'Login');
+      navigation.navigate(token ? "MessageList" : "Login");
     };
     fetchData();
     // eslint-disable-next-line  react-hooks/exhaustive-deps

@@ -23,7 +23,6 @@ import CreatePost from "./screens/Facebook/CreatePost/index";
 import DetailPost from "./screens/Facebook/DetailPost/index";
 import SearchUser from "./screens/Facebook/SearchUser/index";
 import ListFriend from "./screens/Facebook/ListFriend/index";
-import SuggestFriend from "./screens/Facebook/SuggestFriend/index";
 import StoryDetail from "./screens/Facebook/StoryDetail/index";
 import Camera from "./components/Commons/Camera";
 import Code from "./screens/Code";
@@ -78,7 +77,14 @@ const Router = () => {
         {panel?.ui?.length > 0 ? panel?.ui?.map((item) => item.ui) : panel?.ui}
         {popup?.map((item, index) => {
           const RenderPopup = item.ui;
-          return <RenderPopup {...item} index={index} popupId={item.id} />;
+          return (
+            <RenderPopup
+              key={item.id}
+              {...item}
+              index={index}
+              popupId={item.id}
+            />
+          );
         })}
       </NavigationContainer>
     </React.Fragment>

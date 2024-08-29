@@ -8,6 +8,7 @@ import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { AppContext } from "../contexts/index";
 import { generateUUID } from "../utils";
 import { useNavigation } from "@react-navigation/native";
+import { groupModel } from "../models";
 
 const NewGroup = ({ index, payload, popupId }) => {
   const {
@@ -26,16 +27,16 @@ const NewGroup = ({ index, payload, popupId }) => {
         id: generateUUID(),
         nickname: "",
         user,
-        isOwner: true,
+        is_owner: true,
       },
       ...[...selected].map((item) => ({
         id: generateUUID(),
         nickname: "",
         user: item,
-        isOwner: false,
+        is_owner: false,
       })),
     ],
-    lastMessage: null,
+    last_message: null,
   };
   return (
     <Popup
@@ -51,12 +52,9 @@ const NewGroup = ({ index, payload, popupId }) => {
       handleDone={() => {
         navigation &&
           navigation.navigate("Main", {
-            group,
+            group: groupModel(group),
           });
-        updateData("popup", {
-          ui: null,
-          payload: {},
-        });
+        updateData("popup", []);
       }}
     >
       <View style={tailwind(`px-3 mt-3`)}>

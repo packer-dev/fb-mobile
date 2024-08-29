@@ -9,8 +9,7 @@ import {
 import tailwind from "../tailwind";
 import * as Animatable from "react-native-animatable";
 import { AppContext } from "../contexts/index";
-
-const height = Dimensions.get("window").height - 70;
+import useKeyboard from "../hooks/useKeyboard";
 
 const Popup = ({
   children,
@@ -24,6 +23,7 @@ const Popup = ({
   hidden,
   popupId,
 }) => {
+  const { height } = useKeyboard();
   const {
     state: { popup },
     updateData,
@@ -33,13 +33,13 @@ const Popup = ({
   ) : (
     <Animatable.View
       animation="fadeInUp"
-      duration={400}
+      duration={200}
       style={{
         ...tailwind(
           `bg-white flex-1 w-full absolute bottom-0 border-t border-gray-200`
         ),
         borderRadius: 12,
-        height,
+        height: height - 70,
         zIndex: 90 + (index || 0),
       }}
     >

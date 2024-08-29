@@ -4,6 +4,7 @@ import { View, TouchableOpacity, Text } from "react-native";
 import { FontAwesome, Foundation, Feather } from "@expo/vector-icons";
 import { AppContext } from "../../contexts/index";
 import ChangeImage from "../../popups/ChangeImage";
+import { generateUUID } from "../../utils";
 
 const ItemControl = ({ iconName, iconUI, label, handleClick }) => {
   const Component = iconUI;
@@ -23,17 +24,27 @@ const ItemControl = ({ iconName, iconUI, label, handleClick }) => {
   );
 };
 
-const Control = ({ group }) => {
-  const { updateData } = React.useContext(AppContext);
+const Control = ({ group, setGroup }) => {
+  const {
+    state: { popup },
+    updateData,
+  } = React.useContext(AppContext);
   return (
     <>
       {group?.members?.length > 2 && (
         <TouchableOpacity
           onPress={() =>
-            updateData("popup", {
-              ui: <ChangeImage group={group} />,
-              payload: {},
-            })
+            updateData("popup", [
+              ...popup,
+              {
+                id: generateUUID(),
+                ui: ChangeImage,
+                payload: {
+                  group,
+                  setGroup,
+                },
+              },
+            ])
           }
         >
           <Text style={tailwind(`text-center font-bold my-6 text-primary`)}>

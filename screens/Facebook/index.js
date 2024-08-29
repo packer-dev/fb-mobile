@@ -21,7 +21,7 @@ const Facebook = ({ route }) => {
       const posts = await getPostByIdUser(user?.id, "false");
       updateData(
         "list_post",
-        (posts || []).map((item) => postResponseModel(item))
+        (posts?.list || []).map((item) => postResponseModel(item))
       );
     };
     user && fetchData();

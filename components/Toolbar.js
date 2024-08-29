@@ -79,6 +79,7 @@ const Toolbar = ({ friend, group, keyboardHeight }) => {
         message,
         group: newGroup,
       });
+
       const index = temp.findIndex((item) => item?.id === message?.id);
       if (index === -1) return;
       temp[index].loading = false;

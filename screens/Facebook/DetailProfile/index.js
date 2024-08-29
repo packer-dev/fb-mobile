@@ -21,7 +21,7 @@ const DetailProfile = ({ route }) => {
     const posts = await getPostByIdUser(visit?.id, true);
     updateData(
       "list_post",
-      (posts || []).map((item) => postResponseModel(item))
+      (posts?.list || []).map((item) => postResponseModel(item))
     );
     setLoading(false);
   };

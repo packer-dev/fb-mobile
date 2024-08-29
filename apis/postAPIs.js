@@ -26,7 +26,7 @@ export const deletePost = async (postId) => {
 
 export const getPostByIdUser = async (userId, isProfile = "true") => {
   return fetch(
-    `${API_URL}/post?user_id=${userId}&is_profile=${isProfile}`
+    `${API_URL}/post?user_id=${userId}&is_profile=${isProfile}&offset=0&limit=20`
   ).then((res) => res.json());
 };
 
