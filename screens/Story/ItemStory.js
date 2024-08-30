@@ -4,6 +4,7 @@ import tailwind from "../../tailwind";
 import { AntDesign } from "@expo/vector-icons";
 import { AppContext } from "../../contexts/index";
 import { useNavigation } from "@react-navigation/native";
+import { bool, object } from "prop-types";
 const width = Dimensions.get("window").width - 36;
 
 const ItemStory = ({ isNew, auto, friend }) => {
@@ -53,5 +54,11 @@ const ItemStory = ({ isNew, auto, friend }) => {
     </TouchableOpacity>
   );
 };
+
+ItemStory.propTypes = {
+  isNew: bool,
+  auto: bool,
+  friend: object
+}
 
 export default ItemStory;

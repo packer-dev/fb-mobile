@@ -6,9 +6,12 @@ import { Entypo, Feather, FontAwesome6, AntDesign } from '@expo/vector-icons';
 import moment from 'moment';
 import { deletePost } from '../../../apis/postAPIs';
 import { AppContext } from '../../../contexts/index';
+import { bool, func, object } from 'prop-types';
+import { useNavigation } from '@react-navigation/native';
 
-const Header = ({ post, isDetail, setLoading, navigation }) => {
+const Header = ({ post, isDetail, setLoading }) => {
   //
+  const navigation = useNavigation();
   const {
     state: { list_post, user },
     updateData,
@@ -21,12 +24,22 @@ const Header = ({ post, isDetail, setLoading, navigation }) => {
       [...list_post].filter((item) => item?.post?.id !== post?.id)
     );
   };
+  const descriptionSmall = () => {
+    switch (post?.type) {
+      case 3:
+        return ' updated his profile picture.'
+      case 2:
+        return ' updated his cover photo.'
+      default:
+        return '';
+    }
+  }
   //
   return (
     <View style={tailwind(`flex-row gap-3 px-3 pt-3 items-center`)}>
       {isDetail && (
         <TouchableOpacity
-          onPress={() => navigation && navigation.goBack(null)}
+          onPress={() => navigation?.goBack?.(null)}
           style={tailwind(`pr-2`)}>
           <AntDesign name="left" size={24} color="black" />
         </TouchableOpacity>
@@ -37,8 +50,7 @@ const Header = ({ post, isDetail, setLoading, navigation }) => {
           <TouchableOpacity
             style={tailwind(`flex-row`)}
             onPress={() =>
-              navigation &&
-              navigation.navigate('DetailProfile', {
+              navigation?.navigate?.('DetailProfile', {
                 visit: post?.user,
               })
             }>
@@ -46,11 +58,7 @@ const Header = ({ post, isDetail, setLoading, navigation }) => {
               <Text style={tailwind(`font-semibold`)}>
                 {post?.user?.name || 'Alexander Toyota'}
               </Text>
-              {post?.type === 3
-                ? ' updated his profile picture.'
-                : post?.type === 2
-                ? ' updated his cover photo.'
-                : ''}
+              {descriptionSmall()}
             </Text>
           </TouchableOpacity>
           <View style={tailwind(`flex-row items-center gap-3`)}>
@@ -74,5 +82,11 @@ const Header = ({ post, isDetail, setLoading, navigation }) => {
     </View>
   );
 };
+
+Header.propTypes = {
+  post: object,
+  isDetail: bool,
+  setLoading: func
+}
 
 export default Header;

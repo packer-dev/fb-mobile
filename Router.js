@@ -36,58 +36,56 @@ const Router = () => {
     state: { loading, popup, panel },
   } = React.useContext(AppContext);
   return (
-    <React.Fragment>
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            headerShown: false,
-            tabBarVisible: false,
-          }}
-          initialRouteName="Pending"
-        >
-          <Stack.Screen name="Main" component={Main} />
-          <Stack.Screen name="Story" component={Story} />
-          <Stack.Screen name="Pending" component={Pending} />
-          <Stack.Screen name="Register" component={Register} />
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="MessageList" component={MessageList} />
-          <Stack.Screen name="DetailChat" component={DetailChat} />
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+          tabBarVisible: false,
+        }}
+        initialRouteName="Pending"
+      >
+        <Stack.Screen name="Main" component={Main} />
+        <Stack.Screen name="Story" component={Story} />
+        <Stack.Screen name="Pending" component={Pending} />
+        <Stack.Screen name="Register" component={Register} />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="MessageList" component={MessageList} />
+        <Stack.Screen name="DetailChat" component={DetailChat} />
 
-          <Stack.Screen name="Profile" component={Profile} />
-          <Stack.Screen name="Facebook" component={Facebook} />
-          <Stack.Screen name="DetailProfile" component={DetailProfile} />
-          <Stack.Screen name="Friends" component={Friends} />
-          <Stack.Screen name="Notifications" component={Notifications} />
-          <Stack.Screen name="Watchs" component={Watchs} />
-          <Stack.Screen name="Marketplaces" component={Marketplaces} />
-          <Stack.Screen name="ToolbarProfile" component={ToolbarProfile} />
-          <Stack.Screen name="Animation" component={Animation} />
-          <Stack.Screen name="CreatePost" component={CreatePost} />
-          <Stack.Screen name="DetailPost" component={DetailPost} />
-          <Stack.Screen name="SearchUser" component={SearchUser} />
-          <Stack.Screen name="ListFriend" component={ListFriend} />
-          <Stack.Screen name="ReceiveFriend" component={ReceiveFriend} />
-          <Stack.Screen name="RequestFriend" component={RequestFriend} />
-          <Stack.Screen name="StoryDetail" component={StoryDetail} />
+        <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="Facebook" component={Facebook} />
+        <Stack.Screen name="DetailProfile" component={DetailProfile} />
+        <Stack.Screen name="Friends" component={Friends} />
+        <Stack.Screen name="Notifications" component={Notifications} />
+        <Stack.Screen name="Watchs" component={Watchs} />
+        <Stack.Screen name="Marketplaces" component={Marketplaces} />
+        <Stack.Screen name="ToolbarProfile" component={ToolbarProfile} />
+        <Stack.Screen name="Animation" component={Animation} />
+        <Stack.Screen name="CreatePost" component={CreatePost} />
+        <Stack.Screen name="DetailPost" component={DetailPost} />
+        <Stack.Screen name="SearchUser" component={SearchUser} />
+        <Stack.Screen name="ListFriend" component={ListFriend} />
+        <Stack.Screen name="ReceiveFriend" component={ReceiveFriend} />
+        <Stack.Screen name="RequestFriend" component={RequestFriend} />
+        <Stack.Screen name="StoryDetail" component={StoryDetail} />
 
-          <Stack.Screen name="Camera" component={Camera} />
-          <Stack.Screen name="Code" component={Code} />
-        </Stack.Navigator>
-        {loading && <Loading />}
-        {panel?.ui?.length > 0 ? panel?.ui?.map((item) => item.ui) : panel?.ui}
-        {popup?.map((item, index) => {
-          const RenderPopup = item.ui;
-          return (
-            <RenderPopup
-              key={item.id}
-              {...item}
-              index={index}
-              popupId={item.id}
-            />
-          );
-        })}
-      </NavigationContainer>
-    </React.Fragment>
+        <Stack.Screen name="Camera" component={Camera} />
+        <Stack.Screen name="Code" component={Code} />
+      </Stack.Navigator>
+      {loading && <Loading />}
+      {panel?.ui?.length > 0 ? panel?.ui?.map((item) => item.ui) : panel?.ui}
+      {popup?.map((item, index) => {
+        const RenderPopup = item.ui;
+        return (
+          <RenderPopup
+            key={item.id}
+            {...item}
+            index={index}
+            popupId={item.id}
+          />
+        );
+      })}
+    </NavigationContainer>
   );
 };
 

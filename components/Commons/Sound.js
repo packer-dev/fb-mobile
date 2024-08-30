@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { Button, View } from "react-native";
 import { Audio } from "expo-av";
 import tailwind from "../../tailwind";
+import { bool } from "prop-types";
 
-export default function App({ isPlay }) {
+export default function Sound({ isPlay }) {
   const [sound, setSound] = useState();
 
   async function playSound() {
@@ -17,11 +18,10 @@ export default function App({ isPlay }) {
     Audio.setAudioModeAsync({ playsInSilentModeIOS: true });
   }, []);
   useEffect(() => {
-    // sound && isPlay && playSound();
     return sound
       ? () => {
-          sound.unloadAsync();
-        }
+        sound.unloadAsync();
+      }
       : undefined;
   }, [sound, isPlay]);
 
@@ -31,3 +31,8 @@ export default function App({ isPlay }) {
     </View>
   );
 }
+
+Sound.propTypes = {
+  isPlay: bool
+}
+

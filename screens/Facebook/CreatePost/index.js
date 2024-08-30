@@ -8,8 +8,6 @@ import {
   TextInput,
   Platform,
   StatusBar,
-  Keyboard,
-  Image,
 } from "react-native";
 import tailwind from "../../../tailwind";
 import {
@@ -31,6 +29,7 @@ import { createPost } from "../../../apis/postAPIs";
 import * as ImagePicker from "expo-image-picker";
 import { useNavigation } from "@react-navigation/native";
 import MediaDisplay from "../../../components/Facebook/MediaDisplay";
+import { object } from "prop-types";
 
 const CreatePost = ({ route }) => {
   const { width, height } = useKeyboard();
@@ -84,6 +83,7 @@ const CreatePost = ({ route }) => {
     navigation.navigate("Facebook");
   };
   const pickImage = async () => {
+    let result;
     if (Platform.OS !== "web") {
       result = await ImagePicker.launchImageLibraryAsync({
         allowsMultipleSelection: true,
@@ -124,8 +124,7 @@ const CreatePost = ({ route }) => {
           <Text
             onPress={handePost}
             style={tailwind(
-              `font-bold text-${
-                value.length === 0 ? "gray-600" : "primary"
+              `font-bold text-${value.length === 0 ? "gray-600" : "primary"
               } text-lg`
             )}
           >
@@ -219,5 +218,9 @@ const CreatePost = ({ route }) => {
     </View>
   );
 };
+
+CreatePost.propTypes = {
+  route: object
+}
 
 export default CreatePost;

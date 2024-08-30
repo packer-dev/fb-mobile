@@ -2,6 +2,7 @@ import * as React from 'react';
 import tailwind from '../../tailwind';
 import { View, TextInput } from 'react-native';
 import { EvilIcons } from '@expo/vector-icons';
+import { func, string } from 'prop-types';
 
 const SearchWrapper = ({ search, setSearch }) => {
   return (
@@ -22,5 +23,10 @@ const SearchWrapper = ({ search, setSearch }) => {
     </View>
   );
 };
+
+SearchWrapper.propTypes = {
+  search: string,
+  setSearch: func
+}
 
 export default SearchWrapper;

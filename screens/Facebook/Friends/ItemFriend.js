@@ -7,6 +7,7 @@ import { sendRelationship } from "../../../apis/userAPIs";
 import { AppContext } from "../../../contexts/index";
 import IconButton from "../../../components/IconButton";
 import { AntDesign } from "@expo/vector-icons";
+import { bool, func, object } from "prop-types";
 
 const ItemFriend = ({ friend, update, isSuggest }) => {
   const {
@@ -21,7 +22,7 @@ const ItemFriend = ({ friend, update, isSuggest }) => {
       user2: friend?.user?.id,
       status,
     });
-    update && update(friend?.user?.id);
+    update?.(friend?.user?.id);
     updateData("trigger", { ...trigger, suggestFriend: Math.random() });
     setLoading(false);
   };
@@ -41,9 +42,7 @@ const ItemFriend = ({ friend, update, isSuggest }) => {
             IconContainer={AntDesign}
             text={isSuggest ? "Add friend" : "Confirm"}
             size={24}
-            styles={`p-3 h-10 flex-1 ${
-              isSuggest ? "bg-primary" : "bg-primary"
-            } justify-center`}
+            styles={`p-3 h-10 flex-1 bg-primary justify-center`}
             haveBackground
             hiddenIcon={!isSuggest}
           />
@@ -60,5 +59,11 @@ const ItemFriend = ({ friend, update, isSuggest }) => {
     </View>
   );
 };
+
+ItemFriend.propTypes = {
+  friend: object,
+  isSuggest: bool,
+  update: func
+}
 
 export default ItemFriend;

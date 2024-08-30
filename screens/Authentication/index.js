@@ -3,6 +3,7 @@ import tailwind from '../../tailwind';
 import Button from '../../components/Button';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import propTypes from 'prop-types';
 
 const Authentication = ({ children, handleSubmit, buttonText, type }) => {
   const navigation = useNavigation();
@@ -29,11 +30,19 @@ const Authentication = ({ children, handleSubmit, buttonText, type }) => {
         </TouchableOpacity>
         <Button
           text={buttonText}
-          onClick={() => handleSubmit && handleSubmit()}
+          onClick={() => handleSubmit?.()}
         />
       </View>
     </View>
   );
 };
+
+Authentication.propTypes = {
+  children: propTypes.node,
+  handleSubmit: propTypes.func,
+  buttonText: propTypes.string.isRequired,
+  type: propTypes.oneOf(['Login', 'Register']).isRequired,
+};
+
 
 export default Authentication;

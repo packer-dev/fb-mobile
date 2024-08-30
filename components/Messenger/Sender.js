@@ -1,6 +1,7 @@
 import { View, Text, Image } from "react-native";
 import tailwind from "../../tailwind";
 import Animation from "../Commons/Animation";
+import { object } from "prop-types";
 
 const Sender = ({ message }) => {
   return (
@@ -17,8 +18,7 @@ const Sender = ({ message }) => {
           <View style={tailwind(`flex-row justify-end`)}>
             <View
               style={tailwind(
-                `ml-auto ${
-                  message?.content?.type === 1 ? "bg-gray-300" : ""
+                `ml-auto ${message?.content?.type === 1 ? "bg-gray-300" : ""
                 } p-3 rounded-lg`
               )}
             >
@@ -36,5 +36,9 @@ const Sender = ({ message }) => {
     </>
   );
 };
+
+Sender.propTypes = {
+  message: object
+}
 
 export default Sender;

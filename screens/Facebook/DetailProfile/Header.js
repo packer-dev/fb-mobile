@@ -4,6 +4,7 @@ import tailwind from "../../../tailwind";
 import { AntDesign, FontAwesome } from "@expo/vector-icons";
 import { AppContext } from "../../../contexts/index";
 import { useNavigation } from "@react-navigation/native";
+import { bool } from "prop-types";
 
 const Header = ({ loading }) => {
   //
@@ -56,5 +57,9 @@ const Header = ({ loading }) => {
     </View>
   );
 };
+
+Header.propTypes = {
+  loading: bool
+}
 
 export default Header;

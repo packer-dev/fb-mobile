@@ -9,6 +9,7 @@ import {
   Platform,
 } from "react-native";
 import { AppContext } from "../contexts/index";
+import { bool, node } from "prop-types";
 
 const width = Dimensions.get("window").width - 20;
 
@@ -65,5 +66,11 @@ const Wrapper = ({ children, overflowHidden, isStory }) => {
     </View>
   );
 };
+
+Wrapper.propTypes = {
+  children: node,
+  overflowHidden: bool,
+  isStory: bool
+}
 
 export default Wrapper;

@@ -6,6 +6,7 @@ import IconButton from "../../IconButton";
 import { AppContext } from "../../../contexts/index";
 import { sendRelationship } from "../../../apis/userAPIs";
 import { useNavigation } from "@react-navigation/native";
+import { array, func, object } from "prop-types";
 
 const width = Dimensions.get("window").width - 120;
 
@@ -69,13 +70,12 @@ const ItemSuggestFriend = ({ friend, setFriends, friends }) => {
             !status
               ? "Add friend"
               : status === 2
-              ? "Accept request"
-              : "Cancel request"
+                ? "Accept request"
+                : "Cancel request"
           }
           size={24}
-          styles={`p-3 flex-1 ${
-            !status || status === 2 ? "bg-primary" : "bg-gray-500"
-          } justify-center`}
+          styles={`p-3 flex-1 ${!status || status === 2 ? "bg-primary" : "bg-gray-500"
+            } justify-center`}
           haveBackground
         />
         <TouchableOpacity
@@ -89,5 +89,11 @@ const ItemSuggestFriend = ({ friend, setFriends, friends }) => {
     </View>
   );
 };
+
+ItemSuggestFriend.propTypes = {
+  friend: object,
+  friends: array,
+  setFriends: func
+}
 
 export default ItemSuggestFriend;

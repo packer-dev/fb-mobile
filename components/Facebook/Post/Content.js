@@ -1,8 +1,9 @@
 import * as React from "react";
-import { View, Dimensions, Text, Image, ScrollView } from "react-native";
+import { View, Dimensions, Text, Image } from "react-native";
 import tailwind from "../../../tailwind";
 import { AntDesign } from "@expo/vector-icons";
 import MediaDisplay from "../MediaDisplay";
+import { any, array, object } from "prop-types";
 
 const width = Dimensions.get("window").width;
 
@@ -13,22 +14,6 @@ const Content = ({ post, medias = [], feel }) => {
         {post?.content?.text || "Hello world"}
       </Text>
       {(post?.type === 0 || post?.type === 1) && (
-        // <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        //   <View style={tailwind(`flex-row w-full`)}>
-        //     {medias?.map((item) => (
-        //       <Image
-        //         key={item?.id}
-        //         source={{
-        //           uri: item?.url || `https://picsum.photos/536/354`,
-        //         }}
-        //         style={{
-        //           ...tailwind(`h-72 mx-auto rounded-sm`),
-        //           width,
-        //         }}
-        //       />
-        //     ))}
-        //   </View>
-        // </ScrollView>
         <MediaDisplay
           medias={medias.map((item) => ({ ...item, uri: item?.url }))}
           width={width}
@@ -88,5 +73,11 @@ const Content = ({ post, medias = [], feel }) => {
     </View>
   );
 };
+
+Content.propTypes = {
+  post: object,
+  medias: array,
+  feel: any
+}
 
 export default Content;

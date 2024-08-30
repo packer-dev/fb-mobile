@@ -7,6 +7,7 @@ import { getPostById } from "../../../apis/postAPIs";
 import { AppContext } from "../../../contexts/index";
 import { postResponseModel } from "../../../models";
 import { useNavigation } from "@react-navigation/native";
+import { object } from "prop-types";
 
 const DetailPost = ({ route }) => {
   //
@@ -65,5 +66,9 @@ const DetailPost = ({ route }) => {
     </View>
   );
 };
+
+DetailPost.propTypes = {
+  route: object
+}
 
 export default DetailPost;

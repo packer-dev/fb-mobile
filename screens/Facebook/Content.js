@@ -4,7 +4,6 @@ import {
   View,
   Text,
   Image,
-  TouchableOpacity,
   Platform,
 } from "react-native";
 import tailwind from "../../tailwind";
@@ -15,21 +14,21 @@ import SuggestFriend from "../../components/Facebook/SuggestFriend/index";
 import { AppContext } from "../../contexts/index";
 import * as ImagePicker from "expo-image-picker";
 
-const Content = ({ navigation }) => {
+const Content = () => {
   const {
     state: { list_post, user },
   } = React.useContext(AppContext);
   const pickImage = async () => {
+    let result
     if (Platform.OS !== "web") {
       result = await ImagePicker.launchImageLibraryAsync({
         allowsMultipleSelection: true,
       });
     }
     if (!result.canceled && result.assets) {
-      navigation &&
-        navigation.navigate("CreatePost", {
-          assets: result.assets,
-        });
+      navigation?.navigate("CreatePost", {
+        assets: result.assets,
+      });
     }
   };
   return (
@@ -45,7 +44,7 @@ const Content = ({ navigation }) => {
           />
           <Text
             style={tailwind(`flex-1`)}
-            onPress={() => navigation && navigation.navigate("CreatePost")}
+            onPress={() => navigation.navigate("CreatePost")}
           >
             What do you think?
           </Text>

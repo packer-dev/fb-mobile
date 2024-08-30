@@ -5,36 +5,71 @@ import { AntDesign } from "@expo/vector-icons";
 import Avatar from "../../components/Avatar";
 import GroupAvatar from "../../components/GroupAvatar";
 import { AppContext } from "../../contexts/index";
-import { textStyleLoading } from "../../utils";
+import { bool, func, object } from "prop-types";
 
 const ItemGroup = ({ handleClick, group, loading }) => {
   //
   const {
     state: { user },
   } = React.useContext(AppContext);
-  const person =
-    group?.members?.length === 2
-      ? group.members?.find((item) => item?.user?.id !== user?.id)
-      : group?.members?.length > 2
-      ? group
-      : { name: "Group name" };
+  const imageGroup = (() => {
+    let result;
+    const isBigGroup = group?.members?.length > 2;
+    if (isBigGroup) {
+      result = {
+        uri: group?.image,
+        isGroupAvatar: !group?.image,
+      };
+    } else {
+      result = {
+        uri: group?.avatar,
+        isGroupAvatar: false,
+      };
+    }
+    return !result.isGroupAvatar ? (
+      <Avatar size={16} uri={result.uri} />
+    ) : (
+      <GroupAvatar group={group} size={16} child={7} />
+    );
+  })();
+  const nameGroup = (() => {
+    const isBigGroup = group?.members?.length > 2;
+    if (isBigGroup) {
+      return (
+        person?.name ||
+        person.members.map((item) => item?.user?.name).join(", ")
+      );
+    } else {
+      return person?.user?.name;
+    }
+  })();
+  const lastMessage = (() => {
+    let content = "";
+    if (group?.last_message?.user?.id === user?.id) {
+      content = "You";
+    } else {
+      content = group?.last_message?.user?.name?.split(" ")[0];
+    }
+    if (group?.last_message?.content?.type === 2) {
+      content = " sent a sticker.";
+    } else {
+      if (group?.last_message?.user?.id === user?.id) {
+        content += ":";
+      }
+      content += ` ${group?.last_message?.content?.text}`;
+    }
+    return content;
+  })();
+  const handleOpen = () => {
+    if (!loading) handleClick?.();
+  };
   //
   return (
     <TouchableOpacity
-      onPress={() => !loading && handleClick && handleClick()}
+      onPress={handleOpen}
       style={tailwind(`flex-row gap-2 items-center`)}
     >
-      {loading ? (
-        <Avatar size={16} loading={loading} />
-      ) : person?.members?.length > 2 ? (
-        person?.image ? (
-          <Avatar size={16} uri={person?.image} />
-        ) : (
-          <GroupAvatar group={group} size={16} child={7} />
-        )
-      ) : (
-        <Avatar size={16} uri={person?.user?.avatar} />
-      )}
+      {loading ? <Avatar size={16} loading={loading} /> : imageGroup}
       <View style={tailwind(`flex-1 pr-4`)}>
         <Text
           style={tailwind(
@@ -44,12 +79,7 @@ const ItemGroup = ({ handleClick, group, loading }) => {
           )}
           numberOfLines={1}
         >
-          {loading
-            ? ""
-            : person?.members?.length > 2
-            ? person?.name ||
-              person.members.map((item) => item?.user?.name).join(", ")
-            : person?.user?.name}
+          {loading ? "" : nameGroup}
         </Text>
         {loading ? (
           <Text
@@ -66,16 +96,7 @@ const ItemGroup = ({ handleClick, group, loading }) => {
               } mt-1 text-sm`
             )}
           >
-            {group?.last_message?.user?.id === user?.id
-              ? "You"
-              : group?.last_message?.content?.type !== 1
-              ? group?.last_message?.user?.name?.split(" ")[0]
-              : ""}
-            {group?.last_message?.content?.type === 2
-              ? " sent a sticker."
-              : `${group?.last_message?.user?.id === user?.id ? ": " : ""}${
-                  group?.last_message?.content?.text
-                }`}
+            {lastMessage}
             {!loading && "- 9:40 AM"}
           </Text>
         )}
@@ -83,6 +104,12 @@ const ItemGroup = ({ handleClick, group, loading }) => {
       {!loading && <AntDesign name="checkcircle" size={16} color="gray" />}
     </TouchableOpacity>
   );
+};
+
+ItemGroup.propTypes = {
+  handleClick: func,
+  group: object,
+  loading: bool,
 };
 
 export default ItemGroup;

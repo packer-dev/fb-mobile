@@ -6,6 +6,7 @@ import { AppContext } from "../../contexts/index";
 import { postResponseModel } from "../../models";
 import { getPostByIdUser } from "../../apis/postAPIs";
 import { useNavigation } from "@react-navigation/native";
+import { object } from "prop-types";
 
 const Facebook = ({ route }) => {
   //
@@ -35,5 +36,9 @@ const Facebook = ({ route }) => {
     </Container>
   );
 };
+
+Facebook.propTypes = {
+  route: object
+}
 
 export default Facebook;

@@ -3,6 +3,7 @@ import { View, TouchableOpacity, ScrollView } from "react-native";
 import tailwind from "../../tailwind";
 import Animation from "../Commons/Animation";
 import stickers from "../../stickers";
+import { func, number } from "prop-types";
 
 const BoardSticker = ({ keyboardHeight, handle, width }) => {
   return (
@@ -26,5 +27,11 @@ const BoardSticker = ({ keyboardHeight, handle, width }) => {
     </ScrollView>
   );
 };
+
+BoardSticker.propTypes = {
+  keyboardHeight: number,
+  handle: func,
+  width: number
+}
 
 export default BoardSticker;

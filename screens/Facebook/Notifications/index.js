@@ -1,12 +1,15 @@
 import * as React from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
-import tailwind from '../../../tailwind';
 import Container from '../Container';
+import { object } from 'prop-types';
 
-const Notifications = ({ navigation, route }) => {
+const Notifications = ({ route }) => {
   return (
-    <Container scrollView navigation={navigation} route={route}></Container>
+    <Container scrollView route={route}></Container>
   );
 };
+
+Notifications.propTypes = {
+  route: object
+}
 
 export default Notifications;

@@ -1,11 +1,11 @@
 import * as React from "react";
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import tailwind from "../../../tailwind";
 import Panel from "../../../panels";
-import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { AppContext } from "../../../contexts";
+import { func } from "prop-types";
 
 const PanelProfile = ({ pickImage }) => {
   const navigation = useNavigation();
@@ -53,5 +53,9 @@ const PanelProfile = ({ pickImage }) => {
     </Panel>
   );
 };
+
+PanelProfile.propTypes = {
+  pickImage: func
+}
 
 export default PanelProfile;

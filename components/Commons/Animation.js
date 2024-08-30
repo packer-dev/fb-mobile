@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
 import { View, Image } from "react-native";
+import propTypes from 'prop-types';
 
-const Animation = ({ sticker, size }) => {
+const Animation = ({ sticker, size = 90 }) => {
   return (
     <StickerAnimation
       row={sticker?.row || 3}
       col={sticker?.col || 4}
-      size={size || 90}
+      size={size}
       uri={
         sticker?.src ||
         `https://scontent.fhan14-5.fna.fbcdn.net/v/t39.1997-6/36915121_237320723754254_4581068536604000256_n.png?stp=dst-png_p526x296&_nc_cat=1&ccb=1-7&_nc_sid=ba09c1&_nc_eui2=AeFwKi7WJa8bpvNm-N88Nh5N1UlKznIktzLVSUrOciS3Mt4BaFKR4bjiIBte_Drvq1pNIZRjR69PNXNKntSsnkyi&_nc_ohc=tHZP_m5L5mwQ7kNvgFV-tFG&_nc_ht=scontent.fhan14-5.fna&oh=00_AYAH34ns0hnZUq4GsmAxtkm-NBSiP828sGemDl9fFvJMBg&oe=66BAB07A`
@@ -69,5 +70,18 @@ const StickerAnimation = ({ size, row, col, uri, miss = 0 }) => {
     </View>
   );
 };
+
+Animation.propTypes = {
+  sticker: propTypes.object,
+  size: propTypes.number
+}
+
+StickerAnimation.propTypes = {
+  size: propTypes.number,
+  row: propTypes.number,
+  col: propTypes.number,
+  uri: propTypes.string,
+  miss: propTypes.number
+}
 
 export default Animation;

@@ -6,10 +6,11 @@ import { userModel } from "../models";
 import { FontAwesome5 } from "@expo/vector-icons";
 import tailwind from "../tailwind";
 import { getUserById } from "../apis/userAPIs";
+import { useNavigation } from "@react-navigation/native";
 
-const Pending = ({ navigation }) => {
+const Pending = () => {
   const { updateData } = React.useContext(AppContext);
-
+  const navigation = useNavigation();
   React.useEffect(() => {
     const fetchData = async () => {
       const token = await SecureStore.getItemAsync("token");

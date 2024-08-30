@@ -8,6 +8,7 @@ import { AppContext } from "../../../contexts/index";
 import { postResponseModel } from "../../../models";
 import { getPostByIdUser } from "../../../apis/postAPIs";
 import Loading from "./Loading";
+import PropTypes from "prop-types";
 
 const DetailProfile = ({ route }) => {
   const {
@@ -47,5 +48,9 @@ const DetailProfile = ({ route }) => {
     </Container>
   );
 };
+
+DetailProfile.propTypes = {
+  route: PropTypes.any
+}
 
 export default DetailProfile;

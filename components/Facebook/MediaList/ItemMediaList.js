@@ -2,6 +2,7 @@ import * as React from "react";
 import { View, Text, Image, Dimensions, TouchableOpacity } from "react-native";
 import tailwind from "../../../tailwind";
 import { AppContext } from "../../../contexts/index";
+import { any, object } from "prop-types";
 
 const width = Dimensions.get("window").width - 24;
 
@@ -37,5 +38,10 @@ const ItemMediaList = ({ media, status }) => {
     </TouchableOpacity>
   );
 };
+
+ItemMediaList.propTypes = {
+  media: object,
+  status: any
+}
 
 export default ItemMediaList;

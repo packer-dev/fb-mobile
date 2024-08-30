@@ -4,10 +4,11 @@ import tailwind from "../../tailwind";
 import ItemStory from "./ItemStory";
 import Wrapper from "../Wrapper";
 import Navbar from "../../components/Navbar";
+import { object } from "prop-types";
 
 const width = Dimensions.get("window").width;
 
-const Story = ({ navigation, route }) => {
+const Story = ({ route }) => {
   return (
     <Wrapper overflowHidden>
       <View style={tailwind(`flex-1 flex-col`)}>
@@ -29,9 +30,13 @@ const Story = ({ navigation, route }) => {
           </ScrollView>
         </View>
       </View>
-      <Navbar navigation={navigation} current={route?.name} />
+      <Navbar current={route?.name} />
     </Wrapper>
   );
 };
+
+Story.propTypes = {
+  route: object
+}
 
 export default Story;

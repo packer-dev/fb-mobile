@@ -9,15 +9,17 @@ import useListeningMessage from "../hooks/useListeningMessage";
 import { AppContext } from "../contexts/index";
 import { getGroupById } from "../apis/groupAPIs";
 import { getMessageMain, updateStatusMessage } from "../apis/messageAPIs";
+import { object } from "prop-types";
+import { useNavigation } from "@react-navigation/native";
 
-const Main = ({ navigation, route: { params } }) => {
+const Main = ({ route: { params } }) => {
   const {
     state: { user, groups, groupCurrent },
     updateData,
   } = React.useContext(AppContext);
   const refScroll = React.useRef(null);
   const group = params?.group;
-
+  const navigation = useNavigation();
   useListeningMessage(group?.id || groupCurrent?.id);
   const { height, keyboardHeight, width } = useKeyboard();
   React.useEffect(() => {
@@ -32,7 +34,7 @@ const Main = ({ navigation, route: { params } }) => {
         updateData("messages", result);
       }
       if (group?.id && user?.id) {
-        result = await updateStatusMessage(group.id, user?.id);
+        await updateStatusMessage(group.id, user?.id);
         updateData(
           "groups",
           [...groups].map((item) => {
@@ -71,5 +73,10 @@ const Main = ({ navigation, route: { params } }) => {
     </SafeAreaView>
   );
 };
+
+Main.propTypes = {
+  params: object,
+  route: object
+}
 
 export default Main;

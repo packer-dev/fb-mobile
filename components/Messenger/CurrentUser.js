@@ -2,6 +2,7 @@ import { View, Text } from 'react-native';
 import tailwind from '../../tailwind';
 import { Entypo, AntDesign } from '@expo/vector-icons';
 import Animation from '../Commons/Animation';
+import { object } from 'prop-types';
 
 const CurrentUser = ({ message }) => {
   return (
@@ -14,8 +15,7 @@ const CurrentUser = ({ message }) => {
         {message?.content?.type === 1 ? (
           <View
             style={tailwind(
-              `ml-auto ${
-                message?.content?.type === 1 ? 'bg-primary' : ''
+              `ml-auto ${message?.content?.type === 1 ? 'bg-primary' : ''
               } p-3 rounded-lg`
             )}>
             <Text style={tailwind(`text-white`)}>{message.content?.text}</Text>
@@ -42,5 +42,9 @@ const CurrentUser = ({ message }) => {
     </>
   );
 };
+
+CurrentUser.propTypes = {
+  message: object
+}
 
 export default CurrentUser;

@@ -1,5 +1,6 @@
 import { View, Image } from "react-native";
 import tailwind from "../tailwind";
+import { bool, node, number, string } from "prop-types";
 
 const Avatar = ({ size, uri, online, children, loading }) => {
   return (
@@ -27,5 +28,13 @@ const Avatar = ({ size, uri, online, children, loading }) => {
     </View>
   );
 };
+
+Avatar.propTypes = {
+  size: number,
+  uri: string,
+  online: bool,
+  children: node,
+  loading: bool
+}
 
 export default Avatar;

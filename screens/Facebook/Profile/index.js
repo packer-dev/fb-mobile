@@ -6,11 +6,11 @@ import { Feather, AntDesign } from '@expo/vector-icons';
 import { AppContext } from '../../../contexts/index';
 import { useNavigation } from '@react-navigation/native';
 
-const Profile = ({ navigation }) => {
+const Profile = () => {
   const {
     state: { user },
   } = React.useContext(AppContext);
-
+  const navigation = useNavigation();
   return (
     <Container navigation={navigation}>
       <View style={tailwind(`flex-row px-3 justify-between`)}>
@@ -33,7 +33,6 @@ const Profile = ({ navigation }) => {
       </View>
       <TouchableOpacity
         onPress={() =>
-          navigation &&
           navigation.navigate('DetailProfile', {
             visit: user,
           })

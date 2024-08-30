@@ -5,10 +5,13 @@ import ItemFriend from "./ItemFriend";
 import Container from "../Container";
 import Header from "./Header";
 import useFriend from "../../../hooks/useFriend";
+import { useNavigation } from "@react-navigation/native";
+import { object } from "prop-types";
 
-const Friends = ({ navigation, route }) => {
+const Friends = ({ route }) => {
   //
   const { listFriend, loading, handleUpdate } = useFriend(2);
+  const navigation = useNavigation();
   //
   return (
     <Container scrollView navigation={navigation} route={route}>
@@ -34,5 +37,9 @@ const Friends = ({ navigation, route }) => {
     </Container>
   );
 };
+
+Friends.propTypes = {
+  route: object
+}
 
 export default Friends;

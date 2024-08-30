@@ -1,5 +1,5 @@
 import * as React from "react";
-import { CameraView, useCameraPermissions, Camera } from "expo-camera";
+import { CameraView, useCameraPermissions } from "expo-camera";
 import { useState } from "react";
 import {
   Button,
@@ -12,6 +12,7 @@ import {
 import tailwind from "../../tailwind";
 import { AntDesign, MaterialIcons, Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { object, string } from "prop-types";
 
 export default function CameraCommon({
   defaultFacing = "front",
@@ -79,15 +80,12 @@ export default function CameraCommon({
           >
             <AntDesign
               onPress={() => {
-                if (image) {
+                if (image)
                   setImage();
-                } else {
-                  if (route?.params?.handleBack) {
-                    route?.params?.handleBack();
-                  } else {
-                    navigation.goBack(null);
-                  }
-                }
+                else if (!route?.params?.handleBack)
+                  navigation.goBack(null);
+                else
+                  route?.params?.handleBack?.()
               }}
               name={image ? "close" : "left"}
               size={24}
@@ -161,4 +159,10 @@ export default function CameraCommon({
       )}
     </CameraView>
   );
+}
+
+CameraCommon.propTypes = {
+  defaultFacing: string,
+  defaultFlash: string,
+  route: object
 }

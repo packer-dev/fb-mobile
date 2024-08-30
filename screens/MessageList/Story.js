@@ -11,15 +11,17 @@ import { Entypo } from "@expo/vector-icons";
 import { AppContext } from "../../contexts/index";
 import ItemStory from "./ItemStory";
 import { getFriendsByUserId } from "../../apis/userAPIs";
+import { useNavigation } from "@react-navigation/native";
 
 const width = Dimensions.get("window").width - 24;
 
-const Story = ({ navigation }) => {
+const Story = () => {
   const {
     updateData,
     state: { friends, user },
   } = React.useContext(AppContext);
   const [loading, setLoading] = React.useState(true);
+  const navigation = useNavigation();
   React.useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -58,7 +60,7 @@ const Story = ({ navigation }) => {
           {loading &&
             Array(4)
               .fill(1)
-              .map(() => <ItemStory key={Math.random()} loading={true} />)}
+              .map((item, index) => <ItemStory key={item + index} loading={true} />)}
           {friends?.map((friend) => (
             <ItemStory
               key={friend.id}

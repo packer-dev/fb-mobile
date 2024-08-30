@@ -7,6 +7,16 @@ import { toolbars } from "./toolbars";
 import { useNavigation } from "@react-navigation/native";
 import { AppContext } from "../../../contexts";
 import { sendRelationship } from "../../../apis/userAPIs";
+import { object } from "prop-types";
+
+const IconRender = ({ toolbar }) => {
+  const Icon = toolbar.component;
+  return <Icon name={toolbar.icon} size={24} color="black" />;
+};
+
+IconRender.propTypes = {
+  toolbar: object
+}
 
 const ToolbarProfile = ({ route }) => {
   const {
@@ -14,50 +24,38 @@ const ToolbarProfile = ({ route }) => {
     updateData,
   } = React.useContext(AppContext);
   const navigation = useNavigation();
-  const IconRender = ({ toolbar }) => {
-    const Icon = toolbar.component;
-    return <Icon name={toolbar.icon} size={24} color="black" />;
-  };
+  const handleAlert = () => {
+    handleSwitch(key)
+  }
   const handleConfirm = (key) => {
-    let title = "";
-    switch (key) {
-      case "Cancel relationship":
-        title = `Cancel relationship with ${visit?.name.split(" ")[0]}`;
-        break;
-      default:
-        break;
-    }
     Alert.alert(
       `Cancel relationship with ${visit?.name.split(" ")[0]}`,
       "", // <- this part is optional, you can pass an empty string
       [
         { text: "Cancel", onPress: () => "" },
-        { text: "OK", onPress: () => handleSwitch(key) },
+        {
+          text: "OK", onPress: handleAlert
+        },
       ],
       { cancelable: true }
     );
   };
   const handleSwitch = async (key) => {
     updateData("loading", true);
-    switch (key) {
-      case "Cancel relationship":
-        await sendRelationship({
-          user1: user?.id,
-          user2: visit?.id,
-          status: "",
-        });
-        updateData("trigger", {
-          ...trigger,
-          profileRelationship: Math.random(),
-          cancelRelationship: {
-            id: user?.id,
-          },
-          suggestFriend: Math.random(),
-        });
-        break;
-
-      default:
-        break;
+    if (key === "Cancel relationship") {
+      await sendRelationship({
+        user1: user?.id,
+        user2: visit?.id,
+        status: "",
+      });
+      updateData("trigger", {
+        ...trigger,
+        profileRelationship: Math.random(),
+        cancelRelationship: {
+          id: user?.id,
+        },
+        suggestFriend: Math.random(),
+      });
     }
     navigation.goBack(null);
     updateData("loading", false);
@@ -100,5 +98,9 @@ const ToolbarProfile = ({ route }) => {
     </Container>
   );
 };
+
+ToolbarProfile.propTypes = {
+  route: object
+}
 
 export default ToolbarProfile;

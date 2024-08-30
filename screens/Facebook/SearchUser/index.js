@@ -41,9 +41,9 @@ const SearchUser = () => {
         <View style={tailwind(`flex-col px-3`)}>
           {Array(4)
             .fill(0)
-            .map((item) => (
+            .map((item, index) => (
               <View
-                key={Math.random()}
+                key={item + index}
                 style={tailwind(`flex-row gap-3 py-3 items-center`)}>
                 <Image
                   source={{ uri: `https://picsum.photos/536/354` }}

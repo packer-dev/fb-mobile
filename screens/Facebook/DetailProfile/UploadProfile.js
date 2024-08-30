@@ -14,6 +14,7 @@ import * as ImagePicker from "expo-image-picker";
 import { AppContext } from "../../../contexts/index";
 import { updateProfileUser } from "../../../apis/userAPIs";
 import PanelProfile from "./PanelProfile";
+import { object } from "prop-types";
 
 const UploadProfile = ({ route }) => {
   const {
@@ -119,8 +120,7 @@ const UploadProfile = ({ route }) => {
           name="camera"
           size={20}
           style={tailwind(
-            `absolute bottom-3 right-3 z-20 ${
-              imageCover ? "text-white" : "text-gray-500"
+            `absolute bottom-3 right-3 z-20 ${imageCover ? "text-white" : "text-gray-500"
             }`
           )}
         />
@@ -176,5 +176,9 @@ const UploadProfile = ({ route }) => {
     </View>
   );
 };
+
+UploadProfile.propTypes = {
+  route: object
+}
 
 export default UploadProfile;

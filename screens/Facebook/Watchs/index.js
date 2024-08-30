@@ -1,12 +1,15 @@
 import * as React from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
-import tailwind from '../../../tailwind';
 import Container from '../Container';
+import { object } from 'prop-types';
 
-const Watchs = ({ navigation, route }) => {
+const Watchs = ({ route }) => {
   return (
-    <Container scrollView navigation={navigation} route={route}></Container>
+    <Container scrollView route={route}></Container>
   );
 };
+
+Watchs.propTypes = {
+  route: object
+}
 
 export default Watchs;

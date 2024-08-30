@@ -7,21 +7,26 @@ import Search from "./Search";
 import Story from "./Story";
 import ListGroup from "./ListGroup";
 import Wrapper from "../Wrapper";
+import { object } from "prop-types";
 
-const MessageList = ({ navigation, route }) => {
+const MessageList = ({ route }) => {
   return (
     <Wrapper overflowHidden>
       <View style={tailwind(`flex-1`)}>
         <View style={tailwind(`flex-1`)}>
-          <Header navigation={navigation} />
-          <Search navigation={navigation} />
-          <Story navigation={navigation} />
-          <ListGroup navigation={navigation} />
+          <Header />
+          <Search />
+          <Story />
+          <ListGroup />
         </View>
-        <Navbar navigation={navigation} current={route?.name} />
+        <Navbar current={route?.name} />
       </View>
     </Wrapper>
   );
 };
+
+MessageList.propTypes = {
+  route: object
+}
 
 export default MessageList;

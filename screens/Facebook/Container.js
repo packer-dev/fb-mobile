@@ -2,6 +2,7 @@ import Wrapper from "../Wrapper";
 import { View, ScrollView } from "react-native";
 import Navbar from "./Navbar";
 import tailwind from "../../tailwind";
+import { bool, node, object } from "prop-types";
 
 const Container = ({ children, route, scrollView }) => {
   return (
@@ -21,5 +22,11 @@ const Container = ({ children, route, scrollView }) => {
     </Wrapper>
   );
 };
+
+Container.propTypes = {
+  children: node,
+  route: object,
+  scrollView: bool
+}
 
 export default Container;

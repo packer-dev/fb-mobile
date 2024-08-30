@@ -6,18 +6,20 @@ import { AppContext } from "../../contexts/index";
 import * as SecureStore from "expo-secure-store";
 import { generateUUID } from "../../utils";
 import Ui from "../../popups/ui";
+import { useNavigation } from "@react-navigation/native";
 
-const Header = ({ navigation }) => {
+const Header = () => {
   //
   const {
     state: { user, popup },
     updateData,
   } = React.useContext(AppContext);
+  const navigation = useNavigation();
   //
   return (
     <View style={tailwind(`flex-row gap-3 p-3 items-center`)}>
       <TouchableOpacity
-        onPress={() => navigation && navigation.navigate("Facebook")}
+        onPress={() => navigation.navigate("Facebook")}
       >
         <Image
           source={{ uri: user?.avatar || `https://picsum.photos/536/354` }}

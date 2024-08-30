@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import tailwind from '../../tailwind';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { string } from 'prop-types';
 
 const HeaderFriend = ({ title }) => {
   const navigation = useNavigation();
@@ -21,5 +22,9 @@ const HeaderFriend = ({ title }) => {
     </View>
   );
 };
+
+HeaderFriend.propTypes = {
+  title: string
+}
 
 export default HeaderFriend;

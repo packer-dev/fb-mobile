@@ -18,6 +18,7 @@ import { AppContext } from "../../../contexts/index";
 import { generateUUID, getCurrentDateTime } from "../../../utils";
 import { sendComment, getCommentByPost } from "../../../apis/commentAPIs";
 import BoardSticker from "../../Commons/BoardSticker";
+import { any } from "prop-types";
 
 const width = Dimensions.get("window").width - 24;
 
@@ -170,5 +171,7 @@ const Post = (props) => {
     </View>
   );
 };
+
+Post.propTypes = any
 
 export default Post;

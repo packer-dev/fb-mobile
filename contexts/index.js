@@ -1,3 +1,4 @@
+import { node } from "prop-types";
 import * as React from "react";
 import io from "socket.io-client";
 
@@ -32,6 +33,10 @@ const reducer = (state, { key, type, value }) => {
   switch (type) {
     case "UPDATE_DATA":
       return { ...state, [key]: value };
+    case "UPDATE_DATA1":
+      return { ...state, [key]: value };
+    case "UPDATE_DATA2":
+      return { ...state, [key]: value };
     default:
       return { ...state };
   }
@@ -40,17 +45,16 @@ const reducer = (state, { key, type, value }) => {
 const AppProvider = ({ children }) => {
   //
   const [state, dispatch] = React.useReducer(reducer, init);
+  const value = React.useMemo({
+    state,
+    updateData: (key, value) => dispatch(updateData(key, value)),
+  });
   //
-  return (
-    <AppContext.Provider
-      value={{
-        state,
-        updateData: (key, value) => dispatch(updateData(key, value)),
-      }}
-    >
-      {children}
-    </AppContext.Provider>
-  );
+  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
+};
+
+AppProvider.propTypes = {
+  children: node,
 };
 
 const updateData = (key, value) => {

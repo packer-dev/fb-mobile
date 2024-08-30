@@ -5,6 +5,7 @@ import navbarList from "./navbarList";
 import ItemNavbar from "../../components/ItemNavbar";
 import { AppContext } from "../../contexts/index";
 import { useNavigation } from "@react-navigation/native";
+import { object } from "prop-types";
 
 const Navbar = ({ route }) => {
   //
@@ -40,5 +41,9 @@ const Navbar = ({ route }) => {
     </View>
   );
 };
+
+Navbar.propTypes = {
+  route: object
+}
 
 export default Navbar;

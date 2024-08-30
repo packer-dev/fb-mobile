@@ -7,6 +7,7 @@ import { Feather, Entypo, Ionicons } from '@expo/vector-icons';
 import { AppContext } from '../../../contexts/index';
 import PanelInfo from './PanelInfo';
 import { useNavigation } from '@react-navigation/native';
+import { bool } from 'prop-types';
 
 const Header = ({ loading }) => {
   const {
@@ -70,5 +71,9 @@ const Header = ({ loading }) => {
     </View>
   );
 };
+
+Header.propTypes = {
+  loading: bool
+}
 
 export default Header;

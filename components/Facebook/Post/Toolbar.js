@@ -5,13 +5,16 @@ import { EvilIcons, FontAwesome, Ionicons } from "@expo/vector-icons";
 import IconButton from "../../IconButton";
 import { sendFeelPost } from "../../../apis/postAPIs";
 import { AppContext } from "../../../contexts/index";
+import { useNavigation } from "@react-navigation/native";
+import { any, array, func, object } from "prop-types";
 
-const Toolbar = ({ navigation, post, medias, feel, handleFeel }) => {
+const Toolbar = ({ post, medias, feel, handleFeel }) => {
   //
   const {
     state: { user, list_post },
     updateData,
   } = React.useContext(AppContext);
+  const navigation = useNavigation();
   const handleLike = async () => {
     const result = await sendFeelPost(post?.id, user?.id);
     updateData(
@@ -29,7 +32,7 @@ const Toolbar = ({ navigation, post, medias, feel, handleFeel }) => {
         return item;
       })
     );
-    handleFeel && handleFeel(result);
+    handleFeel?.(result);
   };
   //
   return (
@@ -76,5 +79,12 @@ const Toolbar = ({ navigation, post, medias, feel, handleFeel }) => {
     </View>
   );
 };
+
+Toolbar.propTypes = {
+  post: object,
+  medias: array,
+  feel: any,
+  handleFeel: func
+}
 
 export default Toolbar;

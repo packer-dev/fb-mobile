@@ -4,14 +4,16 @@ import tailwind from "../../tailwind";
 import ItemGroup from "./ItemGroup";
 import { AppContext } from "../../contexts/index";
 import { getMessageListByIdUser } from "../../apis/messageAPIs";
+import { useNavigation } from "@react-navigation/native";
 
-const ListGroup = ({ navigation }) => {
+const ListGroup = () => {
   //
   const {
     updateData,
     state: { groups, user },
   } = React.useContext(AppContext);
   const [loading, setLoading] = React.useState(true);
+  const navigation = useNavigation();
   React.useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -30,7 +32,7 @@ const ListGroup = ({ navigation }) => {
         {loading &&
           Array(3)
             .fill(1)
-            .map(() => <ItemGroup key={Math.random()} loading={loading} />)}
+            .map((item, index) => <ItemGroup key={item + index} loading={loading} />)}
         {!loading &&
           groups?.length > 0 &&
           groups?.map((group) => (
@@ -38,7 +40,7 @@ const ListGroup = ({ navigation }) => {
               group={group}
               key={group?.id}
               handleClick={() => {
-                navigation && navigation.navigate("Main", { group });
+                navigation.navigate("Main", { group });
                 updateData("groupCurrent", group);
               }}
             />

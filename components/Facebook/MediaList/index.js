@@ -2,6 +2,7 @@ import * as React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import tailwind from "../../../tailwind";
 import ItemMediaList from "./ItemMediaList";
+import { any, array, number, string } from "prop-types";
 
 const MediaList = ({ list, status, name, total }) => {
   return list?.length ? (
@@ -19,7 +20,7 @@ const MediaList = ({ list, status, name, total }) => {
       </View>
       <View style={tailwind(`flex-row justify-start flex-wrap gap-2`)}>
         {list?.slice(0, 9).map((item) => (
-          <ItemMediaList key={Math.random()} media={item} status={status} />
+          <ItemMediaList key={item?.user?.id || item?.id} media={item} status={status} />
         ))}
       </View>
       <TouchableOpacity style={tailwind(`bg-gray-300 rounded-lg p-3 w-full`)}>
@@ -30,5 +31,12 @@ const MediaList = ({ list, status, name, total }) => {
     <></>
   );
 };
+
+MediaList.propTypes = {
+  list: array,
+  status: any,
+  name: string,
+  total: number
+}
 
 export default MediaList;

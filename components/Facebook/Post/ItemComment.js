@@ -4,6 +4,7 @@ import tailwind from "../../../tailwind";
 import Avatar from "../../Avatar";
 import Animation from "../../Commons/Animation";
 import moment from "moment";
+import { node, object } from "prop-types";
 
 const ItemComment = ({ comment, children }) => {
   return (
@@ -12,8 +13,7 @@ const ItemComment = ({ comment, children }) => {
         <Avatar size={12} uri={comment?.user?.avatar} />
         <View
           style={tailwind(
-            `flex-1 rounded-lg ${
-              comment?.content?.type === 1 ? "bg-gray-200" : ""
+            `flex-1 rounded-lg ${comment?.content?.type === 1 ? "bg-gray-200" : ""
             } p-2`
           )}
         >
@@ -63,5 +63,10 @@ const ItemComment = ({ comment, children }) => {
     </View>
   );
 };
+
+ItemComment.propTypes = {
+  comment: object,
+  children: node
+}
 
 export default ItemComment;

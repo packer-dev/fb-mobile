@@ -1,6 +1,7 @@
 import { TouchableOpacity, Text } from 'react-native';
 import tailwind from '../tailwind';
 import { AntDesign } from '@expo/vector-icons';
+import { bool, func, object, string } from 'prop-types';
 
 const Button = ({
   text,
@@ -20,14 +21,14 @@ const Button = ({
   },
 }) => {
   const Icon = custom.icon.component;
+  const customSize = isSmall ? 'h-8' : 'h-12';
+  const sizeClass = custom ? customSize : '';
   return custom ? (
     <TouchableOpacity
-      onPress={() => onClick && onClick()}
+      onPress={() => onClick?.()}
       style={{
         ...tailwind(
-          `bg-primary flex-row justify-center items-center ${
-            custom ? (isSmall ? 'h-8' : 'h-12') : ''
-          } rounded-lg ${custom ? '' : 'mt-5 w-full'}`.trim()
+          `bg-primary flex-row justify-center items-center ${sizeClass} rounded-lg ${custom ? '' : 'mt-5 w-full'}`.trim()
         ),
         ...(style || {}),
       }}>
@@ -40,11 +41,10 @@ const Button = ({
     </TouchableOpacity>
   ) : (
     <TouchableOpacity
-      onPress={() => onClick && onClick()}
+      onPress={() => onClick?.()}
       style={{
         ...tailwind(
-          `bg-primary flex-row justify-center items-center ${
-            isSmall ? 'h-8' : 'h-12'
+          `bg-primary flex-row justify-center items-center ${isSmall ? 'h-8' : 'h-12'
           } rounded-lg mt-5 w-full`
         ),
         ...(style || {}),
@@ -53,5 +53,13 @@ const Button = ({
     </TouchableOpacity>
   );
 };
+
+Button.propTypes = {
+  text: string,
+  onClick: func,
+  style: object,
+  isSmall: bool,
+  custom: object
+}
 
 export default Button;
