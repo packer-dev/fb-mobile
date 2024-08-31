@@ -15,9 +15,10 @@ import {
   FontAwesome,
 } from "@expo/vector-icons";
 import { AppContext } from "../contexts/index";
-import { generateUUID } from "../utils";
+import { dataFakeGroup, dataFakeMessage } from "../utils";
 import { sendMessageAPI } from "../api";
 import BoardSticker from "./Commons/BoardSticker";
+import { number, object } from "prop-types";
 
 const width = Dimensions.get("window").width - 16;
 
@@ -31,49 +32,24 @@ const Toolbar = ({ friend, group, keyboardHeight }) => {
   const [value, setValue] = React.useState("❤");
   const [showSticker, setShowSticker] = React.useState(false);
   const handleSend = async (data) => {
-    const message = {
-      id: generateUUID(),
-      content: {
-        id: generateUUID(),
-        text: data || value,
-        type: data ? 2 : 1,
-      },
+    const message = dataFakeMessage({
       user,
-      loading: true,
-      time_created: "",
-      is_read: false,
-    };
+      type: data ? 2 : 1,
+      text: data || value,
+    });
     let temp = [...messages, message];
     updateData("messages", [...temp]);
     setValue("");
     setShowSticker(false);
     Keyboard.dismiss();
     delete message.loading;
-    let newGroup =
-      groupCurrent || group
-        ? {
-            ...group,
-            last_message: { ...message },
-          }
-        : {
-            members: group
-              ? group.members
-              : [
-                  {
-                    id: generateUUID(),
-                    nickname: "",
-                    user: friend,
-                    is_owner: false,
-                  },
-                  {
-                    id: generateUUID(),
-                    nickname: "",
-                    user,
-                    is_owner: false,
-                  },
-                ],
-            last_message: { ...message },
-          };
+    let newGroup = dataFakeGroup({
+      groupCurrent,
+      group,
+      user,
+      friend,
+      message,
+    });
     try {
       const result = await sendMessageAPI({
         message,
@@ -193,6 +169,12 @@ const Toolbar = ({ friend, group, keyboardHeight }) => {
       )}
     </View>
   );
+};
+
+Toolbar.propTypes = {
+  friend: object,
+  group: object,
+  keyboardHeight: number,
 };
 
 export default Toolbar;

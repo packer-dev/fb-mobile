@@ -16,19 +16,19 @@ const Header = () => {
         <Text style={tailwind(`font-bold mb-4 text-lg`)}>Friends</Text>
         <View style={tailwind(`flex-row gap-3`)}>
           <TouchableOpacity
-            onPress={() => navigation && navigation.navigate("ReceiveFriend")}
+            onPress={() => navigation.navigate("ReceiveFriend")}
             style={tailwind(`px-3 py-3 rounded-full bg-gray-300`)}
           >
             <Text style={tailwind(`font-bold`)}>Suggestion</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation && navigation.navigate("ListFriend")}
+            onPress={() => navigation.navigate("ListFriend")}
             style={tailwind(`px-3 py-3 rounded-full bg-gray-300`)}
           >
             <Text style={tailwind(`font-bold`)}>Friend</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation && navigation.navigate("RequestFriend")}
+            onPress={() => navigation.navigate("RequestFriend")}
             style={tailwind(`px-3 py-3 rounded-full bg-gray-300`)}
           >
             <Text style={tailwind(`font-bold`)}>Request</Text>
@@ -36,7 +36,7 @@ const Header = () => {
         </View>
       </View>
       <TouchableOpacity
-        onPress={() => navigation && navigation.navigate("SearchUser")}
+        onPress={() => navigation.navigate("SearchUser")}
         style={tailwind(
           `w-10 h-10 rounded-full flex-row justify-center items-center bg-gray-300`
         )}

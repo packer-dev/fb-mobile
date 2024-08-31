@@ -1,16 +1,11 @@
-import * as React from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  TextInput,
-} from 'react-native';
-import tailwind from '../../../tailwind';
-import Container from '../Container';
-import HeaderFriend from '../HeaderFriend';
-import useFriend from '../../../hooks/useFriend';
-import { AntDesign, Fontisto, Entypo } from '@expo/vector-icons';
-import Avatar from '../../../components/Avatar';
+import * as React from "react";
+import { View, Text, ScrollView, TextInput } from "react-native";
+import tailwind from "../../../tailwind";
+import Container from "../Container";
+import useFriend from "../../../hooks/useFriend";
+import { AntDesign, Fontisto, Entypo } from "@expo/vector-icons";
+import Avatar from "../../../components/Avatar";
+import Header from "../../../components/Commons/Header";
 
 const ListFriend = () => {
   //
@@ -18,12 +13,13 @@ const ListFriend = () => {
   //
   return (
     <Container>
-      <HeaderFriend title="Friends" />
+      <Header title="Friends" />
       <View style={tailwind(`p-3`)}>
         <View
           style={tailwind(
             `w-full bg-gray-300 my-2 rounded-full flex-row items-center gap-3 px-3`
-          )}>
+          )}
+        >
           <AntDesign
             name="search1"
             size={20}
@@ -45,7 +41,8 @@ const ListFriend = () => {
           {listFriend?.map((item) => (
             <View
               key={item?.user?.id}
-              style={tailwind(`flex-row gap-3 items-center`)}>
+              style={tailwind(`flex-row gap-3 items-center`)}
+            >
               <View style={tailwind(`flex-1 flex-row gap-3 items-center`)}>
                 <Avatar size={12} uri={item?.user?.avatar} />
                 <View style={tailwind(`flex-1`)}>

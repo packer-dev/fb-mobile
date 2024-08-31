@@ -1,30 +1,30 @@
-import * as React from 'react';
-import Authentication from './index';
-import Input from '../../components/Input';
-import { validateEmail } from '../../utils';
-import useForm from '../../hooks/useForm';
-import { Text } from 'react-native';
-import { loginAPI } from '../../api';
-import tailwind from '../../tailwind';
-import * as SecureStore from 'expo-secure-store';
-import { userModel } from '../../models';
-import { useNavigation } from '@react-navigation/native';
+import * as React from "react";
+import Authentication from "./index";
+import Input from "../../components/Input";
+import { validateEmail } from "../../utils";
+import useForm from "../../hooks/useForm";
+import { Keyboard, Text } from "react-native";
+import { loginAPI } from "../../api";
+import tailwind from "../../tailwind";
+import * as SecureStore from "expo-secure-store";
+import { userModel } from "../../models";
+import { useNavigation } from "@react-navigation/native";
 
 const init = [
   {
-    name: 'email',
-    type: 'email',
-    content: 'Email is required.',
-    label: 'Email',
+    name: "email",
+    type: "email",
+    content: "Email is required.",
+    label: "Email",
     validate: validateEmail,
-    value: 'packer.tra@gmail.com',
+    value: "packer.tra@gmail.com",
   },
   {
-    name: 'password',
-    type: 'password',
-    content: 'Password is required.',
-    label: 'Password',
-    value: 'dev@',
+    name: "password",
+    type: "password",
+    content: "Password is required.",
+    label: "Password",
+    value: "dev@",
   },
 ];
 
@@ -38,16 +38,18 @@ const Login = () => {
     if (!result) {
       setError(true);
     } else {
-      await SecureStore.setItemAsync('token', result?.id);
-      updateData('user', userModel(result));
-      navigation.navigate('Facebook');
+      await SecureStore.setItemAsync("token", result?.id);
+      updateData("user", userModel(result));
+      navigation.navigate("MessageList");
+      Keyboard.dismiss();
     }
   };
   return (
     <Authentication
       buttonText="Login"
       handleSubmit={() => onSubmit(handleSubmit)}
-      type="Login">
+      type="Login"
+    >
       {inputs.map((item) => (
         <Input
           {...register(item)}

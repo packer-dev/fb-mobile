@@ -1,5 +1,6 @@
 import { View, ActivityIndicator } from "react-native";
 import tailwind from "../tailwind";
+import { bool, string } from "prop-types";
 
 const Loading = ({ isFirst, fetching, container, size = "large", color }) => {
   //
@@ -27,6 +28,14 @@ const Loading = ({ isFirst, fetching, container, size = "large", color }) => {
       <ActivityIndicator size={size} color={color || "skyblue"} />
     </View>
   );
+};
+
+Loading.propTypes = {
+  isFirst: bool,
+  fetching: bool,
+  container: bool,
+  size: string,
+  color: string,
 };
 
 export default Loading;

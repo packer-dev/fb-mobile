@@ -3,6 +3,7 @@ import { TouchableOpacity, View, Text } from "react-native";
 import tailwind from "../tailwind";
 import { useNavigation } from "@react-navigation/native";
 import { AppContext } from "../contexts";
+import { any, bool, number, object } from "prop-types";
 
 const ItemNavbar = ({ current, navbar, isMessenger, width }) => {
   const { updateData } = React.useContext(AppContext);
@@ -34,14 +35,14 @@ const ItemNavbar = ({ current, navbar, isMessenger, width }) => {
           name={navbar.iconName}
           size={24}
           style={tailwind(
-            `${current === navbar.route ? `text-primary` : "text-gray-700"} ${
+            `${current === navbar.route ? "text-primary" : "text-gray-700"} ${
               isMessenger ? "" : "h-7 self-center"
             }`
           )}
         />
         <Text
           style={tailwind(
-            `${current === navbar.route ? `text-primary` : "text-gray-700"} ${
+            `${current === navbar.route ? "text-primary" : "text-gray-700"} ${
               isMessenger ? "" : "text-xs"
             }`
           )}
@@ -58,6 +59,13 @@ const ItemNavbar = ({ current, navbar, isMessenger, width }) => {
       </View>
     </TouchableOpacity>
   );
+};
+
+ItemNavbar.propTypes = {
+  current: any,
+  navbar: object,
+  isMessenger: bool,
+  width: number,
 };
 
 export default ItemNavbar;

@@ -67,7 +67,7 @@ const Post = (props) => {
   React.useEffect(() => {
     const fetchData = async () => {
       const result = await getCommentByPost(props?.post?.id);
-      setComments(result);
+      setComments(result?.list);
     };
     props.post && props.isDetail && fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -114,15 +114,15 @@ const Post = (props) => {
         {props.isDetail && (
           <View style={tailwind(`w-full absolute bottom-0 left-0 flex-col`)}>
             <View
-              style={tailwind(`flex-row px-3 pt-6 border-t border-gray-300 
-              gap-3 items-center bg-white pb-3`)}
+              style={tailwind(`flex-row px-3 pt-3 border-t border-gray-300 
+              gap-3 items-center bg-white`)}
             >
               <TouchableOpacity>
                 <Feather name="camera" size={24} color="black" />
               </TouchableOpacity>
               <View
                 style={tailwind(
-                  `bg-gray-200 p-3 rounded-xl flex-1 relative flex-row items-center`
+                  `bg-gray-200 p-2 rounded-xl flex-1 relative flex-row items-center`
                 )}
               >
                 <TextInput
@@ -172,6 +172,6 @@ const Post = (props) => {
   );
 };
 
-Post.propTypes = any
+Post.propTypes = any.isRequired;
 
 export default Post;

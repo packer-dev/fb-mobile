@@ -3,8 +3,7 @@ import tailwind from "../../tailwind";
 import { View, Image, Text, TouchableOpacity } from "react-native";
 import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { AppContext } from "../../contexts/index";
-import * as SecureStore from "expo-secure-store";
-import { generateUUID } from "../../utils";
+import { generateUUID, handleLogout } from "../../utils";
 import Ui from "../../popups/ui";
 import { useNavigation } from "@react-navigation/native";
 
@@ -18,9 +17,7 @@ const Header = () => {
   //
   return (
     <View style={tailwind(`flex-row gap-3 p-3 items-center`)}>
-      <TouchableOpacity
-        onPress={() => navigation.navigate("Facebook")}
-      >
+      <TouchableOpacity onPress={() => navigation.navigate("Facebook")}>
         <Image
           source={{ uri: user?.avatar || `https://picsum.photos/536/354` }}
           style={tailwind(`w-10 h-10 rounded-full`)}
@@ -50,25 +47,7 @@ const Header = () => {
           />
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={async () => {
-            updateData("loading", true);
-            await SecureStore.deleteItemAsync("token");
-            updateData("user", null);
-            updateData("messages", []);
-            updateData("groups", []);
-            updateData("groupCurrent", null);
-            updateData("visit", null);
-            updateData("panel", null);
-            updateData("list_post", []);
-            updateData("friends", []);
-            updateData("popup", []);
-            updateData("panel", {
-              ui: null,
-              payload: null,
-            });
-            updateData("loading", false);
-            navigation.navigate("Login");
-          }}
+          onPress={() => handleLogout(navigation, updateData)}
           style={tailwind(
             `flex justify-center item-center w-10 h-10 rounded-full bg-gray-300`
           )}

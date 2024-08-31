@@ -4,15 +4,21 @@ import { View, Text } from "react-native";
 import Header from "./Header";
 import Control from "./Control";
 import ItemGroupOption from "./ItemGroupOption";
-import { Ionicons } from "@expo/vector-icons";
+import { FontAwesome6, Ionicons } from "@expo/vector-icons";
 import React from "react";
+import { object } from "prop-types";
+import { useNavigation } from "@react-navigation/native";
+import { AppContext } from "../../contexts";
 
 const DetailChat = ({ route: { params } }) => {
-  const [group, setGroup] = React.useState(params?.group);
+  const {
+    state: { groupCurrent },
+  } = React.useContext(AppContext);
+  const navigation = useNavigation();
   return (
     <Wrapper>
-      <Header friend={params?.friend} group={group} />
-      <Control group={group} setGroup={setGroup} />
+      <Header friend={params?.friend} />
+      <Control />
       <View style={tailwind(`p-3`)}>
         <ItemGroupOption name="Color">
           <View
@@ -24,7 +30,15 @@ const DetailChat = ({ route: { params } }) => {
           </View>
         </ItemGroupOption>
         <ItemGroupOption name="Emoji">
-          <Text style={tailwind(`text-xl`)}>{group?.data?.emoji}</Text>
+          <Text style={tailwind(`text-xl`)}>
+            {groupCurrent?.data?.emoji || "🧡"}
+          </Text>
+        </ItemGroupOption>
+        <ItemGroupOption
+          onPress={() => navigation.navigate("MemberList")}
+          name="Members"
+        >
+          <FontAwesome6 name="user-group" size={18} color="black" />
         </ItemGroupOption>
         <ItemGroupOption name="Nickname">
           <Ionicons name="text" size={18} color="black" />
@@ -35,6 +49,10 @@ const DetailChat = ({ route: { params } }) => {
       </View>
     </Wrapper>
   );
+};
+
+DetailChat.propTypes = {
+  route: object,
 };
 
 export default DetailChat;

@@ -5,11 +5,13 @@ import { FontAwesome, Foundation, Feather } from "@expo/vector-icons";
 import { AppContext } from "../../contexts/index";
 import ChangeImage from "../../popups/ChangeImage";
 import { generateUUID } from "../../utils";
+import { any, func, string } from "prop-types";
+import AddMember from "../../popups/AddMember";
 
 const ItemControl = ({ iconName, iconUI, label, handleClick }) => {
   const Component = iconUI;
   return (
-    <TouchableOpacity onPress={() => handleClick && handleClick()}>
+    <TouchableOpacity onPress={() => handleClick?.()}>
       <View
         style={tailwind(
           `w-10 h-10 rounded-full bg-gray-200 rounded-full flex justify-center items-center`
@@ -24,14 +26,21 @@ const ItemControl = ({ iconName, iconUI, label, handleClick }) => {
   );
 };
 
-const Control = ({ group, setGroup }) => {
+ItemControl.propTypes = {
+  iconName: string,
+  iconUI: any,
+  label: string,
+  handleClick: func,
+};
+
+const Control = () => {
   const {
-    state: { popup },
+    state: { popup, groupCurrent },
     updateData,
   } = React.useContext(AppContext);
   return (
     <>
-      {group?.members?.length > 2 && (
+      {groupCurrent?.members?.length > 2 && (
         <TouchableOpacity
           onPress={() =>
             updateData("popup", [
@@ -39,26 +48,43 @@ const Control = ({ group, setGroup }) => {
               {
                 id: generateUUID(),
                 ui: ChangeImage,
-                payload: {
-                  group,
-                  setGroup,
-                },
+                payload: {},
               },
             ])
           }
         >
-          <Text style={tailwind(`text-center font-bold my-6 text-primary`)}>
+          <Text style={tailwind(`text-center font-bold text-primary`)}>
             Change name or image
           </Text>
         </TouchableOpacity>
       )}
       <View
-        style={tailwind(`p-3 my-3 flex-row justify-center items-center gap-8`)}
+        style={tailwind(
+          `p-3 mb-3 mt-8 flex-row justify-center items-center gap-8`
+        )}
       >
         <ItemControl iconName="phone" iconUI={FontAwesome} label="Audio" />
         <ItemControl iconName="video" iconUI={Foundation} label="Video" />
-        {group?.members?.length > 2 ? (
-          <ItemControl iconUI={Feather} iconName="user-plus" label="Add" />
+        {groupCurrent?.members?.length > 2 ? (
+          <ItemControl
+            handleClick={() => {
+              updateData("popup", [
+                ...popup,
+                {
+                  id: generateUUID(),
+                  ui: AddMember,
+                  payload: {
+                    current: (groupCurrent?.members || [])?.map(
+                      (item) => item?.user
+                    ),
+                  },
+                },
+              ]);
+            }}
+            iconUI={Feather}
+            iconName="user-plus"
+            label="Add"
+          />
         ) : (
           <ItemControl iconName="user" iconUI={FontAwesome} label="Profile" />
         )}

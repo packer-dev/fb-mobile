@@ -8,15 +8,15 @@ import {
 } from "react-native";
 import tailwind from "../tailwind";
 import { AppContext } from "../contexts/index";
+import { any, bool, node, string } from "prop-types";
 
 const Panel = ({ children, name, hideOverlay, backgroundColor }) => {
   const {
     state: { panel },
     updateData,
   } = React.useContext(AppContext);
-  return panel?.payload?.hidden ? (
-    <></>
-  ) : hideOverlay ? (
+  if (panel?.payload?.hidden) return <></>;
+  return hideOverlay ? (
     <View
       style={{ ...styles.container, ...tailwind(`border-t border-gray-300`) }}
     >
@@ -75,5 +75,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#ccc",
   },
 });
+
+Panel.propTypes = {
+  children: node,
+  name: string,
+  hideOverlay: bool,
+  backgroundColor: any,
+};
 
 export default Panel;

@@ -5,8 +5,7 @@ import Container from "./Container";
 import { AppContext } from "../../contexts/index";
 import { postResponseModel } from "../../models";
 import { getPostByIdUser } from "../../apis/postAPIs";
-import { useNavigation } from "@react-navigation/native";
-import { object } from "prop-types";
+import { any } from "prop-types";
 
 const Facebook = ({ route }) => {
   //
@@ -14,31 +13,30 @@ const Facebook = ({ route }) => {
     state: { user },
     updateData,
   } = React.useContext(AppContext);
-  const navigation = useNavigation();
-
+  const [loading, setLoading] = React.useState(true);
   React.useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       updateData("list_post", []);
       const posts = await getPostByIdUser(user?.id, "false");
       updateData(
         "list_post",
         (posts?.list || []).map((item) => postResponseModel(item))
       );
+      setLoading(false);
     };
     user && fetchData();
     // eslint-disable-next-line  react-hooks/exhaustive-deps
   }, [user]);
   //
   return (
-    <Container navigation={navigation} route={route}>
-      <Header navigation={navigation} />
-      <Content navigation={navigation} />
+    <Container route={route}>
+      <Header />
+      <Content loading={loading} />
     </Container>
   );
 };
 
-Facebook.propTypes = {
-  route: object
-}
+Facebook.propTypes = any.isRequired;
 
 export default Facebook;

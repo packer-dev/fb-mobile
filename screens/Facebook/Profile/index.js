@@ -1,16 +1,19 @@
-import * as React from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
-import tailwind from '../../../tailwind';
-import Container from '../Container';
-import { Feather, AntDesign } from '@expo/vector-icons';
-import { AppContext } from '../../../contexts/index';
-import { useNavigation } from '@react-navigation/native';
+import * as React from "react";
+import { View, Text, Image, TouchableOpacity } from "react-native";
+import tailwind from "../../../tailwind";
+import Container from "../Container";
+import { Feather, AntDesign } from "@expo/vector-icons";
+import { AppContext } from "../../../contexts/index";
+import { useNavigation } from "@react-navigation/native";
+import { handleLogout } from "../../../utils";
 
 const Profile = () => {
   const {
     state: { user },
+    updateData,
   } = React.useContext(AppContext);
   const navigation = useNavigation();
+  const logout = () => handleLogout(navigation, updateData);
   return (
     <Container navigation={navigation}>
       <View style={tailwind(`flex-row px-3 justify-between`)}>
@@ -19,29 +22,33 @@ const Profile = () => {
           <TouchableOpacity
             style={tailwind(
               `w-10 h-10 rounded-full  justify-center items-center bg-gray-300`
-            )}>
+            )}
+          >
             <Feather name="settings" size={24} color="black" />
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate('SearchUser')}
+            onPress={() => navigation.navigate("SearchUser")}
             style={tailwind(
               `w-10 h-10 rounded-full  justify-center items-center bg-gray-300`
-            )}>
+            )}
+          >
             <AntDesign name="search1" size={24} color="black" />
           </TouchableOpacity>
         </View>
       </View>
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate('DetailProfile', {
+          navigation.navigate("DetailProfile", {
             visit: user,
           })
         }
-        style={tailwind(`px-3 mt-5`)}>
+        style={tailwind(`px-3 mt-5`)}
+      >
         <View
           style={tailwind(
             `border border-gray-200 p-3 rounded-lg flex-row items-center justify-between`
-          )}>
+          )}
+        >
           <View style={tailwind(`flex-row gap-3 items-center`)}>
             <Image
               source={{ uri: user?.avatar || `https://picsum.photos/536/354` }}
@@ -51,6 +58,14 @@ const Profile = () => {
           </View>
           <View></View>
         </View>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={logout}
+        style={tailwind(`p-3 rounded-lg bg-gray-300 m-3`)}
+      >
+        <Text style={tailwind(`font-bold text-gray-700 text-center`)}>
+          Logout
+        </Text>
       </TouchableOpacity>
     </Container>
   );

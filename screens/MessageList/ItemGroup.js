@@ -6,6 +6,7 @@ import Avatar from "../../components/Avatar";
 import GroupAvatar from "../../components/GroupAvatar";
 import { AppContext } from "../../contexts/index";
 import { bool, func, object } from "prop-types";
+import moment from "moment";
 
 const ItemGroup = ({ handleClick, group, loading }) => {
   //
@@ -22,7 +23,8 @@ const ItemGroup = ({ handleClick, group, loading }) => {
       };
     } else {
       result = {
-        uri: group?.avatar,
+        uri: group?.members?.find((item) => item?.user?.id !== user?.id)?.user
+          ?.avatar,
         isGroupAvatar: false,
       };
     }
@@ -36,25 +38,27 @@ const ItemGroup = ({ handleClick, group, loading }) => {
     const isBigGroup = group?.members?.length > 2;
     if (isBigGroup) {
       return (
-        person?.name ||
-        person.members.map((item) => item?.user?.name).join(", ")
+        group?.name || group.members.map((item) => item?.user?.name).join(", ")
       );
     } else {
-      return person?.user?.name;
+      return group?.members?.find((item) => item?.user?.id !== user?.id)?.user
+        ?.name;
     }
   })();
   const lastMessage = (() => {
     let content = "";
     if (group?.last_message?.user?.id === user?.id) {
       content = "You";
-    } else {
-      content = group?.last_message?.user?.name?.split(" ")[0];
     }
     if (group?.last_message?.content?.type === 2) {
-      content = " sent a sticker.";
+      content += " sent a sticker.";
     } else {
       if (group?.last_message?.user?.id === user?.id) {
-        content += ":";
+        if (group?.last_message?.content?.type === 1) {
+          content += ":";
+        }
+      } else if (group?.last_message?.content?.type !== 1) {
+        content += group?.last_message?.user?.name?.split(" ")[0];
       }
       content += ` ${group?.last_message?.content?.text}`;
     }
@@ -89,7 +93,7 @@ const ItemGroup = ({ handleClick, group, loading }) => {
           <Text
             style={tailwind(
               `${
-                group?.last_message?.is_read === false &&
+                !group?.seen[user?.id] &&
                 group?.last_message?.user?.id !== user?.id
                   ? "font-bold"
                   : "text-gray-700"
@@ -97,7 +101,8 @@ const ItemGroup = ({ handleClick, group, loading }) => {
             )}
           >
             {lastMessage}
-            {!loading && "- 9:40 AM"}
+            {!loading &&
+              ` - ${moment(group?.last_message?.time_created).fromNow()}`}
           </Text>
         )}
       </View>

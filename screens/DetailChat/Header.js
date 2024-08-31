@@ -4,24 +4,31 @@ import { AntDesign } from "@expo/vector-icons";
 import Avatar from "../../components/Avatar";
 import GroupAvatar from "../../components/GroupAvatar";
 import { useNavigation } from "@react-navigation/native";
+import { object } from "prop-types";
+import React from "react";
+import { AppContext } from "../../contexts";
 
-const Header = ({ friend, group }) => {
+const Header = ({ friend }) => {
+  const {
+    state: { groupCurrent },
+  } = React.useContext(AppContext);
+  const bigGroup = groupCurrent?.image ? (
+    <Avatar size={24} uri={groupCurrent?.image} />
+  ) : (
+    <GroupAvatar group={groupCurrent} size={24} child={10} />
+  );
   const navigation = useNavigation();
   return (
     <View style={tailwind(`relative mt-3`)}>
       <TouchableOpacity
         style={tailwind(`absolute top-0 left-3`)}
-        onPress={() => navigation.navigate("Main", { group })}
+        onPress={() => navigation.goBack(null)}
       >
         <AntDesign name="left" size={24} />
       </TouchableOpacity>
       <View style={tailwind(`flex-col gap-1 justify-center mx-auto mt-5`)}>
-        {group?.members?.length > 2 ? (
-          group?.image ? (
-            <Avatar size={24} uri={group?.image} />
-          ) : (
-            <GroupAvatar group={group} size={24} child={10} />
-          )
+        {groupCurrent?.members?.length > 2 ? (
+          bigGroup
         ) : (
           <Avatar size={24} uri={friend?.avatar} />
         )}
@@ -29,19 +36,25 @@ const Header = ({ friend, group }) => {
           style={tailwind(`font-bold text-lg text-center mt-1 px-3`)}
           numberOfLines={1}
         >
-          {group?.members?.length > 2
-            ? group?.name ||
-              group?.members?.map((item) => item?.user?.name).join(", ")
+          {groupCurrent?.members?.length > 2
+            ? groupCurrent?.name ||
+              groupCurrent?.members?.map((item) => item?.user?.name).join(", ")
             : friend?.name}
         </Text>
         <Text
-          style={tailwind(`font-semibold text-gray-400 text-center text-xs`)}
+          style={tailwind(
+            `font-semibold text-gray-400 text-center text-xs mb-3`
+          )}
         >
           Messenger
         </Text>
       </View>
     </View>
   );
+};
+
+Header.propTypes = {
+  friend: object,
 };
 
 export default Header;

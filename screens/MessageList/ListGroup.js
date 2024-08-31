@@ -32,7 +32,9 @@ const ListGroup = () => {
         {loading &&
           Array(3)
             .fill(1)
-            .map((item, index) => <ItemGroup key={item + index} loading={loading} />)}
+            .map((item, index) => (
+              <ItemGroup key={item + index} loading={loading} />
+            ))}
         {!loading &&
           groups?.length > 0 &&
           groups?.map((group) => (
@@ -40,7 +42,7 @@ const ListGroup = () => {
               group={group}
               key={group?.id}
               handleClick={() => {
-                navigation.navigate("Main", { group });
+                navigation.navigate("Main");
                 updateData("groupCurrent", group);
               }}
             />

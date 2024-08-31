@@ -84,7 +84,7 @@ Toolbar.propTypes = {
   post: object,
   medias: array,
   feel: any,
-  handleFeel: func
-}
+  handleFeel: func,
+};
 
 export default Toolbar;

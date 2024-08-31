@@ -26,7 +26,7 @@ const MessageList = ({ route }) => {
 };
 
 MessageList.propTypes = {
-  route: object
-}
+  route: object,
+};
 
 export default MessageList;

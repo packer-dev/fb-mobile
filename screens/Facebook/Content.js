@@ -1,11 +1,5 @@
 import * as React from "react";
-import {
-  ScrollView,
-  View,
-  Text,
-  Image,
-  Platform,
-} from "react-native";
+import { ScrollView, View, Text, Image, Platform } from "react-native";
 import tailwind from "../../tailwind";
 import ItemStory from "../Story/ItemStory";
 import { Feather } from "@expo/vector-icons";
@@ -13,13 +7,17 @@ import Post from "../../components/Facebook/Post/index";
 import SuggestFriend from "../../components/Facebook/SuggestFriend/index";
 import { AppContext } from "../../contexts/index";
 import * as ImagePicker from "expo-image-picker";
+import { useNavigation } from "@react-navigation/native";
+import { bool } from "prop-types";
+import Loading from "../../components/Loading";
 
-const Content = () => {
+const Content = ({ loading }) => {
   const {
     state: { list_post, user },
   } = React.useContext(AppContext);
+  const navigation = useNavigation();
   const pickImage = async () => {
-    let result
+    let result;
     if (Platform.OS !== "web") {
       result = await ImagePicker.launchImageLibraryAsync({
         allowsMultipleSelection: true,
@@ -72,19 +70,32 @@ const Content = () => {
         </View>
         <View style={tailwind(`flex-col`)}>
           <SuggestFriend />
-          {list_post?.map((item) => (
-            <Post
-              key={item?.post?.id}
-              post={item?.post}
-              medias={item?.medias}
-              navigation={navigation}
-              feel={item?.feel}
-            />
-          ))}
+          {loading && (
+            <View style={tailwind(`py-6`)}>
+              <Loading fetching />
+            </View>
+          )}
+          {list_post?.length > 0 && !loading ? (
+            list_post?.map((item) => (
+              <Post
+                key={item?.post?.id}
+                post={item?.post}
+                medias={item?.medias}
+                navigation={navigation}
+                feel={item?.feel}
+              />
+            ))
+          ) : (
+            <></>
+          )}
         </View>
       </ScrollView>
     </View>
   );
+};
+
+Content.propTypes = {
+  loading: bool,
 };
 
 export default Content;

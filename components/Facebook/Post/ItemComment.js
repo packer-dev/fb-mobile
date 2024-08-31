@@ -10,10 +10,13 @@ const ItemComment = ({ comment, children }) => {
   return (
     <View>
       <View style={tailwind(`flex-row gap-2`)}>
-        <Avatar size={12} uri={comment?.user?.avatar} />
+        <View>
+          <Avatar size={12} uri={comment?.user?.avatar} />
+        </View>
         <View
           style={tailwind(
-            `flex-1 rounded-lg ${comment?.content?.type === 1 ? "bg-gray-200" : ""
+            `flex-1 rounded-lg ${
+              comment?.content?.type === 1 ? "bg-gray-200" : ""
             } p-2`
           )}
         >
@@ -66,7 +69,7 @@ const ItemComment = ({ comment, children }) => {
 
 ItemComment.propTypes = {
   comment: object,
-  children: node
-}
+  children: node,
+};
 
 export default ItemComment;

@@ -4,9 +4,10 @@ import {
   View,
   Keyboard,
   TouchableOpacity,
-} from 'react-native';
-import tailwind from '../tailwind';
-import { AntDesign } from '@expo/vector-icons';
+} from "react-native";
+import tailwind from "../tailwind";
+import { AntDesign } from "@expo/vector-icons";
+import { any, bool, func, string } from "prop-types";
 
 const Input = ({
   type,
@@ -23,23 +24,25 @@ const Input = ({
         style={{
           ...tailwind(`bg-gray-200 py-3 mb-2 pl-3 text-left`),
           ...(error ? tailwind(`border border-red-500`) : {}),
-        }}>
+        }}
+      >
         <Text
           style={tailwind(
-            `pt-0.5 pb-1 text-xs ${error ? 'text-red-600' : 'text-gray-600'}`
-          )}>
+            `pt-0.5 pb-1 text-xs ${error ? "text-red-600" : "text-gray-600"}`
+          )}
+        >
           {label}
         </Text>
         <TextInput
-          type={type || 'text'}
+          type={type || "text"}
           disabled={disabled}
           defaultValue={value}
           placeholder={placeholder}
           textContentType="oneTimeCode"
           placeholderTextColor="gray"
           autoCapitalize="none"
-          onChangeText={(newText) => onChangeText && onChangeText(newText)}
-          secureTextEntry={type === 'password'}
+          onChangeText={(newText) => onChangeText?.(newText)}
+          secureTextEntry={type === "password"}
           blurOnSubmit={false}
           onSubmitEditing={() => Keyboard.dismiss()}
         />
@@ -47,14 +50,15 @@ const Input = ({
           <TouchableOpacity
             onPress={() => {
               if (error) {
-                onChangeText('');
+                onChangeText("");
               }
             }}
-            style={tailwind(`top-4 right-4 absolute`)}>
+            style={tailwind(`top-4 right-4 absolute`)}
+          >
             <AntDesign
-              name={error ? 'close' : 'check'}
+              name={error ? "close" : "check"}
               size={24}
-              style={tailwind(`text-${error ? 'red' : 'green'}-500`)}
+              style={tailwind(`text-${error ? "red" : "green"}-500`)}
             />
           </TouchableOpacity>
         )}
@@ -62,6 +66,16 @@ const Input = ({
       {error && <Text style={tailwind(`text-red-600 pl-2 mb-2`)}>{error}</Text>}
     </View>
   );
+};
+
+Input.propTypes = {
+  type: any,
+  value: string,
+  placeholder: string,
+  error: any,
+  label: string,
+  onChangeText: func,
+  disabled: bool,
 };
 
 export default Input;

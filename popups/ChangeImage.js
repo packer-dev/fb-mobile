@@ -16,6 +16,7 @@ import * as ImagePicker from "expo-image-picker";
 import { AppContext } from "../contexts";
 import Avatar from "../components/Avatar";
 import { updateInforGroupByGroup } from "../apis/groupAPIs";
+import { number, object, string } from "prop-types";
 
 const width = Dimensions.get("window").width - 64;
 
@@ -157,6 +158,12 @@ const ChangeImage = ({ index, payload, popupId }) => {
       </View>
     </Popup>
   );
+};
+
+ChangeImage.propTypes = {
+  index: number,
+  payload: object,
+  popupId: string,
 };
 
 export default ChangeImage;

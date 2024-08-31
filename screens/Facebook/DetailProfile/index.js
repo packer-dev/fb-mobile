@@ -17,7 +17,6 @@ const DetailProfile = ({ route }) => {
   } = React.useContext(AppContext);
   const [loading, setLoading] = React.useState(true);
   const fetchData = async () => {
-    if (!visit?.id) return;
     setLoading(true);
     const posts = await getPostByIdUser(visit?.id, true);
     updateData(
@@ -50,7 +49,7 @@ const DetailProfile = ({ route }) => {
 };
 
 DetailProfile.propTypes = {
-  route: PropTypes.any
-}
+  route: PropTypes.any,
+};
 
 export default DetailProfile;

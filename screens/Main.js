@@ -10,7 +10,6 @@ import { AppContext } from "../contexts/index";
 import { getGroupById } from "../apis/groupAPIs";
 import { getMessageMain, updateStatusMessage } from "../apis/messageAPIs";
 import { object } from "prop-types";
-import { useNavigation } from "@react-navigation/native";
 
 const Main = ({ route: { params } }) => {
   const {
@@ -18,9 +17,7 @@ const Main = ({ route: { params } }) => {
     updateData,
   } = React.useContext(AppContext);
   const refScroll = React.useRef(null);
-  const group = params?.group;
-  const navigation = useNavigation();
-  useListeningMessage(group?.id || groupCurrent?.id);
+  useListeningMessage(groupCurrent?.id);
   const { height, keyboardHeight, width } = useKeyboard();
   React.useEffect(() => {
     const fetchData = async () => {
@@ -30,33 +27,33 @@ const Main = ({ route: { params } }) => {
         updateData("messages", result.messages);
         updateData("groupCurrent", result.group);
       } else {
-        result = await getGroupById(group?.id);
+        result = await getGroupById(groupCurrent?.id);
         updateData("messages", result);
       }
-      if (group?.id && user?.id) {
-        await updateStatusMessage(group.id, user?.id);
+      if (groupCurrent?.id && user?.id) {
+        await updateStatusMessage(groupCurrent.id, user?.id);
         updateData(
           "groups",
           [...groups].map((item) => {
-            if (item?.id === group?.id) {
-              item.last_message.is_read = true;
+            if (item?.id === groupCurrent?.id) {
+              item.seen[user?.id] = true;
             }
             return item;
           })
         );
       }
     };
-    if (!group?.id) return;
+    if (!groupCurrent?.id) return;
     fetchData();
     return () => {
       updateData("messages", []);
       updateData("groupCurrent", null);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [group, user]);
+  }, [groupCurrent, user]);
   return (
     <SafeAreaView style={{ ...tailwind(`p-3 flex-col`), height }}>
-      <Header navigation={navigation} group={group} friend={params?.friend} />
+      <Header friend={params?.friend} />
       <ScrollView
         ref={refScroll}
         style={{ ...tailwind(`flex-1`), width: width - 12 }}
@@ -65,18 +62,13 @@ const Main = ({ route: { params } }) => {
       >
         <Content />
       </ScrollView>
-      <Toolbar
-        friend={params?.friend}
-        group={group}
-        keyboardHeight={keyboardHeight}
-      />
+      <Toolbar friend={params?.friend} keyboardHeight={keyboardHeight} />
     </SafeAreaView>
   );
 };
 
 Main.propTypes = {
-  params: object,
-  route: object
-}
+  route: object,
+};
 
 export default Main;

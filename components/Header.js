@@ -5,19 +5,24 @@ import tailwind from "../tailwind";
 import { AppContext } from "../contexts/index";
 import Avatar from "./Avatar";
 import GroupAvatar from "./GroupAvatar";
+import { useNavigation } from "@react-navigation/native";
+import { object } from "prop-types";
 
-const Header = ({ navigation, group, friend }) => {
+const Header = ({ friend }) => {
   //
   const {
-    state: { user },
+    state: { user, groupCurrent },
   } = React.useContext(AppContext);
+  const navigation = useNavigation();
   const obj =
-    group?.members?.length === 2
-      ? group?.members?.find((item) => item?.user?.id !== user?.id)?.user
-      : friend ||
-        group || {
-          name: "Group",
-        };
+    groupCurrent?.members?.length === 2
+      ? groupCurrent?.members?.find((item) => item?.user?.id !== user?.id)?.user
+      : friend || groupCurrent;
+  const bigGroup = obj?.image ? (
+    <Avatar size={10} uri={obj?.image} />
+  ) : (
+    <GroupAvatar group={obj} size={10} />
+  );
   //
   return (
     <View
@@ -28,23 +33,19 @@ const Header = ({ navigation, group, friend }) => {
       )}
     >
       <View style={tailwind(`flex-row gap-4 items-center flex-1`)}>
-        <TouchableOpacity
-          onPress={() => navigation && navigation.navigate("MessageList")}
-        >
+        <TouchableOpacity onPress={() => navigation.navigate("MessageList")}>
           <AntDesign name="left" size={24} style={tailwind(`text-primary`)} />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() =>
-            navigation.navigate("DetailChat", { group, friend: obj })
+            navigation.navigate("DetailChat", {
+              [friend ? "friend" : "group"]: obj,
+            })
           }
           style={tailwind(`flex-row gap-2 items-center`)}
         >
           {obj?.members?.length > 2 ? (
-            obj?.image ? (
-              <Avatar size={10} uri={obj?.image} />
-            ) : (
-              <GroupAvatar group={obj} size={10} />
-            )
+            bigGroup
           ) : (
             <Avatar size={10} uri={obj?.avatar} />
           )}
@@ -73,6 +74,10 @@ const Header = ({ navigation, group, friend }) => {
       </View>
     </View>
   );
+};
+
+Header.propTypes = {
+  friend: object,
 };
 
 export default Header;

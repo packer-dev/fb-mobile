@@ -1,6 +1,7 @@
-import * as React from 'react';
-import { TouchableOpacity, Text, ActivityIndicator, View } from 'react-native';
-import tailwind from '../tailwind';
+import * as React from "react";
+import { TouchableOpacity, Text, ActivityIndicator, View } from "react-native";
+import tailwind from "../tailwind";
+import { any, bool, func, number, string } from "prop-types";
 
 const IconButton = ({
   IconContainer,
@@ -8,7 +9,7 @@ const IconButton = ({
   iconName,
   changeColor,
   iconSize = 20,
-  styles = '',
+  styles = "",
   onPress,
   rollback,
   loading,
@@ -38,23 +39,24 @@ const IconButton = ({
       style={[
         tailwind(
           `mx-auto flex-row gap-2 items-center rounded-lg ${
-            hiddenIcon ? 'justify-center' : ''
+            hiddenIcon ? "justify-center" : ""
           }`
         ),
         tailwind(styles),
-      ]}>
+      ]}
+    >
       {!hiddenIcon &&
         (_loading || loading ? (
           <ActivityIndicator
             style={{
               fontSize: iconSize,
             }}
-            color={haveBackground ? 'white' : ''}
+            color={haveBackground ? "white" : ""}
           />
         ) : (
           <IconContainer
             name={
-              typeof iconName === 'string'
+              typeof iconName === "string"
                 ? iconName
                 : status
                 ? iconName?.after
@@ -64,10 +66,10 @@ const IconButton = ({
             style={tailwind(
               `text-${
                 haveBackground
-                  ? 'white'
+                  ? "white"
                   : status && changeColor
-                  ? 'primary'
-                  : 'gray-700'
+                  ? "primary"
+                  : "gray-700"
               }`
             )}
           />
@@ -78,20 +80,21 @@ const IconButton = ({
           style={{
             fontSize: iconSize,
           }}
-          color={haveBackground ? 'white' : ''}
+          color={haveBackground ? "white" : ""}
         />
       ) : (
         <Text
           style={tailwind(
             `font-bold text-${
               haveBackground
-                ? 'white'
+                ? "white"
                 : status && changeColor && !_loading
-                ? 'primary'
-                : 'gray-700'
+                ? "primary"
+                : "gray-700"
             }`
-          )}>
-          {typeof text === 'string'
+          )}
+        >
+          {typeof text === "string"
             ? text
             : status
             ? text?.after
@@ -100,6 +103,21 @@ const IconButton = ({
       )}
     </Touch>
   );
+};
+
+IconButton.propTypes = {
+  IconContainer: any,
+  text: string,
+  iconName: any,
+  changeColor: any,
+  iconSize: number,
+  styles: any,
+  onPress: func,
+  rollback: any,
+  loading: bool,
+  haveBackground: any,
+  active: any,
+  hiddenIcon: bool,
 };
 
 export default IconButton;

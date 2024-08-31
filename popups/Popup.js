@@ -2,14 +2,18 @@ import * as React from "react";
 import {
   View,
   Text,
-  Dimensions,
   TouchableOpacity,
   ScrollView,
+  Dimensions,
+  Keyboard,
 } from "react-native";
 import tailwind from "../tailwind";
 import * as Animatable from "react-native-animatable";
 import { AppContext } from "../contexts/index";
 import useKeyboard from "../hooks/useKeyboard";
+import { bool, func, node, number, object, string } from "prop-types";
+
+const windowHeight = Dimensions.get("window").height;
 
 const Popup = ({
   children,
@@ -36,10 +40,12 @@ const Popup = ({
       duration={200}
       style={{
         ...tailwind(
-          `bg-white flex-1 w-full absolute bottom-0 border-t border-gray-200`
+          `bg-white flex-col w-full absolute border-t border-gray-200`
         ),
-        borderRadius: 12,
+        borderTopRightRadius: 12,
+        borderTopLeftRadius: 12,
         height: height - 70,
+        bottom: 0,
         zIndex: 90 + (index || 0),
       }}
     >
@@ -63,7 +69,7 @@ const Popup = ({
           </Text>
         </TouchableOpacity>
         <Text style={tailwind(`font-bold text-lg`)}>{title}</Text>
-        <TouchableOpacity onPress={() => handleDone && handleDone()}>
+        <TouchableOpacity onPress={() => handleDone?.()}>
           <Text
             style={tailwind(
               `${
@@ -75,9 +81,21 @@ const Popup = ({
           </Text>
         </TouchableOpacity>
       </View>
-      <ScrollView style={tailwind(`flex-1`)}>{children}</ScrollView>
+      <View style={tailwind(`flex-1`)}>
+        <ScrollView style={tailwind(`flex-1`)}>{children}</ScrollView>
+      </View>
     </Animatable.View>
   );
+};
+
+Popup.propTypes = {
+  children: node,
+  title: string,
+  handleDone: func,
+  disabled: object,
+  index: number,
+  hidden: bool,
+  popupId: string,
 };
 
 export default Popup;

@@ -8,6 +8,7 @@ import { AppContext } from "../contexts/index";
 import { useNavigation } from "@react-navigation/native";
 import Ui from "./ui";
 import { generateUUID } from "../utils";
+import { number, object, string } from "prop-types";
 
 const NewMessage = ({ index, payload, popupId }) => {
   const {
@@ -51,11 +52,12 @@ const NewMessage = ({ index, payload, popupId }) => {
         </Text>
         {friends?.map((friend) => (
           <TouchableOpacity
-            onPress={() =>
+            onPress={() => {
               navigation.navigate("Main", {
                 friend,
-              })
-            }
+              });
+              updateData("popup", []);
+            }}
             key={friend.id}
             style={tailwind(`flex-row gap-4 items-center`)}
           >
@@ -66,6 +68,12 @@ const NewMessage = ({ index, payload, popupId }) => {
       </View>
     </Popup>
   );
+};
+
+NewMessage.propTypes = {
+  index: number,
+  payload: object,
+  popupId: string,
 };
 
 export default NewMessage;

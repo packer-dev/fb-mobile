@@ -1,29 +1,34 @@
-import * as React from 'react';
-import tailwind from '../tailwind';
-import { View, TouchableOpacity, Text } from 'react-native';
-import { Ionicons, Octicons } from '@expo/vector-icons';
+import * as React from "react";
+import tailwind from "../tailwind";
+import { View, TouchableOpacity, Text } from "react-native";
+import { Ionicons, Octicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
-const Navbar = ({ navigation, current }) => {
+const Navbar = ({ current }) => {
+  const navigation = useNavigation();
   return (
     <View style={tailwind(`py-3 border-t border-gray-300 flex-row`)}>
       <TouchableOpacity
-        onPress={() => navigation && navigation.navigate('MessageList')}
-        style={tailwind(`w-1/2`)}>
+        onPress={() => navigation.navigate("MessageList")}
+        style={tailwind(`w-1/2`)}
+      >
         <View
           style={tailwind(
             `relative flex-col gap-2 justify-center items-center self-center`
-          )}>
+          )}
+        >
           <Ionicons
             name="chatbubble"
             size={24}
             style={tailwind(
-              current === 'MessageList' ? `text-primary` : 'text-gray-500'
+              current === "MessageList" ? `text-primary` : "text-gray-500"
             )}
           />
           <Text
             style={tailwind(
-              current === 'MessageList' ? `text-primary` : 'text-gray-500'
-            )}>
+              current === "MessageList" ? `text-primary` : "text-gray-500"
+            )}
+          >
             Chats
           </Text>
           <Octicons
@@ -36,23 +41,26 @@ const Navbar = ({ navigation, current }) => {
         </View>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => navigation && navigation.navigate('Story')}
-        style={tailwind(`w-1/2`)}>
+        onPress={() => navigation.navigate("Story")}
+        style={tailwind(`w-1/2`)}
+      >
         <View
           style={tailwind(
             `relative flex-col justify-center items-center self-center`
-          )}>
+          )}
+        >
           <Ionicons
             name="book-sharp"
             size={24}
             style={tailwind(
-              current === 'Story' ? `text-primary` : 'text-gray-500'
+              current === "Story" ? `text-primary` : "text-gray-500"
             )}
           />
           <Text
             style={tailwind(
-              current === 'Story' ? `text-primary` : 'text-gray-500'
-            )}>
+              current === "Story" ? `text-primary` : "text-gray-500"
+            )}
+          >
             Story
           </Text>
           <Octicons

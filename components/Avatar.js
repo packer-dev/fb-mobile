@@ -2,7 +2,7 @@ import { View, Image } from "react-native";
 import tailwind from "../tailwind";
 import { bool, node, number, string } from "prop-types";
 
-const Avatar = ({ size, uri, online, children, loading }) => {
+const Avatar = ({ size, uri, online = true, children, loading }) => {
   return (
     <View style={tailwind(`relative`)}>
       {loading ? (
@@ -34,7 +34,7 @@ Avatar.propTypes = {
   uri: string,
   online: bool,
   children: node,
-  loading: bool
-}
+  loading: bool,
+};
 
 export default Avatar;

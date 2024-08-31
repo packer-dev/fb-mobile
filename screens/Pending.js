@@ -18,7 +18,7 @@ const Pending = () => {
         const userResponse = await getUserById(token);
         updateData("user", userModel(userResponse));
       }
-      navigation.navigate(token ? "MessageList" : "Login");
+      navigation.navigate(token ? "Facebook" : "Login");
     };
     fetchData();
     // eslint-disable-next-line  react-hooks/exhaustive-deps

@@ -29,7 +29,6 @@ export const messageModel = (obj) => ({
   content: obj?.content || null,
   user: userModel(obj?.user),
   time_created: obj?.time_created || getCurrentDateTime(),
-  is_read: obj?.is_read || false,
 });
 
 export const groupModel = (obj) => ({
@@ -46,6 +45,7 @@ export const groupModel = (obj) => ({
   time_created: obj?.time_created || getCurrentDateTime(),
   last_time_update: obj?.last_time_update || getCurrentDateTime(),
   image: obj?.image || "",
+  seen: obj?.seen || {},
 });
 
 export const postModel = (obj) => ({

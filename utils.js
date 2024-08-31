@@ -1,4 +1,4 @@
-import { API_URL } from "./config";
+import * as SecureStore from "expo-secure-store";
 
 export const validateEmail = ({ value }) => {
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -7,7 +7,7 @@ export const validateEmail = ({ value }) => {
 
 export const generateUUID = () => {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
-    var r = (Math.random() * 16) | 0,
+    let r = (Math.random() * 16) | 0,
       v = c === "x" ? r : (r & 0x3) | 0x8;
     return v.toString(16);
   });
@@ -57,7 +57,7 @@ const getRandomName = () => {
 };
 
 const removeAccents = (str) => {
-  var AccentsMap = [
+  let AccentsMap = [
     "aàảãáạăằẳẵắặâầẩẫấậ",
     "AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬ",
     "dđ",
@@ -73,9 +73,9 @@ const removeAccents = (str) => {
     "yỳỷỹýỵ",
     "YỲỶỸÝỴ",
   ];
-  for (var i = 0; i < AccentsMap.length; i++) {
-    var re = new RegExp("[" + AccentsMap[i].substr(1) + "]", "g");
-    var char = AccentsMap[i][0];
+  for (const item of AccentsMap) {
+    let re = new RegExp("[" + item.substring(1) + "]", "g");
+    let char = item[0];
     str = str.replace(re, char);
   }
   return str;
@@ -193,4 +193,77 @@ export const sendXmlHttpRequest = (endpoint, data) => {
     xhr.setRequestHeader("Content-Type", "multipart/form-data");
     xhr.send(data);
   });
+};
+
+export const handleLogout = async (navigation, updateData) => {
+  updateData("loading", true);
+  await SecureStore.deleteItemAsync("token");
+  updateData("user", null);
+  updateData("messages", []);
+  updateData("groups", []);
+  updateData("groupCurrent", null);
+  updateData("visit", null);
+  updateData("panel", null);
+  updateData("list_post", []);
+  updateData("friends", []);
+  updateData("popup", []);
+  updateData("panel", {
+    ui: null,
+    payload: null,
+  });
+  updateData("loading", false);
+  navigation.navigate("Login");
+};
+
+export const dataFakeGroup = ({
+  groupCurrent,
+  group,
+  message,
+  user,
+  friend,
+}) => {
+  return groupCurrent || group
+    ? {
+        ...group,
+        last_message: { ...message },
+      }
+    : {
+        members: group?.members || [
+          {
+            id: generateUUID(),
+            nickname: "",
+            user: friend,
+            is_owner: false,
+          },
+          {
+            id: generateUUID(),
+            nickname: "",
+            user,
+            is_owner: false,
+          },
+        ],
+        last_message: { ...message },
+        seen:
+          Object.keys(group?.seen || {}).length > 0
+            ? group?.seen
+            : {
+                [friend?.id]: false,
+                [user?.id]: true,
+              },
+      };
+};
+
+export const dataFakeMessage = ({ user, text, type }) => {
+  return {
+    id: generateUUID(),
+    content: {
+      id: generateUUID(),
+      text,
+      type,
+    },
+    user,
+    loading: true,
+    time_created: getCurrentDateTime(),
+    last_time_update: getCurrentDateTime(),
+  };
 };

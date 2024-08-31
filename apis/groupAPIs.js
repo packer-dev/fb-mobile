@@ -1,4 +1,5 @@
 import { API_URL } from "../config";
+import { groupModel } from "../models";
 
 export const getGroupById = async (groupId) => {
   return fetch(`${API_URL}/group/id?group_id=${groupId}`).then((res) =>
@@ -21,5 +22,15 @@ export const updateInforGroupByGroup = async (formData) => {
     },
     body: formData,
     method: "POST",
+  }).then((res) => res.json());
+};
+
+export const updateGroupById = async (group) => {
+  return fetch(`${API_URL}/group`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: groupModel(group),
+    method: "PUT",
   }).then((res) => res.json());
 };

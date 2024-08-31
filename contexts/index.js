@@ -45,12 +45,17 @@ const reducer = (state, { key, type, value }) => {
 const AppProvider = ({ children }) => {
   //
   const [state, dispatch] = React.useReducer(reducer, init);
-  const value = React.useMemo({
-    state,
-    updateData: (key, value) => dispatch(updateData(key, value)),
-  });
   //
-  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
+  return (
+    <AppContext.Provider
+      value={{
+        state,
+        updateData: (key, value) => dispatch(updateData(key, value)),
+      }}
+    >
+      {children}
+    </AppContext.Provider>
+  );
 };
 
 AppProvider.propTypes = {

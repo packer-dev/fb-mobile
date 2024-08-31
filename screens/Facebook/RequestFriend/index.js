@@ -2,9 +2,9 @@ import * as React from "react";
 import { View, Text, ScrollView } from "react-native";
 import tailwind from "../../../tailwind";
 import Container from "../Container";
-import HeaderFriend from "../HeaderFriend";
 import useFriend from "../../../hooks/useFriend";
 import ItemFriend from "../Friends/ItemFriend";
+import Header from "../../../components/Commons/Header";
 
 const RequestFriend = () => {
   //
@@ -12,7 +12,7 @@ const RequestFriend = () => {
   //
   return (
     <Container>
-      <HeaderFriend title="Request" />
+      <Header title="Request" />
       <ScrollView>
         <View style={tailwind(`p-3`)}>
           <Text style={tailwind(`font-bold flex-1`)}>
