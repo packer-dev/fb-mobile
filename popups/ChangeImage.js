@@ -6,25 +6,30 @@ import {
   TouchableOpacity,
   Dimensions,
   Platform,
+  Keyboard,
 } from "react-native";
 import Popup from "./Popup";
 import GroupAvatar from "../components/GroupAvatar";
 import tailwind from "../tailwind";
 import { Ionicons, FontAwesome6 } from "@expo/vector-icons";
-import { emojiList } from "../utils";
+import { dataFakeGroup, dataFakeMessage, emojiList } from "../utils";
 import * as ImagePicker from "expo-image-picker";
 import { AppContext } from "../contexts";
 import Avatar from "../components/Avatar";
 import { updateInforGroupByGroup } from "../apis/groupAPIs";
 import { number, object, string } from "prop-types";
+import { sendMessageAPI } from "../api";
 
 const width = Dimensions.get("window").width - 64;
 
 const ChangeImage = ({ index, payload, popupId }) => {
-  const { updateData } = React.useContext(AppContext);
-  const [image, setImage] = React.useState(payload?.group?.image);
-  const [name, setName] = React.useState(payload?.group?.name);
-  const [emoji, setEmoji] = React.useState(payload?.group?.emoji);
+  const {
+    state: { groupCurrent, groups },
+    updateData,
+  } = React.useContext(AppContext);
+  const [image, setImage] = React.useState(groupCurrent?.image);
+  const [name, setName] = React.useState(groupCurrent?.name);
+  const [emoji, setEmoji] = React.useState(groupCurrent?.data?.emoji);
   const handleDone = async () => {
     updateData("loading", true);
     const formData = new FormData();
@@ -43,15 +48,33 @@ const ChangeImage = ({ index, payload, popupId }) => {
       });
     }
     formData.append("folder", "Groups");
-    formData.append("emoji", emoji);
-    formData.append("name", name);
-    formData.append("group_id", payload?.group?.id);
+    formData.append("emoji", emoji || "🧡");
+    formData.append("name", name || "");
+    formData.append("group_id", groupCurrent?.id);
+    if (name !== groupCurrent?.name) {
+      const message = dataFakeMessage({
+        user,
+        type: 3,
+        text: `renamed group into ${name}.`,
+      });
+      await sendMessageAPI({
+        group: dataFakeGroup({ groupCurrent, message, user }),
+      });
+    }
     const response = await updateInforGroupByGroup(formData);
     updateData("loading", false);
     updateData("popup", []);
-    if (payload?.group && payload?.setGroup) {
-      payload?.setGroup(response);
-    }
+    updateData("groupCurrent", response);
+    updateData(
+      "groups",
+      [...groups].map((item) => {
+        if (item?.id === groupCurrent?.id) {
+          return response;
+        }
+        return item;
+      })
+    );
+    Keyboard.dismiss();
   };
   const pickImage = async () => {
     // Ask for permission to access the library
@@ -98,7 +121,7 @@ const ChangeImage = ({ index, payload, popupId }) => {
             size={24}
           />
         ) : (
-          <GroupAvatar group={payload?.group} size={24} child={10} />
+          <GroupAvatar group={groupCurrent} size={24} child={10} />
         )}
       </View>
       <View style={tailwind(`px-8`)}>

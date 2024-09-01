@@ -120,7 +120,8 @@ const UploadProfile = ({ route }) => {
           name="camera"
           size={20}
           style={tailwind(
-            `absolute bottom-3 right-3 z-20 ${imageCover ? "text-white" : "text-gray-500"
+            `absolute bottom-3 right-3 z-20 ${
+              imageCover ? "text-white" : "text-gray-500"
             }`
           )}
         />
@@ -136,7 +137,7 @@ const UploadProfile = ({ route }) => {
           `absolute z-50 rounded-full border-4 border-white -bottom-20 mb-10 left-3`
         )}
       >
-        <Avatar size={40} uri={imageAvatar}>
+        <Avatar size={40} uri={imageAvatar} online={false}>
           {loadingAvatar && visit?.id === user?.id && (
             <View
               style={{
@@ -178,7 +179,7 @@ const UploadProfile = ({ route }) => {
 };
 
 UploadProfile.propTypes = {
-  route: object
-}
+  route: object,
+};
 
 export default UploadProfile;

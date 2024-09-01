@@ -25,6 +25,13 @@ const ListGroup = () => {
     user && fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
+  const sorted = groups?.sort((a, b) => {
+    const dateA = new Date(a?.last_message?.time_created?.replace(" ", "T"));
+    const dateB = new Date(b?.last_message?.time_created?.replace(" ", "T"));
+
+    // Sort in descending order
+    return dateB - dateA;
+  });
   //
   return (
     <ScrollView style={tailwind(`flex-1`)}>
@@ -37,7 +44,7 @@ const ListGroup = () => {
             ))}
         {!loading &&
           groups?.length > 0 &&
-          groups?.map((group) => (
+          sorted.map((group) => (
             <ItemGroup
               group={group}
               key={group?.id}

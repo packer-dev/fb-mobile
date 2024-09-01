@@ -40,7 +40,7 @@ const Control = () => {
   } = React.useContext(AppContext);
   return (
     <>
-      {groupCurrent?.members?.length > 2 && (
+      {groupCurrent?.multiple && (
         <TouchableOpacity
           onPress={() =>
             updateData("popup", [
@@ -65,7 +65,7 @@ const Control = () => {
       >
         <ItemControl iconName="phone" iconUI={FontAwesome} label="Audio" />
         <ItemControl iconName="video" iconUI={Foundation} label="Video" />
-        {groupCurrent?.members?.length > 2 ? (
+        {groupCurrent?.multiple ? (
           <ItemControl
             handleClick={() => {
               updateData("popup", [

@@ -6,9 +6,9 @@ import IconButton from "../../IconButton";
 import { sendFeelPost } from "../../../apis/postAPIs";
 import { AppContext } from "../../../contexts/index";
 import { useNavigation } from "@react-navigation/native";
-import { any, array, func, object } from "prop-types";
+import { any, array, bool, func, object } from "prop-types";
 
-const Toolbar = ({ post, medias, feel, handleFeel }) => {
+const Toolbar = ({ post, medias, feel, handleFeel, loading }) => {
   //
   const {
     state: { user, list_post },
@@ -35,9 +35,13 @@ const Toolbar = ({ post, medias, feel, handleFeel }) => {
     handleFeel?.(result);
   };
   //
-  return (
+  return loading ? (
+    <></>
+  ) : (
     <View
-      style={tailwind(`flex-row gap-3 px-3 pb-3 items-center justify-between`)}
+      style={tailwind(
+        `flex-row gap-3 px-3 pb-3 items-center justify-between border-b border-gray-300`
+      )}
     >
       <IconButton
         IconContainer={FontAwesome}
@@ -85,6 +89,7 @@ Toolbar.propTypes = {
   medias: array,
   feel: any,
   handleFeel: func,
+  loading: bool,
 };
 
 export default Toolbar;

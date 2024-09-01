@@ -37,10 +37,10 @@ const NewGroup = ({ index, payload, popupId }) => {
       seen: Object.fromEntries(
         [...selected].map((item) => [item.id, item.id === user.id])
       ),
+      multiple: true,
     };
-    navigation.navigate("Main", {
-      group: groupModel(group),
-    });
+    updateData("groupCurrent", groupModel(group));
+    navigation.navigate("Main");
     updateData("popup", []);
   };
   return (

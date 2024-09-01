@@ -15,7 +15,7 @@ const ItemGroup = ({ handleClick, group, loading }) => {
   } = React.useContext(AppContext);
   const imageGroup = (() => {
     let result;
-    const isBigGroup = group?.members?.length > 2;
+    const isBigGroup = group?.multiple;
     if (isBigGroup) {
       result = {
         uri: group?.image,
@@ -35,10 +35,10 @@ const ItemGroup = ({ handleClick, group, loading }) => {
     );
   })();
   const nameGroup = (() => {
-    const isBigGroup = group?.members?.length > 2;
+    const isBigGroup = group?.multiple;
     if (isBigGroup) {
       return (
-        group?.name || group.members.map((item) => item?.user?.name).join(", ")
+        group?.name || group?.members.map((item) => item?.user?.name).join(", ")
       );
     } else {
       return group?.members?.find((item) => item?.user?.id !== user?.id)?.user
@@ -51,6 +51,9 @@ const ItemGroup = ({ handleClick, group, loading }) => {
       content = "You";
     }
     if (group?.last_message?.content?.type === 2) {
+      if (group?.last_message?.user?.id !== user?.id) {
+        content = group?.last_message?.user?.name?.split(" ")[0];
+      }
       content += " sent a sticker.";
     } else {
       if (group?.last_message?.user?.id === user?.id) {

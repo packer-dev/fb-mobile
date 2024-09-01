@@ -20,7 +20,7 @@ const Avatar = ({ size, uri, online = true, children, loading }) => {
       {online && (
         <View
           style={tailwind(
-            `w-4 h-4 rounded-full bg-green-500 absolute bottom-1 right-0 border-2 border-white`
+            `w-4 h-4 rounded-full bg-green-500 absolute bottom-1 -mr-1 right-0 border-2 border-white`
           )}
         />
       )}

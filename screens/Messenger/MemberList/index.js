@@ -13,12 +13,14 @@ import tailwind from "../../../tailwind";
 import Avatar from "../../../components/Avatar";
 import { AppContext } from "../../../contexts";
 import PanelOption from "./PanelOption";
+import { generateUUID } from "../../../utils";
+import AddMember from "../../../popups/AddMember";
 
 const width = Dimensions.get("window").width;
 
 const MemberList = () => {
   const {
-    state: { groupCurrent },
+    state: { groupCurrent, popup },
     updateData,
   } = React.useContext(AppContext);
 
@@ -29,6 +31,16 @@ const MemberList = () => {
         customSearch={{
           icon: AntDesign,
           name: "plus",
+        }}
+        handle={() => {
+          updateData("popup", [
+            ...popup,
+            {
+              id: generateUUID(),
+              ui: AddMember,
+              payload: {},
+            },
+          ]);
         }}
       />
       <View style={tailwind(`flex-row px-3 gap-3 py-2 justify-between`)}>

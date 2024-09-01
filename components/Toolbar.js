@@ -45,7 +45,6 @@ const Toolbar = ({ friend, group, keyboardHeight }) => {
     delete message.loading;
     let newGroup = dataFakeGroup({
       groupCurrent,
-      group,
       user,
       friend,
       message,
@@ -55,7 +54,9 @@ const Toolbar = ({ friend, group, keyboardHeight }) => {
         message,
         group: newGroup,
       });
-
+      if (!result?.group || !result?.message) {
+        return;
+      }
       const index = temp.findIndex((item) => item?.id === message?.id);
       if (index === -1) return;
       temp[index].loading = false;
@@ -66,7 +67,7 @@ const Toolbar = ({ friend, group, keyboardHeight }) => {
           "groups",
           groups?.map((item) => {
             if (item?.id === result?.group?.id) {
-              return { ...group, last_message: result?.message };
+              return { ...result?.group, last_message: result?.message };
             }
             return item;
           })
@@ -82,7 +83,7 @@ const Toolbar = ({ friend, group, keyboardHeight }) => {
   };
   //
   return (
-    <View>
+    <View style={tailwind(`absolute bottom-3 left-0`)}>
       <View style={{ ...tailwind(`flex-row gap-4 p-2 items-center`), width }}>
         {showKeyboard && (
           <TouchableOpacity onPress={() => updateData("showKeyboard", false)}>

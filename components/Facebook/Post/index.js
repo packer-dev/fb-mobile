@@ -7,6 +7,7 @@ import {
   Keyboard,
   Dimensions,
   ActivityIndicator,
+  Platform,
 } from "react-native";
 import tailwind from "../../../tailwind";
 import Header from "./Header";
@@ -92,37 +93,43 @@ const Post = (props) => {
             <ActivityIndicator size="large" />
           </View>
         )}
-        <Header {...props} setLoading={setLoading} />
+        <Header {...props} setLoading={setLoading} loading={props.loading} />
         {props.isDetail ? (
           <ScrollView
             style={tailwind(`flex-1`)}
             showsVerticalScrollIndicator={false}
           >
-            <View style={tailwind(`flex-col gap-3`)}>
-              <Content {...props} />
-              <Toolbar {...props} />
+            <View style={tailwind(`flex-col gap-3 pb-12`)}>
+              <Content {...props} loading={props.loading} />
+              <Toolbar {...props} loading={props.loading} />
               <Comments {...props} list={comments} />
             </View>
           </ScrollView>
         ) : (
           <>
-            <Content {...props} />
-            <Toolbar {...props} />
+            <Content {...props} loading={props.loading} />
+            <Toolbar {...props} loading={props.loading} />
             {props.isDetail && <Comments {...props} list={comments} />}
           </>
         )}
         {props.isDetail && (
-          <View style={tailwind(`w-full absolute bottom-0 left-0 flex-col`)}>
+          <View
+            style={tailwind(
+              `w-full absolute bottom-0 left-0 flex-col bg-white`
+            )}
+          >
             <View
-              style={tailwind(`flex-row px-3 pt-3 border-t border-gray-300 
-              gap-3 items-center bg-white`)}
+              style={tailwind(`flex-row px-3 pt-3 ${
+                Platform.OS === "ios" ? "pb-3" : ""
+              } border-t border-gray-300 
+              gap-3 items-center`)}
             >
               <TouchableOpacity>
                 <Feather name="camera" size={24} color="black" />
               </TouchableOpacity>
               <View
                 style={tailwind(
-                  `bg-gray-200 p-2 rounded-xl flex-1 relative flex-row items-center`
+                  `bg-gray-200 p-3 rounded-xl flex-1 relative flex-row items-center`
                 )}
               >
                 <TextInput
@@ -143,7 +150,7 @@ const Post = (props) => {
                       setShowSticker(!showSticker);
                     }
                   }}
-                  style={tailwind(`absolute bottom-2.5 right-3`)}
+                  style={tailwind(`absolute bottom-2 right-3`)}
                 >
                   <FontAwesome name="smile-o" size={24} color="gray" />
                 </TouchableOpacity>

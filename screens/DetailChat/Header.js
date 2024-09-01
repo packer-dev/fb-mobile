@@ -27,7 +27,7 @@ const Header = ({ friend }) => {
         <AntDesign name="left" size={24} />
       </TouchableOpacity>
       <View style={tailwind(`flex-col gap-1 justify-center mx-auto mt-5`)}>
-        {groupCurrent?.members?.length > 2 ? (
+        {groupCurrent?.multiple ? (
           bigGroup
         ) : (
           <Avatar size={24} uri={friend?.avatar} />
@@ -36,7 +36,7 @@ const Header = ({ friend }) => {
           style={tailwind(`font-bold text-lg text-center mt-1 px-3`)}
           numberOfLines={1}
         >
-          {groupCurrent?.members?.length > 2
+          {groupCurrent?.multiple
             ? groupCurrent?.name ||
               groupCurrent?.members?.map((item) => item?.user?.name).join(", ")
             : friend?.name}

@@ -40,7 +40,10 @@ const DetailChat = ({ route: { params } }) => {
         >
           <FontAwesome6 name="user-group" size={18} color="black" />
         </ItemGroupOption>
-        <ItemGroupOption name="Nickname">
+        <ItemGroupOption
+          name="Nickname"
+          onPress={() => navigation.navigate("Nickname")}
+        >
           <Ionicons name="text" size={18} color="black" />
         </ItemGroupOption>
         <Text style={tailwind(`text-gray-500 font-semibold text-md py-3`)}>

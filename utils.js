@@ -215,20 +215,14 @@ export const handleLogout = async (navigation, updateData) => {
   navigation.navigate("Login");
 };
 
-export const dataFakeGroup = ({
-  groupCurrent,
-  group,
-  message,
-  user,
-  friend,
-}) => {
-  return groupCurrent || group
+export const dataFakeGroup = ({ groupCurrent, message, user, friend }) => {
+  return groupCurrent
     ? {
-        ...group,
+        ...groupCurrent,
         last_message: { ...message },
       }
     : {
-        members: group?.members || [
+        members: [
           {
             id: generateUUID(),
             nickname: "",
@@ -244,12 +238,13 @@ export const dataFakeGroup = ({
         ],
         last_message: { ...message },
         seen:
-          Object.keys(group?.seen || {}).length > 0
-            ? group?.seen
+          Object.keys(groupCurrent?.seen || {}).length > 0
+            ? groupCurrent?.seen
             : {
                 [friend?.id]: false,
                 [user?.id]: true,
               },
+        multiple: false,
       };
 };
 

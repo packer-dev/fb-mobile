@@ -38,9 +38,9 @@ const IconButton = ({
       onPress={handleClick}
       style={[
         tailwind(
-          `mx-auto flex-row gap-2 items-center rounded-lg ${
-            hiddenIcon ? "justify-center" : ""
-          }`
+          `mx-auto flex-row ${
+            loading ? "opacity-50" : ""
+          } gap-2 items-center rounded-lg ${hiddenIcon ? "justify-center" : ""}`
         ),
         tailwind(styles),
       ]}

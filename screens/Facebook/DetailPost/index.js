@@ -10,40 +10,45 @@ import { useNavigation } from "@react-navigation/native";
 import { object } from "prop-types";
 
 const DetailPost = ({ route }) => {
-  //
   const {
-    state: { user },
-    updateData,
+    state: { user, showKeyboard },
   } = React.useContext(AppContext);
   const navigation = useNavigation();
   const { height, keyboardHeight } = useKeyboard();
   const [response, setPost] = React.useState(null);
+  const [loading, setLoading] = React.useState(true);
   React.useEffect(() => {
     const fetchData = async () => {
-      updateData("loading", true);
+      setLoading(true);
       const post = await getPostById(route?.params?.post?.id);
       if (!post) {
         navigation.goBack(null);
       }
-      updateData("loading", false);
       setPost(postResponseModel(post));
+      setLoading(false);
     };
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [route?.params?.postId]);
-  //
   return (
     <View style={tailwind(`bg-white flex-1`)}>
       <SafeAreaView
         style={[
-          { ...tailwind(`flex-col`), height },
+          {
+            ...tailwind(
+              `flex-col ${
+                showKeyboard && Platform.OS === "ios" ? "" : "flex-1"
+              }`
+            ),
+          },
+          showKeyboard && Platform.OS === "ios" ? { height } : {},
           {
             paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
             paddingBottom: Platform.OS === "android" ? 16 : 0,
           },
         ]}
       >
-        {response && (
+        {
           <Post
             isDetail
             post={response?.post}
@@ -60,15 +65,16 @@ const DetailPost = ({ route }) => {
                   : [...response.feel, user?.id],
               })
             }
+            loading={loading}
           />
-        )}
+        }
       </SafeAreaView>
     </View>
   );
 };
 
 DetailPost.propTypes = {
-  route: object
-}
+  route: object,
+};
 
 export default DetailPost;

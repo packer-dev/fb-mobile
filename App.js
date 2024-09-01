@@ -4,7 +4,7 @@ import {
 } from "@expo/react-native-action-sheet";
 import { AppProvider } from "./contexts/index";
 import Router from "./Router";
-
+import "@expo/metro-runtime";
 const App = () => {
   return (
     <AppProvider>

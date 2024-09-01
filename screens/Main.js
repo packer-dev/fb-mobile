@@ -13,12 +13,12 @@ import { object } from "prop-types";
 
 const Main = ({ route: { params } }) => {
   const {
-    state: { user, groups, groupCurrent },
+    state: { user, groups, groupCurrent, messages },
     updateData,
   } = React.useContext(AppContext);
   const refScroll = React.useRef(null);
   useListeningMessage(groupCurrent?.id);
-  const { height, keyboardHeight, width } = useKeyboard();
+  const { keyboardHeight, width } = useKeyboard();
   React.useEffect(() => {
     const fetchData = async () => {
       let result;
@@ -50,9 +50,16 @@ const Main = ({ route: { params } }) => {
       updateData("groupCurrent", null);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [groupCurrent, user]);
+  }, [groupCurrent?.id, user]);
+  React.useEffect(() => {
+    refScroll.current?.scrollToEnd();
+  }, [messages]);
   return (
-    <SafeAreaView style={{ ...tailwind(`p-3 flex-col`), height }}>
+    <SafeAreaView
+      style={{
+        ...tailwind(`p-3 flex-col flex-1`),
+      }}
+    >
       <Header friend={params?.friend} />
       <ScrollView
         ref={refScroll}

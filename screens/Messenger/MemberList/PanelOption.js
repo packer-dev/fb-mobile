@@ -11,7 +11,7 @@ import { dataFakeMessage } from "../../../utils";
 const PanelOption = ({ member }) => {
   const navigation = useNavigation();
   const {
-    state: { user, messages, groupCurrent },
+    state: { user, messages, groupCurrent, groups },
     updateData,
   } = React.useContext(AppContext);
   const handleSendMessage = () => {
@@ -31,7 +31,20 @@ const PanelOption = ({ member }) => {
       .then((result) => {
         updateData("groupCurrent", result?.group);
         updateData("messages", [...messages, result?.message]);
+        updateData(
+          "groups",
+          [...groups].map((item) => {
+            if (item?.id === groupCurrent?.id) {
+              return result?.group;
+            }
+            return item;
+          })
+        );
         updateData("loading", false);
+        updateData("panel", {
+          ui: null,
+          payload: {},
+        });
       })
       .catch(() => {
         updateData("loading", false);

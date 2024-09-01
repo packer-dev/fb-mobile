@@ -14,7 +14,11 @@ const Header = ({ loading }) => {
   const navigation = useNavigation();
   //
   return (
-    <View style={tailwind(`flex-row justify-between items-center py-2 px-3`)}>
+    <View
+      style={tailwind(
+        `flex-row justify-between items-center pt-5 pb-3 px-3 border-b border-gray-300`
+      )}
+    >
       <AntDesign
         name="left"
         size={24}
@@ -59,7 +63,7 @@ const Header = ({ loading }) => {
 };
 
 Header.propTypes = {
-  loading: bool
-}
+  loading: bool,
+};
 
 export default Header;

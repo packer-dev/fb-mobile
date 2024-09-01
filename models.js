@@ -46,6 +46,7 @@ export const groupModel = (obj) => ({
   last_time_update: obj?.last_time_update || getCurrentDateTime(),
   image: obj?.image || "",
   seen: obj?.seen || {},
+  multiple: obj?.multiple || false,
 });
 
 export const postModel = (obj) => ({

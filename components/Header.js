@@ -44,22 +44,15 @@ const Header = ({ friend }) => {
           }
           style={tailwind(`flex-row gap-2 items-center`)}
         >
-          {obj?.members?.length > 2 ? (
-            bigGroup
-          ) : (
-            <Avatar size={10} uri={obj?.avatar} />
-          )}
-          <View style={tailwind(`pl-1.5 flex-1`)}>
-            <Text
-              style={tailwind(`font-semibold flex-1 pr-12`)}
-              numberOfLines={1}
-            >
-              {obj?.members?.length > 2
+          {obj?.multiple ? bigGroup : <Avatar size={10} uri={obj?.avatar} />}
+          <View style={tailwind(`pl-3 flex-1 flex-col gap-1`)}>
+            <Text style={tailwind(`font-semibold pr-12`)} numberOfLines={1}>
+              {obj?.multiple
                 ? obj?.name ||
                   obj.members.map((item) => item?.user?.name).join(", ")
                 : obj?.name}
             </Text>
-            <View style={tailwind(`flex-row gap-2 items-center mt-0.5`)}>
+            <View style={tailwind(`flex-row gap-2 items-center`)}>
               <View
                 style={tailwind(`w-2 h-2 rounded-full bg-green-500`)}
               ></View>

@@ -5,7 +5,7 @@ import io from "socket.io-client";
 const init = {
   showKeyboard: false,
   messages: [],
-  socket: io.connect("https://server-socket-zrlh.onrender.com/").connect(),
+  socket: io.connect("http://192.168.1.11:4444/").connect(),
   popup: [],
   panel: {
     ui: null,

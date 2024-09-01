@@ -1,15 +1,20 @@
-import * as React from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
-import tailwind from '../../../tailwind';
-import Avatar from '../../Avatar';
-import { Entypo, Feather, FontAwesome6, AntDesign } from '@expo/vector-icons';
-import moment from 'moment';
-import { deletePost } from '../../../apis/postAPIs';
-import { AppContext } from '../../../contexts/index';
-import { bool, func, object } from 'prop-types';
-import { useNavigation } from '@react-navigation/native';
+import * as React from "react";
+import { View, TouchableOpacity, Text, Alert } from "react-native";
+import tailwind from "../../../tailwind";
+import Avatar from "../../Avatar";
+import {
+  Feather,
+  FontAwesome6,
+  AntDesign,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
+import moment from "moment";
+import { deletePost } from "../../../apis/postAPIs";
+import { AppContext } from "../../../contexts/index";
+import { bool, func, object } from "prop-types";
+import { useNavigation } from "@react-navigation/native";
 
-const Header = ({ post, isDetail, setLoading }) => {
+const Header = ({ post, isDetail, setLoading, loading }) => {
   //
   const navigation = useNavigation();
   const {
@@ -17,61 +22,94 @@ const Header = ({ post, isDetail, setLoading }) => {
     updateData,
   } = React.useContext(AppContext);
   const handleDeletePost = async () => {
-    setLoading(true);
-    await deletePost(post?.id);
-    updateData(
-      'list_post',
-      [...list_post].filter((item) => item?.post?.id !== post?.id)
-    );
+    Alert.alert("Do you want to delete this post.", "", [
+      {
+        text: "Cancel",
+      },
+      {
+        text: "OK",
+        onPress: () => {
+          setLoading(true);
+          deletePost(post?.id)
+            .then(() => {
+              updateData(
+                "list_post",
+                [...list_post].filter((item) => item?.post?.id !== post?.id)
+              );
+            })
+            .catch((e) => {});
+        },
+      },
+    ]);
   };
   const descriptionSmall = () => {
     switch (post?.type) {
       case 3:
-        return ' updated his profile picture.'
+        return " updated his profile picture.";
       case 2:
-        return ' updated his cover photo.'
+        return " updated his cover photo.";
       default:
-        return '';
+        return "";
     }
-  }
+  };
   //
   return (
-    <View style={tailwind(`flex-row gap-3 px-3 pt-3 items-center`)}>
+    <View
+      style={tailwind(
+        `flex-row gap-3 p-3 items-center ${
+          isDetail ? "border-b border-gray-100" : ""
+        }`
+      )}
+    >
       {isDetail && (
         <TouchableOpacity
           onPress={() => navigation?.goBack?.(null)}
-          style={tailwind(`pr-2`)}>
+          style={tailwind(`pr-2`)}
+        >
           <AntDesign name="left" size={24} color="black" />
         </TouchableOpacity>
       )}
       <View style={tailwind(`flex-1 flex-row gap-3 items-center`)}>
-        <Avatar size={11} uri={post?.user?.avatar} />
+        <Avatar size={11} uri={post?.user?.avatar} loading={loading} />
         <View style={tailwind(`flex-1 flex-col gap-1`)}>
           <TouchableOpacity
             style={tailwind(`flex-row`)}
             onPress={() =>
-              navigation?.navigate?.('DetailProfile', {
+              navigation?.navigate?.("DetailProfile", {
                 visit: post?.user,
               })
-            }>
-            <Text>
-              <Text style={tailwind(`font-semibold`)}>
-                {post?.user?.name || 'Alexander Toyota'}
+            }
+          >
+            {loading ? (
+              <View style={tailwind(`w-40 h-2 rounded-lg bg-gray-200`)}></View>
+            ) : (
+              <Text>
+                <Text style={tailwind(`font-semibold`)}>
+                  {post?.user?.name || "Alexander Toyota"}
+                </Text>
+                {descriptionSmall()}
               </Text>
-              {descriptionSmall()}
-            </Text>
+            )}
           </TouchableOpacity>
           <View style={tailwind(`flex-row items-center gap-3`)}>
-            <Text style={tailwind(`text-gray-600 text-sm`)}>
-              {moment(post?.time_created).fromNow()}.
-            </Text>
+            {loading ? (
+              <View style={tailwind(`w-20 h-2 rounded-lg bg-gray-200`)}></View>
+            ) : (
+              <Text style={tailwind(`text-gray-600 text-sm`)}>
+                {moment(post?.time_created).fromNow()}.
+              </Text>
+            )}
             <FontAwesome6 name="earth-africa" size={12} color="gray" />
           </View>
         </View>
       </View>
       <View style={tailwind(`flex-row gap-3 items-center`)}>
         {post?.user?.id === user?.id && (
-          <Entypo name="dots-three-horizontal" size={20} color="gray" />
+          <MaterialCommunityIcons
+            name="account-edit-outline"
+            size={20}
+            color="gray"
+          />
         )}
         {!isDetail && post?.user?.id === user?.id && (
           <TouchableOpacity onPress={handleDeletePost}>
@@ -86,7 +124,8 @@ const Header = ({ post, isDetail, setLoading }) => {
 Header.propTypes = {
   post: object,
   isDetail: bool,
-  setLoading: func
-}
+  setLoading: func,
+  loading: bool,
+};
 
 export default Header;
