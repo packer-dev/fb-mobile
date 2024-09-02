@@ -6,9 +6,9 @@ import Popup from "./Popup";
 import Avatar from "../components/Avatar";
 import { AppContext } from "../contexts/index";
 import { useNavigation } from "@react-navigation/native";
-import Ui from "./ui";
 import { generateUUID } from "../utils";
 import { number, object, string } from "prop-types";
+import NewGroup from "./NewGroup";
 
 const NewMessage = ({ index, payload, popupId }) => {
   const {
@@ -34,7 +34,7 @@ const NewMessage = ({ index, payload, popupId }) => {
             ...popup,
             {
               id: generateUUID(),
-              ui: Ui.NewGroupUI,
+              ui: NewGroup,
               payload: {},
             },
           ]);

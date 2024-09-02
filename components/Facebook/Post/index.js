@@ -51,7 +51,7 @@ const Post = (props) => {
       parent: "",
       loading: true,
     };
-    let newComments = [comment, ...comments];
+    let newComments = [{ item: comment, child: [] }, ...comments];
     setComments(newComments);
     delete comment.loading;
     const formData = new FormData();

@@ -4,8 +4,8 @@ import { View, Image, Text, TouchableOpacity } from "react-native";
 import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { AppContext } from "../../contexts/index";
 import { generateUUID, handleLogout } from "../../utils";
-import Ui from "../../popups/ui";
 import { useNavigation } from "@react-navigation/native";
+import NewMessage from "../../popups/NewMessage";
 
 const Header = () => {
   //
@@ -31,7 +31,7 @@ const Header = () => {
               ...popup,
               {
                 id: generateUUID(),
-                ui: Ui.NewMessageUI,
+                ui: NewMessage,
                 payload: {},
               },
             ]);
