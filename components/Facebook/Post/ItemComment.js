@@ -50,12 +50,12 @@ const ItemComment = ({ comment, children }) => {
           <Text style={tailwind(`font-semibold text-gray-600`)}>
             {moment(comment?.time_created).fromNow()}
           </Text>
-          <TouchableOpacity>
+          {/* <TouchableOpacity>
             <Text style={tailwind(`font-semibold text-gray-600`)}>Like</Text>
           </TouchableOpacity>
           <TouchableOpacity>
             <Text style={tailwind(`font-semibold text-gray-600`)}>Reply</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       )}
       {children && (

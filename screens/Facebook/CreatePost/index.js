@@ -26,7 +26,7 @@ import useKeyboard from "../../../hooks/useKeyboard";
 import Panel from "../../../panels/index";
 import { postModel } from "../../../models";
 import { generateUUID } from "../../../utils";
-import { createPost } from "../../../apis/postAPIs";
+import { createPost, editPost } from "../../../apis/postAPIs";
 import * as ImagePicker from "expo-image-picker";
 import { useNavigation } from "@react-navigation/native";
 import MediaDisplay from "../../../components/Facebook/MediaDisplay";
@@ -35,11 +35,13 @@ import { object } from "prop-types";
 const CreatePost = ({ route }) => {
   const { width, height } = useKeyboard();
   const inputRef = React.useRef(null);
+  const [post, setPost] = React.useState();
   const [value, setValue] = React.useState("");
   const [medias, setMedias] = React.useState([]);
+  const [oldMedia, setOldMedia] = React.useState([]);
   const navigation = useNavigation();
   const {
-    state: { user, loading, showKeyboard },
+    state: { user, loading, showKeyboard, list_post },
     updateData,
   } = React.useContext(AppContext);
   React.useEffect(() => {
@@ -52,6 +54,7 @@ const CreatePost = ({ route }) => {
     if (loading) return;
     updateData("loading", true);
     const formData = new FormData();
+
     if (medias.length > 0) {
       for (let i = 0; i < medias.length || 0; i++) {
         formData.append("media_new", {
@@ -67,22 +70,40 @@ const CreatePost = ({ route }) => {
     formData.append(
       "post",
       JSON.stringify(
-        postModel({
-          user,
-          content: {
-            id: generateUUID(),
-            text: value,
-            data: {},
-            type: 1,
-          },
-        })
+        post
+          ? postModel({ ...post, content: { ...post?.content, text: value } })
+          : postModel({
+              user,
+              content: {
+                id: generateUUID(),
+                text: value,
+                data: {},
+                type: 1,
+              },
+            })
       )
     );
-    createPost(formData)
+    if (oldMedia.length > 0) {
+      formData.append("media_new", JSON.stringify(oldMedia));
+    }
+    const result = post ? editPost(formData) : createPost(formData);
+    result
       .then((res) => {
-        console.log(res);
         updateData("loading", false);
-        navigation.navigate("Facebook");
+        if (!post) {
+          navigation.navigate("Facebook");
+        } else {
+          updateData(
+            "list_post",
+            [...list_post].map((item) => {
+              if (item?.post?.id === post?.id) {
+                return { ...item, post: res };
+              }
+              return item;
+            })
+          );
+          navigation.goBack(null);
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -109,6 +130,23 @@ const CreatePost = ({ route }) => {
       setMedias(route?.params?.assets || []);
     }
   }, [route?.params?.assets, route?.params?.asset]);
+  React.useEffect(() => {
+    if (route?.params?.post) {
+      setPost(route?.params?.post);
+      setValue(route?.params?.post?.content?.text);
+    }
+  }, [route?.params?.post]);
+  React.useEffect(() => {
+    if (route?.params?.medias?.length > 0) {
+      setOldMedia(
+        route?.params?.medias?.map((item) => ({
+          uri: item.url,
+          id: generateUUID(),
+        }))
+      );
+    }
+  }, []);
+  const fullMedia = [...oldMedia, ...medias];
   return (
     <View
       style={[
@@ -136,7 +174,9 @@ const CreatePost = ({ route }) => {
             <TouchableOpacity onPress={() => navigation.navigate("Facebook")}>
               <AntDesign name="left" size={24} color="black" />
             </TouchableOpacity>
-            <Text style={tailwind(`font-bold text-xl`)}>Create post</Text>
+            <Text style={tailwind(`font-bold text-xl`)}>
+              {post ? "Edit" : "Create"} post
+            </Text>
             <Text
               onPress={handePost}
               style={tailwind(
@@ -145,7 +185,7 @@ const CreatePost = ({ route }) => {
                 } text-lg`
               )}
             >
-              Post
+              {post ? "Update" : "Post"}
             </Text>
           </View>
           <View style={tailwind(`flex-1 flex-col bg-white p-3`)}>
@@ -177,8 +217,8 @@ const CreatePost = ({ route }) => {
                 value={value}
                 onChangeText={setValue}
               />
-              {medias.length > 0 && (
-                <MediaDisplay medias={medias} width={width} />
+              {fullMedia.length > 0 && (
+                <MediaDisplay medias={fullMedia} width={width} />
               )}
             </ScrollView>
           </View>

@@ -174,7 +174,7 @@ export const emojiList = [
   "🔲",
 ];
 
-export const sendXmlHttpRequest = (endpoint, data) => {
+export const sendXmlHttpRequest = (endpoint, method = "GET", data) => {
   const xhr = new XMLHttpRequest();
 
   return new Promise((resolve, reject) => {
@@ -189,7 +189,7 @@ export const sendXmlHttpRequest = (endpoint, data) => {
         reject("Error");
       }
     };
-    xhr.open("POST", endpoint);
+    xhr.open(method, endpoint);
     xhr.setRequestHeader("Content-Type", "multipart/form-data");
     xhr.send(data);
   });

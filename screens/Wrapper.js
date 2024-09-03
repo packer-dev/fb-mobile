@@ -70,7 +70,7 @@ const Wrapper = ({ children, overflowHidden, isStory }) => {
 Wrapper.propTypes = {
   children: node,
   overflowHidden: bool,
-  isStory: bool
-}
+  isStory: bool,
+};
 
 export default Wrapper;

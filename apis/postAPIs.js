@@ -2,17 +2,15 @@ import { API_URL } from "../config";
 import { sendXmlHttpRequest } from "../utils";
 
 export const createPost = async (formData) => {
-  return sendXmlHttpRequest(`${API_URL}/post`, formData).then((res) => res);
+  return sendXmlHttpRequest(`${API_URL}/post`, "POST", formData).then(
+    (res) => res
+  );
 };
 
 export const editPost = async (formData) => {
-  return fetch(`${API_URL}/post`, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-    body: formData,
-    method: "PUT",
-  }).then((res) => res.json());
+  return sendXmlHttpRequest(`${API_URL}/post`, "PUT", formData).then(
+    (res) => res
+  );
 };
 
 export const deletePost = async (postId) => {

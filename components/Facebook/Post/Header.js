@@ -11,10 +11,10 @@ import {
 import moment from "moment";
 import { deletePost } from "../../../apis/postAPIs";
 import { AppContext } from "../../../contexts/index";
-import { bool, func, object } from "prop-types";
+import { array, bool, func, object } from "prop-types";
 import { useNavigation } from "@react-navigation/native";
 
-const Header = ({ post, isDetail, setLoading, loading }) => {
+const Header = ({ post, isDetail, setLoading, loading, medias = [] }) => {
   //
   const navigation = useNavigation();
   const {
@@ -106,6 +106,12 @@ const Header = ({ post, isDetail, setLoading, loading }) => {
       <View style={tailwind(`flex-row gap-3 items-center`)}>
         {post?.user?.id === user?.id && (
           <MaterialCommunityIcons
+            onPress={() =>
+              navigation.navigate("CreatePost", {
+                post,
+                medias,
+              })
+            }
             name="account-edit-outline"
             size={20}
             color="gray"
@@ -126,6 +132,7 @@ Header.propTypes = {
   isDetail: bool,
   setLoading: func,
   loading: bool,
+  medias: array,
 };
 
 export default Header;
