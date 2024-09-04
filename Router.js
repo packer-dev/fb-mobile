@@ -31,6 +31,8 @@ import ReceiveFriend from "./screens/Facebook/ReceiveFriend";
 import MemberList from "./screens/Messenger/MemberList";
 import Nickname from "./screens/Messenger/Nickname";
 import DetailImagePost from "./screens/Facebook/DetailImagePost";
+import RunningCall from "./screens/Messenger/RunningCall";
+import ReceiveCall from "./screens/Messenger/ReceiveCall";
 
 const Stack = createNativeStackNavigator();
 
@@ -45,7 +47,7 @@ const Router = () => {
           headerShown: false,
           tabBarVisible: false,
         }}
-        initialRouteName="Pending"
+        initialRouteName="ReceiveCall"
       >
         <Stack.Screen name="Main" component={Main} />
         <Stack.Screen name="Story" component={Story} />
@@ -56,6 +58,8 @@ const Router = () => {
         <Stack.Screen name="DetailChat" component={DetailChat} />
         <Stack.Screen name="MemberList" component={MemberList} />
         <Stack.Screen name="Nickname" component={Nickname} />
+        <Stack.Screen name="RunningCall" component={RunningCall} />
+        <Stack.Screen name="ReceiveCall" component={ReceiveCall} />
 
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="Facebook" component={Facebook} />

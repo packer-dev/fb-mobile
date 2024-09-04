@@ -15,8 +15,8 @@ const IconRender = ({ toolbar }) => {
 };
 
 IconRender.propTypes = {
-  toolbar: object
-}
+  toolbar: object,
+};
 
 const ToolbarProfile = ({ route }) => {
   const {
@@ -25,8 +25,8 @@ const ToolbarProfile = ({ route }) => {
   } = React.useContext(AppContext);
   const navigation = useNavigation();
   const handleAlert = () => {
-    handleSwitch(key)
-  }
+    handleSwitch(key);
+  };
   const handleConfirm = (key) => {
     Alert.alert(
       `Cancel relationship with ${visit?.name.split(" ")[0]}`,
@@ -34,7 +34,8 @@ const ToolbarProfile = ({ route }) => {
       [
         { text: "Cancel", onPress: () => "" },
         {
-          text: "OK", onPress: handleAlert
+          text: "OK",
+          onPress: handleAlert,
         },
       ],
       { cancelable: true }
@@ -57,7 +58,7 @@ const ToolbarProfile = ({ route }) => {
         suggestFriend: Math.random(),
       });
     }
-    navigation.goBack(null);
+    navigation.goBack();
     updateData("loading", false);
   };
   return (
@@ -100,7 +101,7 @@ const ToolbarProfile = ({ route }) => {
 };
 
 ToolbarProfile.propTypes = {
-  route: object
-}
+  route: object,
+};
 
 export default ToolbarProfile;

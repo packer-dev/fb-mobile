@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity } from "react-native";
 import tailwind from "../../tailwind";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { bool, string } from "prop-types";
+import { bool, func, object, string } from "prop-types";
 
 const Header = ({
   title,
@@ -19,7 +19,7 @@ const Header = ({
         `flex-row px-3 gap-3 items-center justify-between bg-white py-3`
       )}
     >
-      <TouchableOpacity onPress={() => navigation.goBack(null)}>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
         <AntDesign name="left" size={24} color="black" />
       </TouchableOpacity>
       <Text style={tailwind(`font-bold text-lg text-gray-700`)}>{title}</Text>
@@ -27,7 +27,7 @@ const Header = ({
         <View></View>
       ) : (
         <TouchableOpacity
-          onPress={() => (handle ? handle() : navigation.goBack(null))}
+          onPress={() => (handle ? handle() : navigation.goBack())}
         >
           <Icon name={customSearch.name} size={24} color="black" />
         </TouchableOpacity>
@@ -39,6 +39,8 @@ const Header = ({
 Header.propTypes = {
   title: string,
   hiddenSearch: bool,
+  handle: func,
+  customSearch: object,
 };
 
 export default Header;

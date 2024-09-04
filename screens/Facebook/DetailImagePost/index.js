@@ -34,7 +34,7 @@ const DetailImagePost = ({ route }) => {
       >
         <View style={tailwind(`flex-row px-3 justify-between`)}>
           <TouchableOpacity
-            onPress={() => navigation.goBack(null)}
+            onPress={() => navigation.goBack()}
             style={tailwind(
               `w-8 h-8 rounded-full bg-gray-300 flex-row items-center justify-center`
             )}

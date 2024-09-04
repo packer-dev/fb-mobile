@@ -22,7 +22,7 @@ const DetailPost = ({ route }) => {
       setLoading(true);
       const post = await getPostById(route?.params?.post?.id);
       if (!post) {
-        navigation.goBack(null);
+        navigation.goBack();
       }
       setPost(postResponseModel(post));
       setLoading(false);

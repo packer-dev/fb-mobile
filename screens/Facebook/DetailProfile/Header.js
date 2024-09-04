@@ -23,7 +23,7 @@ const Header = ({ loading }) => {
         name="left"
         size={24}
         color="black"
-        onPress={() => navigation.goBack(null)}
+        onPress={() => navigation.goBack()}
       />
       <View style={tailwind(`flex-row gap-2 items-center`)}>
         {loading ? (

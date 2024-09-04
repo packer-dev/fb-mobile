@@ -1,4 +1,6 @@
 import * as SecureStore from "expo-secure-store";
+import Avatar from "./components/Avatar";
+import GroupAvatar from "./components/GroupAvatar";
 
 export const validateEmail = ({ value }) => {
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -261,4 +263,38 @@ export const dataFakeMessage = ({ user, text, type }) => {
     time_created: getCurrentDateTime(),
     last_time_update: getCurrentDateTime(),
   };
+};
+
+export const imageGroup = (group, user) => {
+  let result;
+  const isBigGroup = group?.multiple;
+  if (isBigGroup) {
+    result = {
+      uri: group?.image,
+      isGroupAvatar: !group?.image,
+    };
+  } else {
+    result = {
+      uri: group?.members?.find((item) => item?.user?.id !== user?.id)?.user
+        ?.avatar,
+      isGroupAvatar: false,
+    };
+  }
+  return !result.isGroupAvatar ? (
+    <Avatar size={32} uri={result.uri} online={false} />
+  ) : (
+    <GroupAvatar group={group} size={16} child={7} />
+  );
+};
+
+export const nameGroup = (group, user) => {
+  const isBigGroup = group?.multiple;
+  if (isBigGroup) {
+    return (
+      group?.name || group?.members.map((item) => item?.user?.name).join(", ")
+    );
+  } else {
+    return group?.members?.find((item) => item?.user?.id !== user?.id)?.user
+      ?.name;
+  }
 };

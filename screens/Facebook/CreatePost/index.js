@@ -102,7 +102,7 @@ const CreatePost = ({ route }) => {
               return item;
             })
           );
-          navigation.goBack(null);
+          navigation.goBack();
         }
       })
       .catch((err) => {

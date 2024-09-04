@@ -25,6 +25,11 @@ const init = {
     postHome: null,
     postProfile: null,
   },
+  peerConnection: null,
+  isCalling: {
+    status: false,
+    groupId: null,
+  },
 };
 
 const AppContext = React.createContext(init);
@@ -45,17 +50,15 @@ const reducer = (state, { key, type, value }) => {
 const AppProvider = ({ children }) => {
   //
   const [state, dispatch] = React.useReducer(reducer, init);
-  //
-  return (
-    <AppContext.Provider
-      value={{
-        state,
-        updateData: (key, value) => dispatch(updateData(key, value)),
-      }}
-    >
-      {children}
-    </AppContext.Provider>
+  const value = React.useMemo(
+    () => ({
+      state,
+      updateData: (key, value) => dispatch(updateData(key, value)),
+    }),
+    [state]
   );
+  //
+  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
 
 AppProvider.propTypes = {

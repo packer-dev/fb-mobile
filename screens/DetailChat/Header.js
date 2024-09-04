@@ -22,7 +22,7 @@ const Header = ({ friend }) => {
     <View style={tailwind(`relative mt-3`)}>
       <TouchableOpacity
         style={tailwind(`absolute top-0 left-3`)}
-        onPress={() => navigation.goBack(null)}
+        onPress={() => navigation.goBack()}
       >
         <AntDesign name="left" size={24} />
       </TouchableOpacity>

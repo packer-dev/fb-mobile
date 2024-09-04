@@ -11,7 +11,8 @@ import { object } from "prop-types";
 const Header = ({ friend }) => {
   //
   const {
-    state: { user, groupCurrent },
+    state: { user, groupCurrent, peerConnection, socket },
+    updateData,
   } = React.useContext(AppContext);
   const navigation = useNavigation();
   const obj =
@@ -23,6 +24,36 @@ const Header = ({ friend }) => {
   ) : (
     <GroupAvatar group={obj} size={10} />
   );
+
+  const startCall = async (isVideo) => {
+    const offer = peerConnection ? {} : await peerConnection?.createOffer();
+    // await peerConnection.setLocalDescription(offer);
+    updateData("isCalling", {
+      status: true,
+      groupId: groupCurrent?.id,
+    });
+    groupCurrent?.members?.forEach((item) => {
+      if (item?.user?.id !== user?.id) {
+        const payload = {
+          type: "offer",
+          offer,
+          group: groupCurrent,
+          accept: Object.fromEntries(
+            groupCurrent?.members
+              ?.filter((item) => item?.user?.id !== user?.id)
+              .map((item) => {
+                return [item?.user?.id, "pending"];
+              })
+          ),
+          isVideo,
+        };
+        socket.emit(`call-to-${item?.user?.id}`, JSON.stringify(payload));
+      }
+    });
+    navigation.navigate("RunningCall", {
+      group: groupCurrent,
+    });
+  };
   //
   return (
     <View
@@ -62,8 +93,18 @@ const Header = ({ friend }) => {
         </TouchableOpacity>
       </View>
       <View style={tailwind(`flex-row gap-4 items-center pr-3`)}>
-        <MaterialIcons name="call" size={24} style={tailwind(`text-primary`)} />
-        <Feather name="video" size={24} style={tailwind(`text-primary`)} />
+        <MaterialIcons
+          onPress={() => startCall()}
+          name="call"
+          size={24}
+          style={tailwind(`text-primary`)}
+        />
+        <Feather
+          name="video"
+          onPress={() => startCall(true)}
+          size={24}
+          style={tailwind(`text-primary`)}
+        />
       </View>
     </View>
   );

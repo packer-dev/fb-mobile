@@ -80,12 +80,9 @@ export default function CameraCommon({
           >
             <AntDesign
               onPress={() => {
-                if (image)
-                  setImage();
-                else if (!route?.params?.handleBack)
-                  navigation.goBack(null);
-                else
-                  route?.params?.handleBack?.()
+                if (image) setImage();
+                else if (!route?.params?.handleBack) navigation.goBack();
+                else route?.params?.handleBack?.();
               }}
               name={image ? "close" : "left"}
               size={24}
@@ -164,5 +161,5 @@ export default function CameraCommon({
 CameraCommon.propTypes = {
   defaultFacing: string,
   defaultFlash: string,
-  route: object
-}
+  route: object,
+};

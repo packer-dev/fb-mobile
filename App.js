@@ -5,6 +5,8 @@ import {
 import { AppProvider } from "./contexts/index";
 import Router from "./Router";
 import "@expo/metro-runtime";
+import { AppRegistry } from "react-native";
+
 const App = () => {
   return (
     <AppProvider>
@@ -23,4 +25,4 @@ const AppContainer = () => {
   );
 };
 
-export default AppContainer;
+export default AppRegistry.registerComponent(AppContainer);

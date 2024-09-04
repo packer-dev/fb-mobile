@@ -1,13 +1,13 @@
-import * as React from 'react';
-import { View, Text, Dimensions } from 'react-native';
-import tailwind from '../../../tailwind';
-import Avatar from '../../../components/Avatar';
-const width = Dimensions.get('window').width;
-import { Feather, Entypo, Ionicons } from '@expo/vector-icons';
-import { AppContext } from '../../../contexts/index';
-import PanelInfo from './PanelInfo';
-import { useNavigation } from '@react-navigation/native';
-import { bool } from 'prop-types';
+import * as React from "react";
+import { View, Text, Dimensions } from "react-native";
+import tailwind from "../../../tailwind";
+import Avatar from "../../../components/Avatar";
+const width = Dimensions.get("window").width;
+import { Feather, Entypo, Ionicons } from "@expo/vector-icons";
+import { AppContext } from "../../../contexts/index";
+import PanelInfo from "./PanelInfo";
+import { useNavigation } from "@react-navigation/native";
+import { bool } from "prop-types";
 
 const Header = ({ loading }) => {
   const {
@@ -16,7 +16,7 @@ const Header = ({ loading }) => {
   } = React.useContext(AppContext);
   const navigation = useNavigation();
   return (
-    <View style={tailwind('px-3 py-1 bg-black')}>
+    <View style={tailwind("px-3 py-1 bg-black")}>
       <View
         style={[
           tailwind(`relative bg-gray-500 rounded-lg`),
@@ -24,7 +24,8 @@ const Header = ({ loading }) => {
             height: 2,
             width: width - 24,
           },
-        ]}>
+        ]}
+      >
         {!loading && (
           <View
             style={[
@@ -33,7 +34,8 @@ const Header = ({ loading }) => {
                 height: 2,
                 width: width / 2,
               },
-            ]}></View>
+            ]}
+          ></View>
         )}
       </View>
       {!loading && (
@@ -53,14 +55,14 @@ const Header = ({ loading }) => {
           <View style={tailwind(`flex-row gap-4`)}>
             <Entypo
               onPress={() =>
-                updateData('panel', { ...panel, ui: <PanelInfo /> })
+                updateData("panel", { ...panel, ui: <PanelInfo /> })
               }
               name="dots-three-horizontal"
               size={24}
               color="white"
             />
             <Ionicons
-              onPress={() => navigation.goBack(null)}
+              onPress={() => navigation.goBack()}
               name="close"
               size={24}
               color="white"
@@ -73,7 +75,7 @@ const Header = ({ loading }) => {
 };
 
 Header.propTypes = {
-  loading: bool
-}
+  loading: bool,
+};
 
 export default Header;
