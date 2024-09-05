@@ -47,7 +47,7 @@ const Router = () => {
           headerShown: false,
           tabBarVisible: false,
         }}
-        initialRouteName="ReceiveCall"
+        initialRouteName="Pending"
       >
         <Stack.Screen name="Main" component={Main} />
         <Stack.Screen name="Story" component={Story} />

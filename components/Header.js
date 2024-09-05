@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Text, View, TouchableOpacity, Platform } from "react-native";
+import { Text, View, TouchableOpacity, Platform, Alert } from "react-native";
 import { AntDesign, MaterialIcons, Feather } from "@expo/vector-icons";
 import tailwind from "../tailwind";
 import { AppContext } from "../contexts/index";
@@ -26,8 +26,12 @@ const Header = ({ friend }) => {
   );
 
   const startCall = async (isVideo) => {
-    const offer = peerConnection ? {} : await peerConnection?.createOffer();
-    // await peerConnection.setLocalDescription(offer);
+    if (!peerConnection) {
+      Alert.alert("Current system haven't support Web RTC");
+      return;
+    }
+    const offer = await peerConnection?.createOffer();
+    await peerConnection.setLocalDescription(offer);
     updateData("isCalling", {
       status: true,
       groupId: groupCurrent?.id,

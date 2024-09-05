@@ -6,6 +6,7 @@ import { AppContext } from "../../../contexts";
 import { MaterialIcons, SimpleLineIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { imageGroup, nameGroup } from "../../../utils";
+import useSound from "../../../hooks/useSound";
 
 const ReceiveCall = ({ route }) => {
   const {
@@ -16,7 +17,9 @@ const ReceiveCall = ({ route }) => {
   const group = route?.params?.group;
   const image = imageGroup(group, user);
   const name = nameGroup(group, user);
+  const { playSound } = useSound(2);
   const handleAccept = async () => {
+    playSound();
     navigation.navigate("RunningCall", {
       payload,
     });

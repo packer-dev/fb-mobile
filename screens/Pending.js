@@ -7,12 +7,12 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import tailwind from "../tailwind";
 import { getUserById } from "../apis/userAPIs";
 import { useNavigation } from "@react-navigation/native";
-// import useWebRTC from "../hooks/useWebRTC";
+import useWebRTC from "../hooks/useWebRTC";
 
 const Pending = () => {
   const { updateData } = React.useContext(AppContext);
   const navigation = useNavigation();
-  // useWebRTC();
+  useWebRTC();
   React.useEffect(() => {
     const fetchData = async () => {
       const token = await SecureStore.getItemAsync("token");

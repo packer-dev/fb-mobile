@@ -2,14 +2,14 @@ import React from "react";
 import { AppContext } from "../contexts/index";
 import useSound from "./useSound";
 import { useNavigation } from "@react-navigation/native";
-// import { RTCSessionDescription } from "react-native-webrtc";
+import { RTCSessionDescription } from "react-native-webrtc";
 
 const useListeningCallee = () => {
   const {
     state: { user, socket, peerConnection },
     updateData,
   } = React.useContext(AppContext);
-  const { playSound } = useSound();
+  const { playSound } = useSound(require("../assets/audio.mp3"));
   const navigation = useNavigation();
   const listenChat = async (data) => {
     if (!peerConnection) return;
@@ -17,9 +17,9 @@ const useListeningCallee = () => {
     data = JSON.parse(data);
     playSound();
     updateData("loading", true);
-    // await peerConnection.setRemoteDescription(
-    //   new RTCSessionDescription(data?.offer)
-    // );
+    await peerConnection.setRemoteDescription(
+      new RTCSessionDescription(data?.offer)
+    );
     const answer = await peerConnection.createAnswer();
     await peerConnection.setLocalDescription(answer);
     navigation.navigate("ReceiveCall", { payload: { ...data, answer } });
