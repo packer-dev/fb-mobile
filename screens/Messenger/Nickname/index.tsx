@@ -1,0 +1,65 @@
+import Wrapper from "../../Wrapper";
+import Header from "../../../components/Commons/Header";
+import React from "react";
+import { AppContext } from "../../../contexts";
+import {
+  Alert,
+  ScrollView,
+  Text,
+  View,
+  TouchableOpacity,
+  Platform,
+} from "react-native";
+import tailwind from "../../../tailwind";
+import Avatar from "../../../components/Avatar";
+import { Member } from "../../../interfaces/Member";
+
+const Nickname = () => {
+  //
+  const {
+    state: { groupCurrent },
+  } = React.useContext(AppContext);
+  const handleOK = () => {};
+  const handleChange = (item: Member) => {
+    if (Platform.OS === "ios") {
+      Alert.prompt(
+        "Edit nickname",
+        "Everyone in group chat will see this nickname.",
+        [{ text: "Cancel" }, { text: "OK", onPress: handleOK }],
+        "default",
+        item?.nickname
+      );
+    }
+  };
+  //
+  return (
+    <Wrapper overflowHidden>
+      <Header title="Members" hiddenSearch />
+      <View style={tailwind(`flex-1`)}>
+        <ScrollView>
+          <View style={tailwind(`flex-col gap-3 p-3`)}>
+            {groupCurrent?.members?.map((item) => (
+              <TouchableOpacity
+                onPress={() => handleChange(item)}
+                key={item?.id}
+                style={tailwind(`flex-row gap-3 items-center`)}
+              >
+                <Avatar size={14} uri={item?.user?.avatar} />
+                <View>
+                  <Text style={tailwind(`font-bold`)}>
+                    {item?.nickname || item?.user?.name}
+                  </Text>
+                  <Text style={tailwind(`text-gray-600 text-sm`)}>
+                    {!item?.nickname ? "Nickname" : item?.user?.name}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </ScrollView>
+      </View>
+    </Wrapper>
+  );
+};
+
+export default Nickname;
