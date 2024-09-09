@@ -1,10 +1,10 @@
 import * as React from "react";
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
-import tailwind from "../tailwind";
 import * as Animatable from "react-native-animatable";
-import { AppContext } from "../contexts/index";
-import useKeyboard from "../hooks/useKeyboard";
 import { PopupProps } from "./PopupProps";
+import useKeyboard from "@/hooks/useKeyboard";
+import { AppContext } from "@/contexts";
+import tailwind from "@/tailwind";
 
 const Popup = ({
   children,

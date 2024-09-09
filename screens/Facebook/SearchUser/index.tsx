@@ -7,11 +7,11 @@ import {
   TextInput,
   Image,
 } from "react-native";
-import Container from "../Container";
 import { AntDesign } from "@expo/vector-icons";
-import tailwind from "../../../tailwind";
-import SuggestFriend from "../../../components/Facebook/SuggestFriend/index";
 import { useNavigation } from "@react-navigation/native";
+import Container from "../Container";
+import tailwind from "@/tailwind";
+import SuggestFriend from "@/components/Facebook/SuggestFriend";
 
 const SearchUser = () => {
   const navigation = useNavigation();

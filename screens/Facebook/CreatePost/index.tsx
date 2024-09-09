@@ -10,7 +10,6 @@ import {
   StatusBar,
   Keyboard,
 } from "react-native";
-import tailwind from "../../../tailwind";
 import {
   AntDesign,
   Entypo,
@@ -20,18 +19,19 @@ import {
   EvilIcons,
   Ionicons,
 } from "@expo/vector-icons";
-import Avatar from "../../../components/Avatar";
-import { AppContext } from "../../../contexts/index";
-import useKeyboard from "../../../hooks/useKeyboard";
-import Panel from "../../../panels/index";
-import { postModel } from "../../../models";
-import { generateUUID } from "../../../utils";
-import { createPost, editPost } from "../../../apis/postAPIs";
 import * as ImagePicker from "expo-image-picker";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import MediaDisplay from "../../../components/Facebook/MediaDisplay";
-import { Post } from "../../../interfaces/Post";
-import { ContentPost } from "../../../interfaces/ContentPost";
+import useKeyboard from "@/hooks/useKeyboard";
+import { Post } from "@/interfaces/Post";
+import { AppContext } from "@/contexts";
+import { ContentPost } from "@/interfaces/ContentPost";
+import { generateUUID } from "@/utils";
+import { postModel } from "@/models";
+import { createPost, editPost } from "@/apis/postAPIs";
+import tailwind from "@/tailwind";
+import Avatar from "@/components/Avatar";
+import MediaDisplay from "@/components/Facebook/MediaDisplay";
+import Panel from "@/panels";
 
 type ScreenList = NavigationProp<{
   Facebook: undefined;
@@ -197,7 +197,7 @@ const CreatePost = ({ route }: any) => {
           </View>
           <View style={tailwind(`flex-1 flex-col bg-white p-3`)}>
             <View style={tailwind(`flex-row gap-3 pb-3`)}>
-              <Avatar size={14} uri={user?.avatar ?? ""} />
+              <Avatar size={14} uri={user?.avatar} />
               <View>
                 <Text style={tailwind(`font-bold text-lg`)}>{user?.name}</Text>
                 <View

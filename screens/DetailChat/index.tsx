@@ -1,5 +1,3 @@
-import Wrapper from "../Wrapper";
-import tailwind from "../../tailwind";
 import { View, Text } from "react-native";
 import Header from "./Header";
 import Control from "./Control";
@@ -7,7 +5,9 @@ import ItemGroupOption from "./ItemGroupOption";
 import { FontAwesome6, Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { AppContext } from "../../contexts";
+import { AppContext } from "@/contexts";
+import Wrapper from "../Wrapper";
+import tailwind from "@/tailwind";
 
 type ScreenList = NavigationProp<{
   MemberList: undefined;

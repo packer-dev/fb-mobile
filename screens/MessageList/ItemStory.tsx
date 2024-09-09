@@ -1,9 +1,9 @@
 import * as React from "react";
-import tailwind from "../../tailwind";
 import { View, TouchableWithoutFeedback, Text } from "react-native";
-import Avatar from "../../components/Avatar";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { User } from "../../interfaces/User";
+import { User } from "@/interfaces/User";
+import tailwind from "@/tailwind";
+import Avatar from "@/components/Avatar";
 
 type ItemStoryProps = {
   friend?: User;
@@ -27,7 +27,7 @@ const ItemStory = ({ friend, loading }: ItemStoryProps) => {
       }
     >
       <View style={tailwind(`flex-col gap-2 justify-center`)}>
-        <Avatar size={14} uri={friend?.avatar ?? ""} loading={loading} />
+        <Avatar size={14} uri={friend?.avatar} loading={loading} />
         <Text
           style={tailwind(
             `text-xs font-semibold text-gray-600 mx-auto ${

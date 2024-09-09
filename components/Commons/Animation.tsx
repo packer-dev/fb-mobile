@@ -2,17 +2,17 @@ import React, { useEffect } from "react";
 import { View, Image } from "react-native";
 
 type AnimationProps = {
-  sticker: any,
-  size?: number
-}
+  sticker: any;
+  size?: number;
+};
 
 type StickerAnimationProps = {
-  size: number,
-  row: number,
-  col: number,
-  uri: string,
-  miss: number
-}
+  size: number;
+  row: number;
+  col: number;
+  uri: string;
+  miss: number;
+};
 
 const Animation = ({ sticker, size = 90 }: AnimationProps) => {
   return (
@@ -29,7 +29,13 @@ const Animation = ({ sticker, size = 90 }: AnimationProps) => {
   );
 };
 
-const StickerAnimation = ({ size, row, col, uri, miss = 0 }: StickerAnimationProps) => {
+const StickerAnimation = ({
+  size,
+  row,
+  col,
+  uri,
+  miss = 0,
+}: StickerAnimationProps) => {
   const [translateX, setTranslateX] = React.useState(0);
   const [translateY, setTranslateY] = React.useState(0);
   useEffect(() => {

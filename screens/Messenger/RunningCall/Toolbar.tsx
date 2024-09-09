@@ -1,7 +1,7 @@
 import React from "react";
-import tailwind from "../../../tailwind";
 import { AntDesign, Feather, SimpleLineIcons } from "@expo/vector-icons";
 import { TouchableOpacity, View } from "react-native";
+import tailwind from "@/tailwind";
 
 const Toolbar = () => {
   const [isEnableAudio, setIsEnableAudio] = React.useState(false);

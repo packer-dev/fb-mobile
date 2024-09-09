@@ -9,9 +9,9 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-import tailwind from "../../tailwind";
 import { AntDesign, MaterialIcons, Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import tailwind from "@/tailwind";
 
 export default function CameraCommon({ route }: any) {
   const navigation = useNavigation<any>();

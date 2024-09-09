@@ -1,16 +1,14 @@
 import * as React from "react";
 import { View, Text, ActivityIndicator } from "react-native";
-import tailwind from "../../../tailwind";
 import ItemFriend from "./ItemFriend";
 import Container from "../Container";
 import Header from "./Header";
-import useFriend from "../../../hooks/useFriend";
-import { useNavigation } from "@react-navigation/native";
+import useFriend from "@/hooks/useFriend";
+import tailwind from "@/tailwind";
 
 const Friends = ({ route }: any) => {
   //
   const { listFriend, loading, handleUpdate } = useFriend(2);
-  const navigation = useNavigation();
   //
   return (
     <Container scrollView route={route}>

@@ -6,13 +6,13 @@ import {
   ScrollView,
   ActivityIndicator,
 } from "react-native";
-import tailwind from "../../../tailwind";
-import Post from "../../../components/Facebook/Post/index";
 import InfoProfile from "./InfoProfile";
 import UploadProfile from "./UploadProfile";
-import MediaList from "../../../components/Facebook/MediaList/index";
-import { AppContext } from "../../../contexts/index";
-import { getMediaByUserId } from "../../../apis/postAPIs";
+import { AppContext } from "@/contexts";
+import { getMediaByUserId } from "@/apis/postAPIs";
+import tailwind from "@/tailwind";
+import MediaList from "@/components/Facebook/MediaList";
+import Post from "@/components/Facebook/Post";
 
 const Content = () => {
   const {

@@ -1,10 +1,10 @@
 import * as React from "react";
 import { View, TouchableOpacity, Text, Image } from "react-native";
-import tailwind from "../../tailwind";
 import navbarList from "./navbarList";
-import ItemNavbar from "../../components/ItemNavbar";
-import { AppContext } from "../../contexts/index";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { AppContext } from "@/contexts";
+import tailwind from "@/tailwind";
+import ItemNavbar from "@/components/ItemNavbar";
 
 type ScreenList = NavigationProp<{
   Profile: undefined;
@@ -28,7 +28,7 @@ const Navbar = ({ route }: any) => {
       ))}
       <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
         <Image
-          source={{ uri: user?.avatar || `https://picsum.photos/536/354` }}
+          source={{ uri: user?.avatar ?? `https://picsum.photos/536/354` }}
           style={tailwind(
             `w-8 h-8 border-2 border-black mb-1 rounded-full mx-auto`
           )}

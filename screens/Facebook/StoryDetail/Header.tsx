@@ -1,12 +1,12 @@
 import * as React from "react";
 import { View, Text, Dimensions } from "react-native";
-import tailwind from "../../../tailwind";
-import Avatar from "../../../components/Avatar";
 const width = Dimensions.get("window").width;
 import { Feather, Entypo, Ionicons } from "@expo/vector-icons";
-import { AppContext } from "../../../contexts/index";
 import PanelInfo from "./PanelInfo";
 import { useNavigation } from "@react-navigation/native";
+import { AppContext } from "@/contexts";
+import tailwind from "@/tailwind";
+import Avatar from "@/components/Avatar";
 
 const Header = ({ loading }: { loading?: boolean }) => {
   const {

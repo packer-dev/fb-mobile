@@ -27,7 +27,7 @@ const Avatar = ({
         />
       ) : (
         <Image
-          source={{ uri: uri || `https://picsum.photos/536/354` }}
+          source={{ uri: uri ?? `https://picsum.photos/536/354` }}
           style={tailwind(`w-${size} h-${size} rounded-full mx-auto`)}
         />
       )}

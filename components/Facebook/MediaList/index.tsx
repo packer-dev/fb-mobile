@@ -1,14 +1,14 @@
 import * as React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
-import tailwind from "../../../tailwind";
 import ItemMediaList from "./ItemMediaList";
+import tailwind from "@/tailwind";
 
 type MediaListProps = {
-  list: any[],
-  status: any,
-  name: string,
-  total: number
-}
+  list: any[];
+  status: any;
+  name: string;
+  total: number;
+};
 
 const MediaList = ({ list, status, name, total }: MediaListProps) => {
   return list?.length ? (

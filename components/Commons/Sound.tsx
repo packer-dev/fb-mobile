@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Button, View } from "react-native";
 import { Audio } from "expo-av";
-import tailwind from "../../tailwind";
+import tailwind from "@/tailwind";
 
 type SoundProps = {
-  isPlay: boolean
-}
+  isPlay: boolean;
+};
 
 export default function Sound({ isPlay }: Readonly<SoundProps>) {
   const [sound, setSound] = useState<any>();
@@ -23,8 +23,8 @@ export default function Sound({ isPlay }: Readonly<SoundProps>) {
   useEffect(() => {
     return sound
       ? () => {
-        sound.unloadAsync();
-      }
+          sound.unloadAsync();
+        }
       : undefined;
   }, [sound, isPlay]);
 

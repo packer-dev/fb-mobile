@@ -1,11 +1,11 @@
 import * as React from "react";
 import { View, Text, ScrollView, TextInput } from "react-native";
-import tailwind from "../../../tailwind";
-import Container from "../Container";
-import useFriend from "../../../hooks/useFriend";
 import { AntDesign, Fontisto, Entypo } from "@expo/vector-icons";
-import Avatar from "../../../components/Avatar";
-import Header from "../../../components/Commons/Header";
+import useFriend from "@/hooks/useFriend";
+import Container from "../Container";
+import Header from "@/components/Commons/Header";
+import tailwind from "@/tailwind";
+import Avatar from "@/components/Avatar";
 
 const ListFriend = () => {
   //

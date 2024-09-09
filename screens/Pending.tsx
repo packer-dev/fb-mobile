@@ -1,13 +1,13 @@
 import * as React from "react";
-import { AppContext } from "../contexts/index";
 import { View } from "react-native";
 import * as SecureStore from "expo-secure-store";
-import { userModel } from "../models";
 import { FontAwesome5 } from "@expo/vector-icons";
-import tailwind from "../tailwind";
-import { getUserById } from "../apis/userAPIs";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import useWebRTC from "../hooks/useWebRTC";
+import { AppContext } from "@/contexts";
+import useWebRTC from "@/hooks/useWebRTC";
+import { getUserById } from "@/apis/userAPIs";
+import { userModel } from "@/models";
+import tailwind from "@/tailwind";
 
 type ScreenList = NavigationProp<{
   Facebook: undefined;

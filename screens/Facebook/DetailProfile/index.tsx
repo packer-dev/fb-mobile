@@ -1,13 +1,13 @@
 import * as React from "react";
 import { View } from "react-native";
-import tailwind from "../../../tailwind";
 import Header from "./Header";
 import Content from "./Content";
 import Container from "../Container";
-import { AppContext } from "../../../contexts/index";
-import { postResponseModel } from "../../../models";
-import { getPostByIdUser } from "../../../apis/postAPIs";
 import Loading from "./Loading";
+import { AppContext } from "@/contexts";
+import { getPostByIdUser } from "@/apis/postAPIs";
+import { postResponseModel } from "@/models";
+import tailwind from "@/tailwind";
 
 const DetailProfile = ({ route }: any) => {
   const {

@@ -6,7 +6,6 @@ import {
   Keyboard,
 } from "react-native";
 import * as React from "react";
-import tailwind from "../tailwind";
 import {
   AntDesign,
   SimpleLineIcons,
@@ -14,11 +13,12 @@ import {
   Feather,
   FontAwesome,
 } from "@expo/vector-icons";
-import { AppContext } from "../contexts/index";
 import { dataFakeGroup, dataFakeMessage } from "../utils";
-import { sendMessageAPI } from "../api";
 import BoardSticker from "./Commons/BoardSticker";
-import { User } from "../interfaces/User";
+import { User } from "@/interfaces/User";
+import { AppContext } from "@/contexts";
+import { sendMessageAPI } from "@/api";
+import tailwind from "@/tailwind";
 
 const width = Dimensions.get("window").width - 16;
 

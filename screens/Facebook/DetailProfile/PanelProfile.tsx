@@ -1,10 +1,10 @@
 import * as React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
-import tailwind from "../../../tailwind";
-import Panel from "../../../panels";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { AppContext } from "../../../contexts";
+import { AppContext } from "@/contexts";
+import Panel from "@/panels";
+import tailwind from "@/tailwind";
 
 type ScreenList = NavigationProp<{
   Camera: any;

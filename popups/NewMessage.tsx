@@ -1,15 +1,15 @@
 import * as React from "react";
 import { View, Text, TouchableOpacity, TextInput } from "react-native";
-import tailwind from "../tailwind";
 import { MaterialIcons } from "@expo/vector-icons";
 import Popup from "./Popup";
-import Avatar from "../components/Avatar";
-import { AppContext } from "../contexts/index";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { generateUUID } from "../utils";
 import NewGroup from "./NewGroup";
 import { PopupProps } from "./PopupProps";
-import { User } from "../interfaces/User";
+import { User } from "@/interfaces/User";
+import { AppContext } from "@/contexts";
+import tailwind from "@/tailwind";
+import { generateUUID } from "@/utils";
+import Avatar from "@/components/Avatar";
 
 type ScreenList = NavigationProp<{
   Main: {

@@ -1,6 +1,5 @@
 import * as React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
-import tailwind from "../../../tailwind";
 import {
   Entypo,
   AntDesign,
@@ -8,11 +7,12 @@ import {
   Feather,
   FontAwesome5,
 } from "@expo/vector-icons";
-import { AppContext } from "../../../contexts/index";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { checkRelationship, sendRelationship } from "../../../apis/userAPIs";
-import IconButton from "../../../components/IconButton";
-import { User } from "../../../interfaces/User";
+import { User } from "@/interfaces/User";
+import { AppContext } from "@/contexts";
+import { checkRelationship, sendRelationship } from "@/apis/userAPIs";
+import tailwind from "@/tailwind";
+import IconButton from "@/components/IconButton";
 
 type ScreenList = NavigationProp<{
   ToolbarProfile: undefined;
@@ -33,16 +33,52 @@ const DetailProfile = ({ relationship = { manual: 0, amount: 0 } }) => {
   const handleRelationship = async () => {
     if (status === 3) return;
     setLoading(true);
+    const statusAPI = status === 1 ? "" : "accept";
     await sendRelationship({
       user1: user?.id,
       user2: visit?.id,
-      status: !status ? "send" : status === 1 ? "" : "accept",
+      status: !status ? "send" : statusAPI,
     });
-    setStatus(!status ? 1 : status === 1 ? null : 3);
+    const statusUI = status === 1 ? null : 3;
+    setStatus(!status ? 1 : statusUI);
     setLoading(false);
     updateData("trigger", { ...trigger, suggestFriend: Math.random() });
   };
-
+  const iconNameStatus = (() => {
+    switch (status) {
+      case 1:
+        return "deleteuser";
+      case 2:
+        return "user-check";
+      case 3:
+        return "user-friends";
+      default:
+        return "adduser";
+    }
+  })();
+  const iconContainerStatus = (() => {
+    if (status === 2) return Feather;
+    if (status === 3) return FontAwesome5;
+    return AntDesign;
+  })();
+  const textStatus = (() => {
+    if (loading) return "";
+    switch (status) {
+      case 1:
+        return "Cancel request";
+      case 2:
+        return "Accept request";
+      case 3:
+        return "Friend";
+      default:
+        return "Add friend";
+    }
+  })();
+  const styleStatus = (() => {
+    if (!status || status === 2) return "bg-primary";
+    if (status === 3) return "bg-gray-400";
+    return "bg-gray-500";
+  })();
   React.useEffect(() => {
     const fetchData = async () => {
       if (!user) return;
@@ -105,37 +141,11 @@ const DetailProfile = ({ relationship = { manual: 0, amount: 0 } }) => {
         <View style={tailwind(`flex-row gap-2 py-2`)}>
           <IconButton
             onPress={handleRelationship}
-            iconName={
-              !status
-                ? "adduser"
-                : status === 2
-                ? "user-check"
-                : status === 3
-                ? "user-friends"
-                : "deleteuser"
-            }
-            IconContainer={
-              status === 2 ? Feather : status === 3 ? FontAwesome5 : AntDesign
-            }
-            text={
-              !status
-                ? loading
-                  ? ""
-                  : "Add friend"
-                : status === 2
-                ? "Accept request"
-                : status === 3
-                ? "Friend"
-                : "Cancel request"
-            }
+            iconName={iconNameStatus}
+            IconContainer={iconContainerStatus}
+            text={textStatus}
             iconSize={24}
-            styles={`p-2 h-11 flex-1 ${
-              !status || status === 2
-                ? "bg-primary"
-                : status === 3
-                ? "bg-gray-400"
-                : "bg-gray-500"
-            } justify-center`}
+            styles={`p-2 h-11 flex-1 ${styleStatus} justify-center`}
             haveBackground={status !== 3}
             loading={loading}
           />

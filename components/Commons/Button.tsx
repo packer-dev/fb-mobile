@@ -1,6 +1,6 @@
 import { TouchableOpacity, Text } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-import tailwind from "../../tailwind";
+import tailwind from "@/tailwind";
 
 const Button = ({
   text,

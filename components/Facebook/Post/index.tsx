@@ -9,17 +9,17 @@ import {
   ActivityIndicator,
   Platform,
 } from "react-native";
-import tailwind from "../../../tailwind";
 import Header from "./Header";
 import Content from "./Content";
 import Toolbar from "./Toolbar";
 import Comments from "./Comments";
 import { Feather, Ionicons, FontAwesome } from "@expo/vector-icons";
-import { AppContext } from "../../../contexts/index";
-import { generateUUID, getCurrentDateTime } from "../../../utils";
-import { sendComment, getCommentByPost } from "../../../apis/commentAPIs";
-import BoardSticker from "../../Commons/BoardSticker";
-import { Comment, CommentDTO } from "../../../interfaces/Comment";
+import { AppContext } from "@/contexts";
+import { Comment, CommentDTO } from "@/interfaces/Comment";
+import { generateUUID, getCurrentDateTime } from "@/utils";
+import { getCommentByPost, sendComment } from "@/apis/commentAPIs";
+import tailwind from "@/tailwind";
+import BoardSticker from "@/components/Commons/BoardSticker";
 
 const width = Dimensions.get("window").width - 24;
 
@@ -121,8 +121,9 @@ const Post = (props: any) => {
             )}
           >
             <View
-              style={tailwind(`flex-row px-3 pt-3 ${Platform.OS === "ios" ? "pb-3" : ""
-                } border-t border-gray-300 
+              style={tailwind(`flex-row px-3 pt-3 ${
+                Platform.OS === "ios" ? "pb-3" : ""
+              } border-t border-gray-300 
               gap-3 items-center`)}
             >
               <TouchableOpacity>
@@ -179,6 +180,5 @@ const Post = (props: any) => {
     </View>
   );
 };
-
 
 export default Post;

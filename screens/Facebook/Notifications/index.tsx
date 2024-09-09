@@ -1,9 +1,9 @@
 import * as React from "react";
 import Container from "../Container";
 import { Text, TouchableOpacity, View } from "react-native";
-import tailwind from "../../../tailwind";
 import { AntDesign, Entypo } from "@expo/vector-icons";
 import ItemNotification from "./ItemNotification";
+import tailwind from "@/tailwind";
 
 const Notifications = ({ route }: any) => {
   return (

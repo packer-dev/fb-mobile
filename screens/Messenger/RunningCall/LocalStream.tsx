@@ -1,5 +1,5 @@
+import tailwind from "@/tailwind";
 import { View } from "react-native";
-import tailwind from "../../../tailwind";
 
 const LocalStream = () => {
   return (

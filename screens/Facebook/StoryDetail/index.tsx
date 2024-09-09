@@ -1,23 +1,15 @@
 import * as React from "react";
 import { View, SafeAreaView, Image, ScrollView } from "react-native";
-import tailwind from "../../../tailwind";
-import Sound from "../../../components/Commons/Sound";
-import Wrapper from "../../Wrapper";
 import Toolbar from "./Toolbar";
 import Header from "./Header";
-import Loading from "../../../components/Loading";
-import {
-  SensorType,
-  useAnimatedSensor,
-  useDerivedValue,
-} from "react-native-reanimated";
+import Wrapper from "@/screens/Wrapper";
+import tailwind from "@/tailwind";
+import Sound from "@/components/Commons/Sound";
+import Loading from "@/components/Loading";
 
 const StoryDetail = () => {
   const [loading, setLoading] = React.useState(true);
-  const gyroscope = useAnimatedSensor(SensorType.GYROSCOPE);
-  useDerivedValue(() => {
-    const { x, y, z } = gyroscope.sensor.value;
-  });
+
   React.useEffect(() => {
     const timeOut = setTimeout(() => {
       setLoading(false);

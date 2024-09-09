@@ -1,13 +1,13 @@
 import * as React from "react";
 import ChoosePerson from "./ChoosePerson";
-import { AppContext } from "../contexts";
-import { sendMessageAPI } from "../api";
 import { dataFakeGroup, dataFakeMessage, generateUUID } from "../utils";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { memberModel } from "../models";
 import { PopupProps } from "./PopupProps";
-import { User } from "../interfaces/User";
-import { Group } from "../interfaces/Group";
+import { Group } from "@/interfaces/Group";
+import { AppContext } from "@/contexts";
+import { User } from "@/interfaces/User";
+import { memberModel } from "@/models";
+import { sendMessageAPI } from "@/api";
 
 type ScreenList = NavigationProp<{
   Main: {

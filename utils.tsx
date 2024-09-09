@@ -1,11 +1,11 @@
 import * as SecureStore from "expo-secure-store";
-import Avatar from "./components/Avatar";
-import GroupAvatar from "./components/GroupAvatar";
 import { Alert } from "react-native";
 import { ContextInitProps } from "./contexts";
 import { Group } from "./interfaces/Group";
 import { Message } from "./interfaces/Message";
 import { User } from "./interfaces/User";
+import Avatar from "./components/Avatar";
+import GroupAvatar from "./components/GroupAvatar";
 
 export const validateEmail = ({ value }: { value: string }) => {
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -306,7 +306,7 @@ export const imageGroup = (group: Group, user: User | null) => {
     };
   }
   return !result.isGroupAvatar ? (
-    <Avatar size={32} uri={result.uri ?? ""} online={false} />
+    <Avatar size={32} uri={result.uri} online={false} />
   ) : (
     <GroupAvatar group={group} size={16} child={7} />
   );

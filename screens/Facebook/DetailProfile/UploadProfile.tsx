@@ -8,14 +8,13 @@ import {
   ActivityIndicator,
   Alert,
 } from "react-native";
-import tailwind from "../../../tailwind";
 import { FontAwesome, Feather } from "@expo/vector-icons";
-import Avatar from "../../../components/Avatar";
 import * as ImagePicker from "expo-image-picker";
-import { AppContext } from "../../../contexts/index";
-import { updateProfileUser } from "../../../apis/userAPIs";
 import PanelProfile from "./PanelProfile";
-import { object } from "prop-types";
+import { AppContext } from "@/contexts";
+import { updateProfileUser } from "@/apis/userAPIs";
+import tailwind from "@/tailwind";
+import Avatar from "@/components/Avatar";
 
 const UploadProfile = ({ route }: any) => {
   const {
@@ -69,7 +68,7 @@ const UploadProfile = ({ route }: any) => {
           image.uri.lastIndexOf("/") + 1,
           image.uri.length
         ),
-        type: image.mimeType || "image/jpeg",
+        type: image.mimeType ?? "image/jpeg",
       });
       formData.append("folder", folder);
       formData.append("user_id", user?.id);

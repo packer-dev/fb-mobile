@@ -1,14 +1,14 @@
 import * as React from "react";
 import { ScrollView, View, Text, Image, Platform } from "react-native";
-import tailwind from "../../tailwind";
 import ItemStory from "../Story/ItemStory";
 import { Feather } from "@expo/vector-icons";
-import Post from "../../components/Facebook/Post/index";
-import SuggestFriend from "../../components/Facebook/SuggestFriend/index";
-import { AppContext } from "../../contexts/index";
 import * as ImagePicker from "expo-image-picker";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import Loading from "../../components/Loading";
+import { AppContext } from "@/contexts";
+import tailwind from "@/tailwind";
+import SuggestFriend from "@/components/Facebook/SuggestFriend";
+import Loading from "@/components/Loading";
+import Post from "@/components/Facebook/Post";
 
 type ContentProps = {
   loading?: boolean;
@@ -47,7 +47,7 @@ const Content = ({ loading }: ContentProps) => {
         <View style={tailwind(`flex-row gap-3 items-center py-5 px-3`)}>
           <Image
             style={tailwind(`w-12 h-12 rounded-full`)}
-            source={{ uri: user?.avatar || `https://picsum.photos/536/354` }}
+            source={{ uri: user?.avatar ?? `https://picsum.photos/536/354` }}
           />
           <Text
             style={tailwind(`flex-1`)}

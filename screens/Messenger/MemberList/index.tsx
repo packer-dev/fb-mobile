@@ -6,15 +6,15 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import Wrapper from "../../Wrapper";
-import Header from "../../../components/Commons/Header";
 import { AntDesign } from "@expo/vector-icons";
-import tailwind from "../../../tailwind";
-import Avatar from "../../../components/Avatar";
-import { AppContext } from "../../../contexts";
 import PanelOption from "./PanelOption";
-import { generateUUID } from "../../../utils";
-import AddMember from "../../../popups/AddMember";
+import { AppContext } from "@/contexts";
+import Header from "@/components/Commons/Header";
+import Wrapper from "@/screens/Wrapper";
+import { generateUUID } from "@/utils";
+import AddMember from "@/popups/AddMember";
+import tailwind from "@/tailwind";
+import Avatar from "@/components/Avatar";
 
 const width = Dimensions.get("window").width;
 

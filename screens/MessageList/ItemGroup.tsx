@@ -1,12 +1,12 @@
 import * as React from "react";
 import { View, TouchableOpacity, Text } from "react-native";
-import tailwind from "../../tailwind";
 import { AntDesign } from "@expo/vector-icons";
-import Avatar from "../../components/Avatar";
-import GroupAvatar from "../../components/GroupAvatar";
-import { AppContext } from "../../contexts/index";
 import moment from "moment";
-import { Group } from "../../interfaces/Group";
+import { Group } from "@/interfaces/Group";
+import { AppContext } from "@/contexts";
+import Avatar from "@/components/Avatar";
+import GroupAvatar from "@/components/GroupAvatar";
+import tailwind from "@/tailwind";
 
 type ItemGroupProps = {
   handleClick?: Function;
@@ -37,7 +37,7 @@ const ItemGroup = ({ handleClick, group, loading }: ItemGroupProps) => {
       };
     }
     return !result.isGroupAvatar ? (
-      <Avatar size={16} uri={result.uri ?? ""} />
+      <Avatar size={16} uri={result.uri} />
     ) : (
       <GroupAvatar group={group} size={16} child={7} />
     );
@@ -46,7 +46,7 @@ const ItemGroup = ({ handleClick, group, loading }: ItemGroupProps) => {
     const isBigGroup = group?.multiple;
     if (isBigGroup) {
       return (
-        group?.name || group?.members.map((item) => item?.user?.name).join(", ")
+        group?.name ?? group?.members.map((item) => item?.user?.name).join(", ")
       );
     } else {
       return group?.members?.find((item) => item?.user?.id !== user?.id)?.user

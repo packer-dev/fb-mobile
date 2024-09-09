@@ -24,7 +24,6 @@ import SearchUser from "./screens/Facebook/SearchUser/index";
 import ListFriend from "./screens/Facebook/ListFriend/index";
 import StoryDetail from "./screens/Facebook/StoryDetail/index";
 import Camera from "./components/Commons/Camera";
-import Code from "./screens/Code";
 import RequestFriend from "./screens/Facebook/RequestFriend";
 import ReceiveFriend from "./screens/Facebook/ReceiveFriend";
 import MemberList from "./screens/Messenger/MemberList";
@@ -77,7 +76,6 @@ const Router = () => {
         <Stack.Screen name="DetailImagePost" component={DetailImagePost} />
 
         <Stack.Screen name="Camera" component={Camera} />
-        <Stack.Screen name="Code" component={Code} />
       </Stack.Navigator>
       {loading && <Loading />}
       {panel?.ui?.length > 0

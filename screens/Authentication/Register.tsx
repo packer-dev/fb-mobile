@@ -1,13 +1,13 @@
 import Authentication from "./index";
-import Input from "../../components/Input";
-import { ramdomUser, validateEmail } from "../../utils";
-import useForm from "../../hooks/useForm";
 import * as React from "react";
 import { Keyboard, Text } from "react-native";
-import { registerAPI } from "../../api";
-import { userModel } from "../../models";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import tailwind from "../../tailwind";
+import { ramdomUser, validateEmail } from "@/utils";
+import useForm from "@/hooks/useForm";
+import { registerAPI } from "@/api";
+import { userModel } from "@/models";
+import Input from "@/components/Input";
+import tailwind from "@/tailwind";
 
 const random = ramdomUser();
 
@@ -39,7 +39,6 @@ const init = [
 type ScreenList = NavigationProp<{
   Facebook: undefined;
 }>;
-
 const Register = () => {
   const { inputs, onSubmit, onInputChange, register } = useForm(init);
   const navigation = useNavigation<ScreenList>();

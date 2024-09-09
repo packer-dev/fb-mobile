@@ -1,8 +1,8 @@
 import { View, Text, Image } from "react-native";
-import tailwind from "../../tailwind";
-import Animation from "../Commons/Animation";
 import moment from "moment";
-import { Message } from "../../interfaces/Message";
+import { Message } from "@/interfaces/Message";
+import tailwind from "@/tailwind";
+import Animation from "../Commons/Animation";
 
 type SenderProps = {
   message?: Message;
@@ -34,7 +34,8 @@ const Sender = ({ message, lastMessage }: SenderProps) => {
             <View style={tailwind(`flex-row justify-end`)}>
               <View
                 style={tailwind(
-                  `ml-auto ${message?.content?.type === 1 ? "bg-gray-300" : ""
+                  `ml-auto ${
+                    message?.content?.type === 1 ? "bg-gray-300" : ""
                   } p-3 rounded-lg`
                 )}
               >

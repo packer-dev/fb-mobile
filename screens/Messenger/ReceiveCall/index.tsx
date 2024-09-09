@@ -1,11 +1,11 @@
 import React from "react";
 import { SafeAreaView, Text, TouchableOpacity, View } from "react-native";
-import tailwind from "../../../tailwind";
-import { AppContext } from "../../../contexts";
 import { MaterialIcons, SimpleLineIcons } from "@expo/vector-icons";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { imageGroup, nameGroup } from "../../../utils";
-import useSound from "../../../hooks/useSound";
+import { AppContext } from "@/contexts";
+import { imageGroup, nameGroup } from "@/utils";
+import useSound from "@/hooks/useSound";
+import tailwind from "@/tailwind";
 
 type ScreenList = NavigationProp<{
   RunningCall: {

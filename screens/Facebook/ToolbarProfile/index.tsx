@@ -1,12 +1,12 @@
 import * as React from "react";
 import { View, Text, TouchableOpacity, Alert } from "react-native";
-import tailwind from "../../../tailwind";
 import Container from "../Container";
 import { AntDesign } from "@expo/vector-icons";
 import { toolbars } from "./toolbars";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { AppContext } from "../../../contexts";
-import { sendRelationship } from "../../../apis/userAPIs";
+import { AppContext } from "@/contexts";
+import { sendRelationship } from "@/apis/userAPIs";
+import tailwind from "@/tailwind";
 
 type ScreenList = NavigationProp<{
   DetailProfile: undefined;

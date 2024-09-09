@@ -1,5 +1,5 @@
+import tailwind from "@/tailwind";
 import { View } from "react-native-animatable";
-import tailwind from "../../../tailwind";
 
 const Loading = () => {
   return (

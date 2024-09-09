@@ -1,28 +1,32 @@
 import * as React from "react";
 import { View, Text, TouchableOpacity, Image, Dimensions } from "react-native";
-import tailwind from "../../../tailwind";
 import { AntDesign, Feather } from "@expo/vector-icons";
-import IconButton from "../../IconButton";
-import { AppContext } from "../../../contexts/index";
-import { sendRelationship } from "../../../apis/userAPIs";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { FriendProfileDTO, User } from "../../../interfaces/User";
+import { FriendProfileDTO, User } from "@/interfaces/User";
+import { AppContext } from "@/contexts";
+import { sendRelationship } from "@/apis/userAPIs";
+import tailwind from "@/tailwind";
+import IconButton from "@/components/IconButton";
 
 const width = Dimensions.get("window").width - 120;
 
 type ItemSuggestFriendProps = {
-  friend: FriendProfileDTO,
-  setFriends: Function,
-  friends: FriendProfileDTO[]
-}
+  friend: FriendProfileDTO;
+  setFriends: Function;
+  friends: FriendProfileDTO[];
+};
 
 type ScreenList = NavigationProp<{
   DetailProfile: {
-    visit: User
-  }
-}>
+    visit: User;
+  };
+}>;
 
-const ItemSuggestFriend = ({ friend, setFriends, friends }: ItemSuggestFriendProps) => {
+const ItemSuggestFriend = ({
+  friend,
+  setFriends,
+  friends,
+}: ItemSuggestFriendProps) => {
   //
   const {
     state: { user },
@@ -30,23 +34,23 @@ const ItemSuggestFriend = ({ friend, setFriends, friends }: ItemSuggestFriendPro
   const navigation = useNavigation<ScreenList>();
   const [status, setStatus] = React.useState(friend?.status);
   const handleRelationship = async () => {
-    let payloadStatusAPI = status === 1 ? "" : "accept"
+    let payloadStatusAPI = status === 1 ? "" : "accept";
     await sendRelationship({
       user1: user?.id,
       user2: friend?.user?.id,
       status: status === 0 ? "send" : payloadStatusAPI,
     });
     if (status === 2) {
-      setFriends([...friends].filter((item) => item.user.id !== friend?.user?.id));
+      setFriends(
+        [...friends].filter((item) => item.user.id !== friend?.user?.id)
+      );
     } else {
       let payloadStatusUI = status === 1 ? 0 : 3;
-      setStatus(status === 0 ? 1 : payloadStatusUI as any);
+      setStatus(status === 0 ? 1 : (payloadStatusUI as any));
     }
   };
-  const statusText = status === 2
-    ? "Accept request"
-    : "Cancel request";
-  const iconStatus = status === 2 ? "user-check" : "deleteuser"
+  const statusText = status === 2 ? "Accept request" : "Cancel request";
+  const iconStatus = status === 2 ? "user-check" : "deleteuser";
   React.useEffect(() => {
     setStatus(friend?.status);
   }, [friend]);
@@ -80,18 +84,13 @@ const ItemSuggestFriend = ({ friend, setFriends, friends }: ItemSuggestFriendPro
       <View style={tailwind(`flex-row gap-2 px-3 mb-3`)}>
         <IconButton
           onPress={handleRelationship}
-          iconName={
-            !status ? "adduser" : iconStatus
-          }
+          iconName={!status ? "adduser" : iconStatus}
           IconContainer={status === 2 ? Feather : AntDesign}
-          text={
-            !status
-              ? "Add friend"
-              : statusText
-          }
+          text={!status ? "Add friend" : statusText}
           iconSize={24}
-          styles={`p-3 flex-1 ${!status || status === 2 ? "bg-primary" : "bg-gray-500"
-            } justify-center`}
+          styles={`p-3 flex-1 ${
+            !status || status === 2 ? "bg-primary" : "bg-gray-500"
+          } justify-center`}
           haveBackground
         />
         <TouchableOpacity

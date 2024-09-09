@@ -1,9 +1,9 @@
 import * as React from "react";
 import { View } from "react-native";
-import tailwind from "../../tailwind";
-import { AppContext } from "../../contexts/index";
 import Sender from "./Sender";
 import CurrentUser from "./CurrentUser";
+import { AppContext } from "@/contexts";
+import tailwind from "@/tailwind";
 
 const Content = () => {
   const {

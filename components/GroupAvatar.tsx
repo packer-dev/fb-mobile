@@ -14,7 +14,7 @@ const GroupAvatar = ({ group, size = 16, child = 4 }: GroupAvatarProps) => {
     index === 1 ? "right-0 top-0" : "bottom-0 left-3";
   return (
     <View style={tailwind(`w-${size} h-${size} relative mx-auto`)}>
-      {group?.members.slice(0, 3).map((item, index) => (
+      {group?.members?.slice(0, 3).map((item, index) => (
         <Image
           key={item.id}
           source={{

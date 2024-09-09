@@ -1,8 +1,8 @@
 import * as React from "react";
 import { View } from "react-native";
-import tailwind from "../../../tailwind";
 import ItemComment from "./ItemComment";
-import { CommentDTO } from "../../../interfaces/Comment";
+import { CommentDTO } from "@/interfaces/Comment";
+import tailwind from "@/tailwind";
 
 const Comments = ({ list = [] }: { list: CommentDTO[] }) => {
   return (
@@ -13,6 +13,5 @@ const Comments = ({ list = [] }: { list: CommentDTO[] }) => {
     </View>
   );
 };
-
 
 export default Comments;

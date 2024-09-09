@@ -5,7 +5,7 @@ import { Message } from "./Message";
 export interface Group {
   id?: string;
   name?: string;
-  members?: Member[];
+  members: Member[];
   last_message?: Message;
   data?: DataGroup;
   time_created?: string;

@@ -1,3 +1,5 @@
+import { AppContext } from "@/contexts";
+import tailwind from "@/tailwind";
 import * as React from "react";
 import {
   View,
@@ -6,8 +8,6 @@ import {
   Animated,
   StyleSheet,
 } from "react-native";
-import tailwind from "../tailwind";
-import { AppContext } from "../contexts/index";
 
 type PanelProps = {
   children?: React.ReactNode;

@@ -1,11 +1,11 @@
 import * as React from "react";
-import tailwind from "../../tailwind";
 import { View, Image, Text, TouchableOpacity } from "react-native";
 import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
-import { AppContext } from "../../contexts/index";
-import { generateUUID, handleLogout } from "../../utils";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import NewMessage from "../../popups/NewMessage";
+import tailwind from "@/tailwind";
+import { AppContext } from "@/contexts";
+import { generateUUID, handleLogout } from "@/utils";
+import NewMessage from "@/popups/NewMessage";
 
 type ScreenList = NavigationProp<{
   Facebook: undefined;
@@ -23,7 +23,7 @@ const Header = () => {
     <View style={tailwind(`flex-row gap-3 p-3 items-center`)}>
       <TouchableOpacity onPress={() => navigation.navigate("Facebook")}>
         <Image
-          source={{ uri: user?.avatar || `https://picsum.photos/536/354` }}
+          source={{ uri: user?.avatar ?? `https://picsum.photos/536/354` }}
           style={tailwind(`w-10 h-10 rounded-full`)}
         />
       </TouchableOpacity>

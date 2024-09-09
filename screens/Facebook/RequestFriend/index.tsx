@@ -1,10 +1,10 @@
 import * as React from "react";
 import { View, Text, ScrollView } from "react-native";
-import tailwind from "../../../tailwind";
 import Container from "../Container";
-import useFriend from "../../../hooks/useFriend";
+import useFriend from "@/hooks/useFriend";
+import Header from "@/components/Commons/Header";
+import tailwind from "@/tailwind";
 import ItemFriend from "../Friends/ItemFriend";
-import Header from "../../../components/Commons/Header";
 
 const RequestFriend = () => {
   //

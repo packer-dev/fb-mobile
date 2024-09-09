@@ -1,10 +1,10 @@
 import * as React from "react";
 import { Text, Dimensions, Image, TouchableOpacity } from "react-native";
-import tailwind from "../../tailwind";
 import { AntDesign } from "@expo/vector-icons";
-import { AppContext } from "../../contexts/index";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { User } from "../../interfaces/User";
+import { User } from "@/interfaces/User";
+import { AppContext } from "@/contexts";
+import tailwind from "@/tailwind";
 const width = Dimensions.get("window").width - 36;
 
 type ItemStoryProps = {
@@ -37,7 +37,7 @@ const ItemStory = ({ isNew, auto, friend }: ItemStoryProps) => {
         source={{
           uri: isNew
             ? user?.avatar
-            : friend?.user?.avatar || `https://picsum.photos/536/354`,
+            : friend?.user?.avatar ?? `https://picsum.photos/536/354`,
         }}
       />
       {isNew ? (
@@ -50,7 +50,7 @@ const ItemStory = ({ isNew, auto, friend }: ItemStoryProps) => {
       ) : (
         <Image
           source={{
-            uri: friend?.user?.avatar || `https://picsum.photos/536/354`,
+            uri: friend?.user?.avatar ?? `https://picsum.photos/536/354`,
           }}
           style={tailwind(`w-10 h-10 rounded-full bg-white shadow border-4 border-primary p-2 absolute top-3 left-3 justify-center 
         items-center`)}
@@ -59,7 +59,7 @@ const ItemStory = ({ isNew, auto, friend }: ItemStoryProps) => {
       <Text
         style={tailwind("text-white absolute bottom-3 left-3 font-semibold")}
       >
-        {isNew ? "Add story" : friend?.user?.name || "Name"}
+        {isNew ? "Add story" : friend?.user?.name ?? "Name"}
       </Text>
     </TouchableOpacity>
   );

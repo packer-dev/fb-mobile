@@ -1,12 +1,12 @@
 import * as React from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import tailwind from "../../../tailwind";
 import Container from "../Container";
 import { Feather, AntDesign } from "@expo/vector-icons";
-import { AppContext } from "../../../contexts/index";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { handleLogout } from "../../../utils";
-import { User } from "../../../interfaces/User";
+import { User } from "@/interfaces/User";
+import { AppContext } from "@/contexts";
+import { handleLogout } from "@/utils";
+import tailwind from "@/tailwind";
 
 type ScreenList = NavigationProp<{
   DetailProfile: {
@@ -59,7 +59,7 @@ const Profile = () => {
         >
           <View style={tailwind(`flex-row gap-3 items-center`)}>
             <Image
-              source={{ uri: user?.avatar || `https://picsum.photos/536/354` }}
+              source={{ uri: user?.avatar ?? `https://picsum.photos/536/354` }}
               style={tailwind(`w-11 h-11 rounded-full mx-auto`)}
             />
             <Text style={tailwind(`font-semibold`)}>{user?.name}</Text>

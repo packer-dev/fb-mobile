@@ -1,10 +1,10 @@
 import * as React from "react";
 import { View, TouchableOpacity, Text, Platform } from "react-native";
-import tailwind from "../../tailwind";
 import { AntDesign, Fontisto } from "@expo/vector-icons";
-import { AppContext } from "../../contexts/index";
-import { getAmountMessage } from "../../apis/messageAPIs";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { AppContext } from "@/contexts";
+import { getAmountMessage } from "@/apis/messageAPIs";
+import tailwind from "@/tailwind";
 
 type ScreenList = NavigationProp<{
   SearchUser: undefined;

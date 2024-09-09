@@ -1,11 +1,11 @@
 import * as React from "react";
 import { View, Text, ScrollView } from "react-native";
-import tailwind from "../../../tailwind";
 import ItemSuggestFriend from "./ItemSuggestFriend";
 import { Entypo, Feather } from "@expo/vector-icons";
-import { AppContext } from "../../../contexts/index";
-import { getSuggestFriendByUserId } from "../../../apis/userAPIs";
-import { FriendProfileDTO } from "../../../interfaces/User";
+import { AppContext } from "@/contexts";
+import { FriendProfileDTO } from "@/interfaces/User";
+import { getSuggestFriendByUserId } from "@/apis/userAPIs";
+import tailwind from "@/tailwind";
 
 const SuggestFriend = () => {
   const {

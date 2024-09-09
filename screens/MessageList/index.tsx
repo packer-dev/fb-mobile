@@ -1,12 +1,12 @@
 import * as React from "react";
-import tailwind from "../../tailwind";
 import { View } from "react-native";
-import Navbar from "../../components/Navbar";
 import Header from "./Header";
 import Search from "./Search";
 import Story from "./Story";
 import ListGroup from "./ListGroup";
 import Wrapper from "../Wrapper";
+import Navbar from "@/components/Navbar";
+import tailwind from "@/tailwind";
 
 const MessageList = ({ route }: any) => {
   return (

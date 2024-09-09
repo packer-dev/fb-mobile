@@ -9,17 +9,17 @@ import {
   Keyboard,
   Alert,
 } from "react-native";
-import Popup from "./Popup";
-import GroupAvatar from "../components/GroupAvatar";
-import tailwind from "../tailwind";
 import { Ionicons, FontAwesome6 } from "@expo/vector-icons";
-import { dataFakeGroup, dataFakeMessage, emojiList } from "../utils";
 import * as ImagePicker from "expo-image-picker";
-import { AppContext } from "../contexts";
-import Avatar from "../components/Avatar";
-import { updateInforGroupByGroup } from "../apis/groupAPIs";
-import { sendMessageAPI } from "../api";
 import { PopupProps } from "./PopupProps";
+import { AppContext } from "@/contexts";
+import { dataFakeGroup, dataFakeMessage, emojiList } from "@/utils";
+import { sendMessageAPI } from "@/api";
+import { updateInforGroupByGroup } from "@/apis/groupAPIs";
+import Popup from "./Popup";
+import tailwind from "@/tailwind";
+import Avatar from "@/components/Avatar";
+import GroupAvatar from "@/components/GroupAvatar";
 
 const width = Dimensions.get("window").width - 64;
 
@@ -51,8 +51,8 @@ const ChangeImage = ({ index, popupId }: PopupProps) => {
       });
     }
     formData.append("folder", "Groups");
-    formData.append("emoji", emoji || "🧡");
-    formData.append("name", name || "");
+    formData.append("emoji", emoji ?? "🧡");
+    formData.append("name", name ?? "");
     formData.append("group_id", groupCurrent?.id);
     if (name !== groupCurrent?.name) {
       const message = dataFakeMessage({

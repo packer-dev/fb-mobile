@@ -1,10 +1,10 @@
 import * as React from "react";
 import { View, ScrollView } from "react-native";
-import tailwind from "../../tailwind";
 import ItemGroup from "./ItemGroup";
-import { AppContext } from "../../contexts/index";
-import { getMessageListByIdUser } from "../../apis/messageAPIs";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { AppContext } from "@/contexts";
+import { getMessageListByIdUser } from "@/apis/messageAPIs";
+import tailwind from "@/tailwind";
 
 type ScreenList = NavigationProp<{
   Main: undefined;
@@ -31,7 +31,7 @@ const ListGroup = () => {
     user && fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
-  const sorted = groups?.sort((a: any, b: any) => {
+  const sorted = groups.sort((a: any, b: any) => {
     const dateA = new Date(a?.last_message?.time_created?.replace(" ", "T"));
     const dateB = new Date(b?.last_message?.time_created?.replace(" ", "T"));
 

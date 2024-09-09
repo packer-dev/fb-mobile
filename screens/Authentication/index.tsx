@@ -1,9 +1,9 @@
 import { View, Text, TouchableOpacity } from "react-native";
-import tailwind from "../../tailwind";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import Button from "../../components/Commons/Button";
 import { AuthenticationProps } from "./AuthenticationProps";
+import tailwind from "@/tailwind";
+import Button from "@/components/Commons/Button";
 
 type ScreenList = NavigationProp<{
   Login: undefined;

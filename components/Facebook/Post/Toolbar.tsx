@@ -1,28 +1,28 @@
 import * as React from "react";
 import { View } from "react-native";
-import tailwind from "../../../tailwind";
 import { EvilIcons, FontAwesome, Ionicons } from "@expo/vector-icons";
-import IconButton from "../../IconButton";
-import { sendFeelPost } from "../../../apis/postAPIs";
-import { AppContext } from "../../../contexts/index";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { Post } from "../../../interfaces/Post";
-import { Media } from "../../../interfaces/Media";
+import { Post } from "@/interfaces/Post";
+import { Media } from "@/interfaces/Media";
+import { AppContext } from "@/contexts";
+import { sendFeelPost } from "@/apis/postAPIs";
+import tailwind from "@/tailwind";
+import IconButton from "@/components/IconButton";
 
 type ToolbarProps = {
-  post: Post,
-  medias: Media[],
-  feel: string[],
-  handleFeel?: Function,
-  loading?: boolean
-}
+  post: Post;
+  medias: Media[];
+  feel: string[];
+  handleFeel?: Function;
+  loading?: boolean;
+};
 
 type ScreenList = NavigationProp<{
   DetailPost: {
-    medias: Media[],
-    post: Post
-  }
-}>
+    medias: Media[];
+    post: Post;
+  };
+}>;
 
 const Toolbar = ({ post, medias, feel, handleFeel, loading }: ToolbarProps) => {
   //
@@ -34,7 +34,7 @@ const Toolbar = ({ post, medias, feel, handleFeel, loading }: ToolbarProps) => {
   const handleLike = async () => {
     if (!user) return;
 
-    const result = await sendFeelPost(post?.id, user?.id);
+    const result = await sendFeelPost(post?.id ?? "", user?.id);
     updateData(
       "list_post",
       [...list_post].map((item) => {
@@ -71,7 +71,7 @@ const Toolbar = ({ post, medias, feel, handleFeel, loading }: ToolbarProps) => {
         iconSize={18}
         text="Love"
         changeColor
-        active={(feel || []).find((item) => user?.id === item)}
+        active={!!(feel || []).find((item) => user?.id === item)}
       />
       <IconButton
         onPress={() =>

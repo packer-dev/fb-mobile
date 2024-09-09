@@ -1,5 +1,5 @@
+import { User } from "@/interfaces/User";
 import { ReactNode } from "react";
-import { User } from "../interfaces/User";
 
 export type PopupProps = {
   index: number;

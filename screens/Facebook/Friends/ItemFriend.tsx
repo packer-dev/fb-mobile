@@ -1,13 +1,13 @@
 import * as React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
-import tailwind from "../../../tailwind";
-import Avatar from "../../../components/Avatar";
-import Loading from "../../../components/Loading";
-import { sendRelationship } from "../../../apis/userAPIs";
-import { AppContext } from "../../../contexts/index";
-import IconButton from "../../../components/IconButton";
 import { AntDesign } from "@expo/vector-icons";
-import { User } from "../../../interfaces/User";
+import { AppContext } from "@/contexts";
+import { sendRelationship } from "@/apis/userAPIs";
+import tailwind from "@/tailwind";
+import Loading from "@/components/Loading";
+import Avatar from "@/components/Avatar";
+import IconButton from "@/components/IconButton";
+import { User } from "@/interfaces/User";
 
 type ItemFriendProps = {
   friend: { user: User };

@@ -1,15 +1,15 @@
 import * as React from "react";
 import { View, TouchableOpacity, Text, Image } from "react-native";
-import tailwind from "../../../tailwind";
-import Avatar from "../../Avatar";
-import Animation from "../../Commons/Animation";
 import moment from "moment";
-import { Comment } from "../../../interfaces/Comment";
+import { Comment } from "@/interfaces/Comment";
+import tailwind from "@/tailwind";
+import Avatar from "@/components/Avatar";
+import Animation from "@/components/Commons/Animation";
 
 type ItemCommentProps = {
-  comment: Comment,
-  children?: React.ReactNode
-}
+  comment: Comment;
+  children?: React.ReactNode;
+};
 
 const ItemComment = ({ comment, children }: ItemCommentProps) => {
   return (
@@ -20,7 +20,8 @@ const ItemComment = ({ comment, children }: ItemCommentProps) => {
         </View>
         <View
           style={tailwind(
-            `flex-1 rounded-lg ${comment?.content?.type === 1 ? "bg-gray-200" : ""
+            `flex-1 rounded-lg ${
+              comment?.content?.type === 1 ? "bg-gray-200" : ""
             } p-2`
           )}
         >

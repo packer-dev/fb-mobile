@@ -1,9 +1,9 @@
 import { View, Text } from "react-native";
-import tailwind from "../../tailwind";
 import { Entypo, AntDesign } from "@expo/vector-icons";
-import Animation from "../Commons/Animation";
 import moment from "moment";
-import { Message } from "../../interfaces/Message";
+import { Message } from "@/interfaces/Message";
+import tailwind from "@/tailwind";
+import Animation from "../Commons/Animation";
 
 type CurrentUserProps = {
   message?: Message;
@@ -32,7 +32,8 @@ const CurrentUser = ({ message, lastMessage }: CurrentUserProps) => {
           {message?.content?.type === 1 ? (
             <View
               style={tailwind(
-                `ml-auto ${message?.content?.type === 1 ? "bg-primary" : ""
+                `ml-auto ${
+                  message?.content?.type === 1 ? "bg-primary" : ""
                 } p-3 rounded-lg`
               )}
             >

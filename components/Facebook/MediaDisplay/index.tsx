@@ -1,6 +1,6 @@
 import { Image, Text, View, TouchableOpacity } from "react-native";
-import tailwind from "../../../tailwind";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
+import tailwind from "@/tailwind";
 
 type MediaDisplayProps = {
   medias: {

@@ -9,32 +9,38 @@ import {
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 import moment from "moment";
-import { deletePost } from "../../../apis/postAPIs";
-import { AppContext } from "../../../contexts/index";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { Post } from "../../../interfaces/Post";
-import { Media } from "../../../interfaces/Media";
-import { User } from "../../../interfaces/User";
+import { Post } from "@/interfaces/Post";
+import { Media } from "@/interfaces/Media";
+import { User } from "@/interfaces/User";
+import { AppContext } from "@/contexts";
+import { deletePost } from "@/apis/postAPIs";
 
 type HeaderProps = {
-  post: Post,
-  isDetail?: boolean,
-  setLoading: Function,
-  loading?: boolean,
-  medias: Media[]
-}
+  post: Post;
+  isDetail?: boolean;
+  setLoading: Function;
+  loading?: boolean;
+  medias: Media[];
+};
 
 type ScreenList = NavigationProp<{
   DetailProfile: {
-    visit: User | null
-  },
+    visit: User | null;
+  };
   CreatePost: {
-    medias: Media[],
-    post: Post
-  }
-}>
+    medias: Media[];
+    post: Post;
+  };
+}>;
 
-const Header = ({ post, isDetail, setLoading, loading, medias = [] }: HeaderProps) => {
+const Header = ({
+  post,
+  isDetail,
+  setLoading,
+  loading,
+  medias = [],
+}: HeaderProps) => {
   //
   const navigation = useNavigation<ScreenList>();
   const {
@@ -43,14 +49,14 @@ const Header = ({ post, isDetail, setLoading, loading, medias = [] }: HeaderProp
   } = React.useContext(AppContext);
   const handleDelete = () => {
     setLoading(true);
-    deletePost(post?.id)
+    deletePost(post?.id ?? "")
       .then(() => {
         updateData(
           "list_post",
           [...list_post].filter((item) => item?.post?.id !== post?.id)
         );
       })
-      .catch((e) => { });
+      .catch((e) => {});
   };
   const handleDeletePost = async () => {
     Alert.alert("Do you want to delete this post.", "", [
@@ -59,7 +65,7 @@ const Header = ({ post, isDetail, setLoading, loading, medias = [] }: HeaderProp
       },
       {
         text: "OK",
-        onPress: handleDelete
+        onPress: handleDelete,
       },
     ]);
   };
@@ -77,7 +83,8 @@ const Header = ({ post, isDetail, setLoading, loading, medias = [] }: HeaderProp
   return (
     <View
       style={tailwind(
-        `flex-row gap-3 p-3 items-center ${isDetail ? "border-b border-gray-100" : ""
+        `flex-row gap-3 p-3 items-center ${
+          isDetail ? "border-b border-gray-100" : ""
         }`
       )}
     >
@@ -146,6 +153,5 @@ const Header = ({ post, isDetail, setLoading, loading, medias = [] }: HeaderProp
     </View>
   );
 };
-
 
 export default Header;

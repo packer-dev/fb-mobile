@@ -1,9 +1,9 @@
 import * as React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
-import tailwind from "../../../tailwind";
 import { AntDesign, FontAwesome } from "@expo/vector-icons";
-import { AppContext } from "../../../contexts/index";
 import { useNavigation } from "@react-navigation/native";
+import { AppContext } from "@/contexts";
+import tailwind from "@/tailwind";
 
 const Header = ({ loading }: { loading?: boolean }) => {
   //

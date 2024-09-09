@@ -1,13 +1,12 @@
 import * as React from "react";
 import { View, Text } from "react-native";
-import tailwind from "../tailwind";
 import Popup from "./Popup";
-import Avatar from "../components/Avatar";
-import Search from "../screens/MessageList/Search";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
-import { AppContext } from "../contexts/index";
-import { User } from "../interfaces/User";
-
+import { AppContext } from "@/contexts";
+import { User } from "@/interfaces/User";
+import tailwind from "@/tailwind";
+import Search from "@/screens/MessageList/Search";
+import Avatar from "@/components/Avatar";
 const ChoosePerson = ({
   index,
   payload,

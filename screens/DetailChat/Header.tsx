@@ -1,12 +1,12 @@
-import tailwind from "../../tailwind";
 import { View, TouchableOpacity, Text } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-import Avatar from "../../components/Avatar";
-import GroupAvatar from "../../components/GroupAvatar";
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { AppContext } from "../../contexts";
-import { User } from "../../interfaces/User";
+import { User } from "@/interfaces/User";
+import { AppContext } from "@/contexts";
+import Avatar from "@/components/Avatar";
+import GroupAvatar from "@/components/GroupAvatar";
+import tailwind from "@/tailwind";
 
 const Header = ({ friend }: { friend: User }) => {
   const {
@@ -37,7 +37,7 @@ const Header = ({ friend }: { friend: User }) => {
           numberOfLines={1}
         >
           {groupCurrent?.multiple
-            ? groupCurrent?.name ||
+            ? groupCurrent?.name ??
               groupCurrent?.members?.map((item) => item?.user?.name).join(", ")
             : friend?.name}
         </Text>

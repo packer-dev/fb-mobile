@@ -1,8 +1,8 @@
 import Wrapper from "../Wrapper";
 import { View, ScrollView } from "react-native";
 import Navbar from "./Navbar";
-import tailwind from "../../tailwind";
 import { ReactNode } from "react";
+import tailwind from "@/tailwind";
 
 type ContainerProps = {
   children?: ReactNode;

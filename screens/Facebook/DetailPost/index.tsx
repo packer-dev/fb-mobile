@@ -1,11 +1,11 @@
 import * as React from "react";
 import { View, SafeAreaView, Platform, StatusBar } from "react-native";
-import tailwind from "../../../tailwind";
-import useKeyboard from "../../../hooks/useKeyboard";
-import Post from "../../../components/Facebook/Post/index";
-import { getPostById } from "../../../apis/postAPIs";
-import { AppContext } from "../../../contexts/index";
 import { useNavigation } from "@react-navigation/native";
+import { AppContext } from "@/contexts";
+import useKeyboard from "@/hooks/useKeyboard";
+import { getPostById } from "@/apis/postAPIs";
+import tailwind from "@/tailwind";
+import Post from "@/components/Facebook/Post";
 
 const DetailPost = ({ route }: any) => {
   const {

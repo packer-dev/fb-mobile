@@ -1,13 +1,13 @@
+import { sendMessageAPI } from "@/api";
+import { AppContext } from "@/contexts";
+import { Member } from "@/interfaces/Member";
+import { User } from "@/interfaces/User";
+import Panel from "@/panels";
+import tailwind from "@/tailwind";
+import { dataFakeMessage } from "@/utils";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import React from "react";
-import { AppContext } from "../../../contexts";
-import Panel from "../../../panels";
 import { TouchableOpacity, Text, Alert } from "react-native";
-import tailwind from "../../../tailwind";
-import { sendMessageAPI } from "../../../api";
-import { dataFakeMessage } from "../../../utils";
-import { Member } from "../../../interfaces/Member";
-import { User } from "../../../interfaces/User";
 
 type PanelOptionProps = {
   member: Member;

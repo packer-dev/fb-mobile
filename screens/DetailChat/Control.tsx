@@ -1,11 +1,11 @@
 import * as React from "react";
-import tailwind from "../../tailwind";
 import { View, TouchableOpacity, Text } from "react-native";
 import { FontAwesome, Foundation, Feather } from "@expo/vector-icons";
-import { AppContext } from "../../contexts/index";
-import ChangeImage from "../../popups/ChangeImage";
-import { generateUUID } from "../../utils";
-import AddMember from "../../popups/AddMember";
+import tailwind from "@/tailwind";
+import { AppContext } from "@/contexts";
+import { generateUUID } from "@/utils";
+import ChangeImage from "@/popups/ChangeImage";
+import AddMember from "@/popups/AddMember";
 
 type ItemControlProps = {
   iconName: string;

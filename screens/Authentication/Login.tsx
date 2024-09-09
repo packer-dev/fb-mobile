@@ -1,14 +1,14 @@
 import * as React from "react";
 import Authentication from "./index";
-import Input from "../../components/Input";
-import { validateEmail } from "../../utils";
-import useForm from "../../hooks/useForm";
 import { Keyboard, Text } from "react-native";
-import { loginAPI } from "../../api";
-import tailwind from "../../tailwind";
 import * as SecureStore from "expo-secure-store";
-import { userModel } from "../../models";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { validateEmail } from "@/utils";
+import useForm from "@/hooks/useForm";
+import { loginAPI } from "@/api";
+import { userModel } from "@/models";
+import Input from "@/components/Input";
+import tailwind from "@/tailwind";
 
 const init = [
   {

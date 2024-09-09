@@ -1,9 +1,9 @@
 import * as React from "react";
 import { ScrollView, Text, View, Dimensions } from "react-native";
-import tailwind from "../../tailwind";
 import ItemStory from "./ItemStory";
 import Wrapper from "../Wrapper";
-import Navbar from "../../components/Navbar";
+import Navbar from "@/components/Navbar";
+import tailwind from "@/tailwind";
 
 const width = Dimensions.get("window").width;
 

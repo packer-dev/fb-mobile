@@ -1,14 +1,14 @@
+import { getGroupById } from "@/apis/groupAPIs";
+import { getMessageMain, updateStatusMessage } from "@/apis/messageAPIs";
+import Content from "@/components/Content";
+import Header from "@/components/Header";
+import Toolbar from "@/components/Toolbar";
+import { AppContext } from "@/contexts";
+import useKeyboard from "@/hooks/useKeyboard";
+import useListeningMessage from "@/hooks/useListeningMessage";
+import tailwind from "@/tailwind";
 import * as React from "react";
 import { SafeAreaView, ScrollView } from "react-native";
-import tailwind from "../tailwind";
-import Header from "../components/Header";
-import Toolbar from "../components/Toolbar";
-import Content from "../components/Messenger/Content";
-import useKeyboard from "../hooks/useKeyboard";
-import useListeningMessage from "../hooks/useListeningMessage";
-import { AppContext } from "../contexts/index";
-import { getGroupById } from "../apis/groupAPIs";
-import { getMessageMain, updateStatusMessage } from "../apis/messageAPIs";
 
 const Main = ({ route: { params } }: any) => {
   const {

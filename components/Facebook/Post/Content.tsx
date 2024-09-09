@@ -1,22 +1,28 @@
 import * as React from "react";
 import { View, Dimensions, Text, Image } from "react-native";
-import tailwind from "../../../tailwind";
 import { AntDesign } from "@expo/vector-icons";
+import { Post } from "@/interfaces/Post";
+import { Media } from "@/interfaces/Media";
+import tailwind from "@/tailwind";
 import MediaDisplay from "../MediaDisplay";
-import { Post } from "../../../interfaces/Post";
-import { Media } from "../../../interfaces/Media";
 
 const width = Dimensions.get("window").width;
 
 type ContentProps = {
-  post: Post,
-  medias: Media[],
-  feel: string[],
-  loading?: boolean
-  comment: number
-}
+  post: Post;
+  medias: Media[];
+  feel: string[];
+  loading?: boolean;
+  comment: number;
+};
 
-const Content = ({ post, medias = [], feel = [], comment = 0, loading }: ContentProps) => {
+const Content = ({
+  post,
+  medias = [],
+  feel = [],
+  comment = 0,
+  loading,
+}: ContentProps) => {
   return (
     <View style={tailwind(`flex-col gap-3 pb-3 border-b border-gray-300`)}>
       {loading && (

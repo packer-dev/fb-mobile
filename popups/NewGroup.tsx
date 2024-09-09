@@ -1,14 +1,14 @@
 import * as React from "react";
 import { View, TextInput } from "react-native";
-import tailwind from "../tailwind";
-import { AppContext } from "../contexts/index";
-import { generateUUID } from "../utils";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { groupModel } from "../models";
 import ChoosePerson from "./ChoosePerson";
 import { PopupProps } from "./PopupProps";
-import { User } from "../interfaces/User";
-import { Group } from "../interfaces/Group";
+import { AppContext } from "@/contexts";
+import { User } from "@/interfaces/User";
+import { generateUUID } from "@/utils";
+import { Group } from "@/interfaces/Group";
+import { groupModel } from "@/models";
+import tailwind from "@/tailwind";
 
 type ScreenList = NavigationProp<{
   Main: undefined;

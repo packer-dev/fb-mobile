@@ -1,9 +1,9 @@
+import { AppContext } from "@/contexts";
+import { MediaProfileDTO } from "@/interfaces/Media";
+import { FriendProfileDTO } from "@/interfaces/User";
+import tailwind from "@/tailwind";
 import * as React from "react";
 import { View, Text, Image, Dimensions, TouchableOpacity } from "react-native";
-import tailwind from "../../../tailwind";
-import { AppContext } from "../../../contexts/index";
-import { MediaProfileDTO } from "../../../interfaces/Media";
-import { FriendProfileDTO } from "../../../interfaces/User";
 
 const width = Dimensions.get("window").width - 24;
 

@@ -1,8 +1,8 @@
 import React from "react";
 import { Text, View } from "react-native";
-import Avatar from "../../../components/Avatar";
-import tailwind from "../../../tailwind";
 import { Entypo } from "@expo/vector-icons";
+import tailwind from "@/tailwind";
+import Avatar from "@/components/Avatar";
 
 const ItemNotification = () => {
   return (

@@ -7,10 +7,10 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import tailwind from "../../../tailwind";
 import { AntDesign, Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
+import tailwind from "@/tailwind";
 
 const DetailImagePost = ({ route }: any) => {
   const [current, setCurrent] = React.useState(0);

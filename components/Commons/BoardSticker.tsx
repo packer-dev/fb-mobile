@@ -1,8 +1,8 @@
+import stickers from "@/stickers";
+import tailwind from "@/tailwind";
 import * as React from "react";
 import { View, TouchableOpacity, ScrollView } from "react-native";
-import tailwind from "../../tailwind";
 import Animation from "./Animation";
-import stickers from "../../stickers";
 
 type BoardStickerProps = {
   keyboardHeight: number;

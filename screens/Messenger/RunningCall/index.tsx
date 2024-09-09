@@ -1,11 +1,11 @@
 import React from "react";
 import { Platform, SafeAreaView, StatusBar, Text, View } from "react-native";
-import tailwind from "../../../tailwind";
 import Toolbar from "./Toolbar";
 import LocalStream from "./LocalStream";
-import { imageGroup, nameGroup } from "../../../utils";
-import { AppContext } from "../../../contexts";
-import useListeningCaller from "../../../hooks/useListeningCaller";
+import { AppContext } from "@/contexts";
+import { imageGroup, nameGroup } from "@/utils";
+import useListeningCaller from "@/hooks/useListeningCaller";
+import tailwind from "@/tailwind";
 
 const RunningCall = ({ route }: any) => {
   const {

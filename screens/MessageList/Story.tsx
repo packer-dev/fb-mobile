@@ -1,5 +1,4 @@
 import * as React from "react";
-import tailwind from "../../tailwind";
 import {
   ScrollView,
   View,
@@ -8,10 +7,10 @@ import {
   Dimensions,
 } from "react-native";
 import { Entypo } from "@expo/vector-icons";
-import { AppContext } from "../../contexts/index";
 import ItemStory from "./ItemStory";
-import { getFriendsByUserId } from "../../apis/userAPIs";
-import { useNavigation } from "@react-navigation/native";
+import { AppContext } from "@/contexts";
+import { getFriendsByUserId } from "@/apis/userAPIs";
+import tailwind from "@/tailwind";
 
 const width = Dimensions.get("window").width;
 
@@ -21,7 +20,6 @@ const Story = () => {
     state: { friends, user },
   } = React.useContext(AppContext);
   const [loading, setLoading] = React.useState(true);
-  const navigation = useNavigation();
   React.useEffect(() => {
     const fetchData = async () => {
       if (!user) return;

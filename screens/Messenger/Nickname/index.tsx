@@ -1,7 +1,10 @@
-import Wrapper from "../../Wrapper";
-import Header from "../../../components/Commons/Header";
+import Avatar from "@/components/Avatar";
+import Header from "@/components/Commons/Header";
+import { AppContext } from "@/contexts";
+import { Member } from "@/interfaces/Member";
+import Wrapper from "@/screens/Wrapper";
+import tailwind from "@/tailwind";
 import React from "react";
-import { AppContext } from "../../../contexts";
 import {
   Alert,
   ScrollView,
@@ -10,9 +13,6 @@ import {
   TouchableOpacity,
   Platform,
 } from "react-native";
-import tailwind from "../../../tailwind";
-import Avatar from "../../../components/Avatar";
-import { Member } from "../../../interfaces/Member";
 
 const Nickname = () => {
   //

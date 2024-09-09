@@ -1,6 +1,6 @@
-import tailwind from "../../tailwind";
 import { View, Text, TouchableOpacity } from "react-native";
 import { ReactNode } from "react";
+import tailwind from "@/tailwind";
 
 type ItemGroupOptionProps = {
   name: string;
