@@ -5,10 +5,10 @@ import Animation from "./Animation";
 import stickers from "../../stickers";
 
 type BoardStickerProps = {
-  keyboardHeight: number,
-  handle: Function,
-  width: number
-}
+  keyboardHeight: number;
+  handle: Function;
+  width: number;
+};
 
 const BoardSticker = ({ keyboardHeight, handle, width }: BoardStickerProps) => {
   return (

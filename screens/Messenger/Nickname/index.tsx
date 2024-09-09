@@ -47,7 +47,7 @@ const Nickname = () => {
                 <Avatar size={14} uri={item?.user?.avatar} />
                 <View>
                   <Text style={tailwind(`font-bold`)}>
-                    {item?.nickname || item?.user?.name}
+                    {item?.nickname ? item?.nickname : item?.user?.name}
                   </Text>
                   <Text style={tailwind(`text-gray-600 text-sm`)}>
                     {!item?.nickname ? "Nickname" : item?.user?.name}

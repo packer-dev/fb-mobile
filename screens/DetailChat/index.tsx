@@ -35,7 +35,7 @@ const DetailChat = ({ route: { params } }: any) => {
         </ItemGroupOption>
         <ItemGroupOption name="Emoji">
           <Text style={tailwind(`text-xl`)}>
-            {groupCurrent?.data?.emoji || "🧡"}
+            {groupCurrent?.data?.emoji ? groupCurrent?.data?.emoji : "🧡"}
           </Text>
         </ItemGroupOption>
         <ItemGroupOption

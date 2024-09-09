@@ -29,10 +29,10 @@ const Header = ({ friend }: HeaderProps) => {
     updateData,
   } = React.useContext(AppContext);
   const navigation = useNavigation<ScreenList>();
-  const obj: any =
-    groupCurrent?.members?.length === 2
-      ? groupCurrent?.members?.find((item) => item?.user?.id !== user?.id)?.user
-      : friend || groupCurrent;
+  const obj: any = groupCurrent?.multiple
+    ? groupCurrent
+    : friend ||
+      groupCurrent?.members?.find((item) => item?.user?.id !== user?.id)?.user;
   const bigGroup = obj?.image ? (
     <Avatar size={10} uri={obj?.image} />
   ) : (
@@ -88,7 +88,7 @@ const Header = ({ friend }: HeaderProps) => {
         <TouchableOpacity
           onPress={() =>
             navigation.navigate("DetailChat", {
-              [friend ? "friend" : "group"]: obj,
+              [groupCurrent?.multiple ? "group" : "friend"]: obj,
             })
           }
           style={tailwind(`flex-row gap-2 items-center`)}

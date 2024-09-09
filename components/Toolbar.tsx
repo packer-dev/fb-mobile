@@ -19,7 +19,7 @@ import { dataFakeGroup, dataFakeMessage } from "../utils";
 import { sendMessageAPI } from "../api";
 import BoardSticker from "./Commons/BoardSticker";
 import { User } from "../interfaces/User";
-import { Group } from "../interfaces/Group";
+
 const width = Dimensions.get("window").width - 16;
 
 type ToolbarProps = {
@@ -30,14 +30,22 @@ type ToolbarProps = {
 const Toolbar = ({ friend, keyboardHeight }: ToolbarProps) => {
   //
   const {
-    state: { showKeyboard, messages, socket, user, groupCurrent, groups },
+    state: {
+      showKeyboard,
+      messages,
+      socket,
+      user,
+      groupCurrent,
+      groups,
+      loading,
+    },
     updateData,
   } = React.useContext(AppContext);
   const inputRef = React.useRef<TextInput>(null);
   const [value, setValue] = React.useState("❤");
   const [showSticker, setShowSticker] = React.useState(false);
   const handleSend = async (data?: any) => {
-    if (!user || !groupCurrent) return;
+    if (!user || loading) return;
 
     const message = dataFakeMessage({
       user,
@@ -51,7 +59,7 @@ const Toolbar = ({ friend, keyboardHeight }: ToolbarProps) => {
     Keyboard.dismiss();
     delete message.loading;
     let newGroup = dataFakeGroup({
-      groupCurrent,
+      groupCurrent: groupCurrent ?? null,
       user,
       friend,
       message,

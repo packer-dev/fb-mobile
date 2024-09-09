@@ -5,7 +5,6 @@ import { FontAwesome, Foundation, Feather } from "@expo/vector-icons";
 import { AppContext } from "../../contexts/index";
 import ChangeImage from "../../popups/ChangeImage";
 import { generateUUID } from "../../utils";
-import { any, func, string } from "prop-types";
 import AddMember from "../../popups/AddMember";
 
 type ItemControlProps = {

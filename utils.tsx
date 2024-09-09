@@ -232,7 +232,7 @@ export const dataFakeGroup = ({
   user,
   friend,
 }: {
-  groupCurrent: Group;
+  groupCurrent: Group | null;
   message: Message;
   user: User;
   friend?: User;
@@ -316,7 +316,7 @@ export const nameGroup = (group: Group, user: User | null) => {
   const isBigGroup = group?.multiple;
   if (isBigGroup) {
     return (
-      group?.name || group?.members.map((item) => item?.user?.name).join(", ")
+      group?.name ?? group?.members?.map((item) => item?.user?.name).join(", ")
     );
   } else {
     return group?.members?.find((item) => item?.user?.id !== user?.id)?.user
